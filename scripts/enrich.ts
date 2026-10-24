@@ -44,9 +44,18 @@ async function remember(source: string, key: string, data: object | null) {
 
 async function syncLidl(brands: string[]) {
   const listings = new Map<string, LidlListing>();
+  // The general listing changes with every weekly promotion; per-brand searches are refreshed weekly.
+  const queryCache = await cached("lidl-query", brands);
   for (const query of ["*", ...brands]) {
+    const hit = queryCache.get(query);
+    if (query !== "*" && hit && Date.now() - hit.checkedAt.getTime() < 7 * DAY) {
+      for (const l of (hit.data?.items as LidlListing[] | undefined) ?? []) listings.set(l.erp, l);
+      continue;
+    }
     try {
-      for (const l of await crawlSearch(query, query === "*" ? 20 : 4)) listings.set(l.erp, l);
+      const items = await crawlSearch(query, query === "*" ? 20 : 4);
+      for (const l of items) listings.set(l.erp, l);
+      if (query !== "*") await remember("lidl-query", query, { items });
     } catch (error) {
       console.warn(`lidl.rs search "${query}" failed:`, String(error));
     }

@@ -48,7 +48,7 @@ export function CheckoutForm({
 
       <fieldset className="card space-y-4 p-5">
         <legend className="float-left mb-2 w-full text-lg font-bold">{t.checkout.contacts}</legend>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="clear-both grid gap-4 sm:grid-cols-2">
           <div>
             <label className="label" htmlFor="name">{t.checkout.name}</label>
             <input id="name" name="name" required autoComplete="name" defaultValue={defaults.name} className="field" aria-invalid={invalid("name")} />
