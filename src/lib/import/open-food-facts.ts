@@ -34,14 +34,18 @@ export type OpenFactsProduct = {
 
 const userAgent = process.env.OFF_USER_AGENT ?? "Koshava/0.1 (pilot grocery delivery in Belgrade)";
 
-// One shared schedule for all concurrent lookups: at most ~80 requests/min (the API allows 100).
+// One shared schedule for all concurrent lookups. The documented limit is 100 requests/min, but the
+// effective one is often lower, so the spacing grows on every 429 and shrinks back after a calm stretch.
 let nextSlot = 0;
+let spacingMs = 750;
+let calm = 0;
 async function takeSlot() {
   const now = Date.now();
   const slot = Math.max(now, nextSlot);
-  nextSlot = slot + 750;
+  nextSlot = slot + spacingMs;
   if (slot > now) await sleep(slot - now);
 }
+export const currentSpacingMs = () => Math.round(spacingMs);
 
 /** Looks up a barcode; null when the product is unknown or has no photo. */
 export async function lookupBarcode(source: OpenFactsSource, barcode: string, attempt = 0): Promise<OpenFactsProduct | null> {
@@ -54,12 +58,18 @@ export async function lookupBarcode(source: OpenFactsSource, barcode: string, at
   if (res.status === 429 || res.status >= 500) {
     if (attempt >= 2) throw new Error(`${source} ${res.status} for ${barcode}`);
     if (res.status === 429) {
-      console.warn(`${source}: rate limited, pausing 30 s`);
+      spacingMs = Math.min(spacingMs * 1.5, 8000);
+      calm = 0;
+      console.warn(`${source}: rate limited, pausing 30 s, now one request per ${Math.round(spacingMs)} ms`);
       nextSlot = Math.max(nextSlot, Date.now() + 30_000);
     } else await sleep(3000);
     return lookupBarcode(source, barcode, attempt + 1);
   }
   if (!res.ok) throw new Error(`${source} ${res.status} for ${barcode}`);
+  if (++calm >= 100) {
+    calm = 0;
+    spacingMs = Math.max(750, spacingMs * 0.85);
+  }
   const body = (await res.json()) as { status?: number; product?: Record<string, string | undefined> };
   const p = body.product;
   if (body.status !== 1 || !p) return null;

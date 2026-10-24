@@ -10,7 +10,7 @@
 import { and, eq, inArray, isNull, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { crawlSearch, fetchProduct, type LidlListing, type LidlProduct } from "@/lib/import/lidl-rs";
-import { lookupBarcode, sourcesForCategory, type OpenFactsProduct } from "@/lib/import/open-food-facts";
+import { currentSpacingMs, lookupBarcode, sourcesForCategory, type OpenFactsProduct } from "@/lib/import/open-food-facts";
 import { refreshPublished } from "@/lib/import/publish";
 import { sleep } from "@/lib/import/fetch";
 import { normalizeText } from "@/lib/text";
@@ -175,7 +175,7 @@ async function main() {
           } catch (error) {
             console.warn(String(error));
           }
-          if (lookups % 100 === 0) console.log(`open facts: ${lookups} lookups, ${fromOff} photos so far, ${queue.length} products left`);
+          if (lookups % 100 === 0) console.log(`open facts: ${lookups} lookups, ${fromOff} photos so far, ${queue.length} products left, ${currentSpacingMs()} ms between requests`);
         }
       }
       if (found) {
