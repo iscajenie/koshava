@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Koshava
 
-## Getting Started
+Пилот онлайн-заказа продуктов из Lidl Srbija с курьерской доставкой по Белграду. Задача пилота — проверить гипотезу: будут ли люди заказывать продукты Lidl онлайн при доставке за 10% от суммы и минимальном заказе 5 000 дин.
 
-First, run the development server:
+Интерфейс на русском и сербском (латиница), переключатель в шапке. Оплата при получении, онлайн-эквайринга нет.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Что умеет
+
+| Раздел | Возможности |
+|---|---|
+| Каталог | 25 категорий из официального прайс-листа, акции с датами, сортировка, поиск (понимает русские слова: «молоко» → mleko) |
+| Карточка товара | Фото, описание, цена, цена за кг/л, сроки акции, штрихкод, похожие товары |
+| Корзина | Работает без регистрации; после входа гостевая корзина переносится в аккаунт. Шаг для весовых товаров — 0,5 кг |
+| Избранное | Работает без регистрации, тоже переносится при входе |
+| Оформление | Минимум 5 000 дин., доставка 10%, дата и интервал доставки, адрес по Белграду, оплата наличными или картой курьеру |
+| Профиль | Имя, телефон, сохранённые адреса, история и статусы заказов |
+| Регистрация | Email и пароль |
+| Админка `/admin` | Заказы со сменой статуса и заметкой оператора, метрики пилота (заказы, выручка, средний чек, корзины), состояние импорта |
+
+## Архитектура
+
+| Слой | Технология | Почему |
+|---|---|---|
+| Приложение | Next.js 16 (App Router, Server Actions), TypeScript, Tailwind CSS 4 | Один репозиторий для фронта и бэкенда, SSR, бесплатный хостинг на Vercel |
+| База данных | PostgreSQL + Drizzle ORM | Supabase/Neon на бесплатном тарифе; без привязки к вендору |
+| Авторизация | Своя: bcrypt + сессии в базе, httpOnly cookie | Без внешних сервисов; легко заменить на Supabase Auth / OAuth |
+| Поиск | Postgres `pg_trgm` + нормализация (кириллица → латиница, диакритика) + словарь RU→SR | Хватает на ~3 000 товаров; дальше — Meilisearch/Typesense |
+| Данные | Скрипты импорта + GitHub Actions по расписанию | Цены обновляются дважды в день без сервера |
+| Тесты | Vitest (разбор прайса, поиск, доставка), Playwright (сценарий заказа, desktop и mobile) | |
+
+```
+src/
+  app/[locale]/     страницы (ru, sr): каталог, товар, корзина, оформление, профиль, админка
+  actions/          server actions: корзина, избранное, вход, заказ, админка
+  lib/              доступ к данным, корзина, поиск, доставка, импорт
+  i18n/             словари ru/sr
+  db/schema.ts      схема базы
+scripts/            миграции и импорт
+drizzle/            SQL-миграции
+e2e/, tests/        тесты
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Откуда данные
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Данные | Источник | Как связаны |
+|---|---|---|
+| Цены, акции, категории, штрихкоды | [cene_proizvoda_Lidl.csv](https://www.lidl.rs/explore/assets/webPriceData/rs/cene_proizvoda_Lidl.csv), официальный прайс-лист Lidl Srbija (обязателен по закону, зеркало на [data.gov.rs](https://data.gov.rs/sr/datasets/cenovnici-proizvoda-prema-pravilniku-o-uslovima-sadrzaju-i-nacinu-objavljivanja-cenovnika-lidl/)) | Основа каталога, около 3 100 товаров |
+| Дополнительные штрихкоды | [EAN.csv](https://www.lidl.rs/explore/assets/webPriceData/rs/EAN.csv) | Расширяют поиск фото |
+| Фото и описания | lidl.rs: штрихкод (GTIN) из разметки страницы товара | Точное совпадение по штрихкоду |
+| Фото (если нет на lidl.rs) | [Open Food Facts](https://world.openfoodfacts.org) / Open Beauty Facts / Open Products Facts, лицензия CC BY-SA | Точное совпадение по штрихкоду, на карточке есть ссылка на источник |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Товар без фото на сайте не показывается. Переменная `PUBLISH_WITHOUT_IMAGE=true` включает показ всего прайс-листа с заглушкой вместо фото.
 
-## Learn More
+Ответы источников кэшируются в таблице `content_cache`: ежедневный запуск запрашивает только новые товары. Ненайденные штрихкоды перепроверяются раз в 30 дней, страницы lidl.rs — раз в 14 дней.
 
-To learn more about Next.js, take a look at the following resources:
+Lidl Srbija выкладывает на lidl.rs в основном акционные и непродовольственные товары, поэтому основная часть фото приходит из Open Food Facts.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Локальный запуск
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Нужны Node.js 22+ и PostgreSQL: локальный (`docker compose up -d`) или облачный (Supabase).
 
-## Deploy on Vercel
+```bash
+cp .env.example .env.local      # указать DATABASE_URL и свой email в ADMIN_EMAILS
+npm install
+npm run db:migrate              # создать таблицы
+npm run import:prices           # загрузить прайс-лист (~30 с)
+npm run import:content          # фото и описания (первый запуск ~1 ч, дальше минуты)
+npm run dev                     # http://localhost:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Админ: зарегистрируйтесь с email из `ADMIN_EMAILS`, ссылка «Админка» появится в шапке и в профиле.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Проверки:
+
+```bash
+npm run typecheck && npm run lint && npm test
+npm run test:e2e                # при запущенном npm run dev; в ADMIN_EMAILS должен быть admin@koshava.test
+```
+
+## Бесплатный деплой
+
+Всё ниже бесплатно и нужно только для публичной ссылки. Локально сайт работает и без этого.
+
+1. **Supabase** (база данных): [supabase.com](https://supabase.com) → New project, регион Frankfurt (eu-central-1). В Project Settings → Database → Connection string скопируйте две строки:
+   - **Session pooler** (порт 5432) — для миграций и импорта;
+   - **Transaction pooler** (порт 6543) — для сайта на Vercel.
+2. Локально с session-строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:content`.
+3. **Vercel** (хостинг): [vercel.com](https://vercel.com) → Add New → Project → импорт репозитория из GitHub. В Environment Variables:
+   - `DATABASE_URL` — transaction pooler (6543);
+   - `ADMIN_EMAILS` — ваш email.
+
+   Deploy. Адрес будет вида `koshava.vercel.app`, свой домен подключается потом в Settings → Domains.
+4. **GitHub Actions** (ежедневное обновление цен): в репозитории Settings → Secrets and variables → Actions → New secret `DATABASE_URL` (session pooler, 5432). Workflow `Import Lidl price list` запускается в 08:23 и 14:23 UTC и вручную (Actions → Run workflow).
+
+Ограничения бесплатных тарифов: Supabase Free ставит проект на паузу после 7 дней без запросов (ежедневный импорт держит его активным), 500 МБ базы. Vercel Hobby предназначен для некоммерческого использования; для запуска с реальными заказами нужен Pro ($20/мес.).
+
+## Что дальше
+
+| Шаг | Что сделать |
+|---|---|
+| Оплата | Эквайринг сербского банка или агрегатора; поле `payment_method` и статусы заказа уже есть |
+| Уведомления | Email/Telegram оператору о новом заказе, SMS клиенту о статусе |
+| Аналитика | PostHog: воронка каталог → корзина → оформление → заказ |
+| Переводы товаров | Машинный перевод названий на русский с кэшем в базе |
+| Сборка заказов | Приложение сборщика: чек-лист, замены, фактический вес |
+| Поиск | Meilisearch/Typesense с опечатками и синонимами |
+| Мобильное приложение | Expo/React Native на тех же server actions/API |

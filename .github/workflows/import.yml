@@ -1,0 +1,29 @@
+name: Import Lidl price list
+
+# Lidl publishes the price list during the morning (Belgrade time); run twice to catch late updates.
+on:
+  schedule:
+    - cron: "23 8,14 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:migrate
+      - run: npm run import:prices
+      # New products only; the cache keeps daily runs short.
+      - run: npm run import:content -- --limit=500
