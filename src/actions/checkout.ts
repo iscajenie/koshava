@@ -9,10 +9,11 @@ import type { AddressFields } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth/session";
 import { cartTotals, getCartLines } from "@/lib/cart";
 import { isValidSlot } from "@/lib/delivery";
+import { municipalityValues } from "@/config/shop";
 import { defaultLocale, isLocale } from "@/i18n/config";
 
 export type CheckoutState = {
-  error?: "minOrder" | "emptyCart" | "invalidPhone" | "required" | "invalidSlot";
+  error?: "minOrder" | "maxOrder" | "emptyCart" | "invalidPhone" | "required" | "invalidSlot";
   fields?: string[];
 };
 
@@ -31,9 +32,9 @@ const checkoutSchema = z.object({
   floor: optional,
   entrance: optional,
   intercom: optional,
-  municipality: optional,
+  municipality: z.string().optional().transform((v) => (v && municipalityValues.includes(v) ? v : undefined)),
   deliveryDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  deliverySlot: z.string().min(3).max(10),
+  deliverySlot: z.string().min(1).max(10),
   paymentMethod: z.enum(["cash", "card"]),
   comment: z.string().trim().max(1000).optional(),
   saveAddress: z.string().optional(),
@@ -61,7 +62,7 @@ export async function placeOrder(_: CheckoutState, form: FormData): Promise<Chec
       .where(and(eq(schema.addresses.id, Number(data.addressId)), eq(schema.addresses.userId, user.id)))
       .limit(1);
     address = saved?.fields ?? null;
-  } else if (data.street && data.house) {
+  } else if (data.street && data.house && data.municipality) {
     address = {
       street: data.street,
       house: data.house,
@@ -72,12 +73,13 @@ export async function placeOrder(_: CheckoutState, form: FormData): Promise<Chec
       municipality: data.municipality,
     };
   }
-  if (!address) return { error: "required", fields: ["street", "house"] };
+  if (!address) return { error: "required", fields: ["street", "house", "municipality"] };
 
   const lines = (await getCartLines()).filter((l) => l.available);
   if (lines.length === 0) return { error: "emptyCart" };
   const totals = cartTotals(lines);
   if (!totals.meetsMinimum) return { error: "minOrder" };
+  if (totals.exceedsMaximum) return { error: "maxOrder" };
 
   const number = await db.transaction(async (tx) => {
     const [order] = await tx

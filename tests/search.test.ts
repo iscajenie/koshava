@@ -22,11 +22,13 @@ describe("delivery", () => {
     expect(deliveryFeeFor(4649_95)).toBe(465_00);
   });
 
-  it("offers same-day slots only before the cutoff", () => {
-    const morning = new Date("2026-10-24T07:00:00Z"); // 09:00 in Belgrade
-    const evening = new Date("2026-10-24T15:00:00Z"); // 17:00 in Belgrade
-    expect(deliveryOptions(morning)[0]).toMatchObject({ date: "2026-10-24", slots: ["13-16", "16-19", "19-22"] });
-    expect(deliveryOptions(evening)[0].date).toBe("2026-10-25");
-    expect(isValidSlot("2026-10-24", "10-13", morning)).toBe(false);
+  it("delivers once a day from the next day, in Belgrade time", () => {
+    const lateEvening = new Date("2026-10-24T22:30:00Z"); // 00:30 on the 25th in Belgrade
+    const days = deliveryOptions(new Date("2026-10-24T07:00:00Z"));
+    expect(days).toHaveLength(5);
+    expect(days[0]).toMatchObject({ date: "2026-10-25", offset: 1, slots: ["10"] });
+    expect(deliveryOptions(lateEvening)[0].date).toBe("2026-10-26");
+    expect(isValidSlot("2026-10-24", "10", new Date("2026-10-24T07:00:00Z"))).toBe(false);
+    expect(isValidSlot("2026-10-25", "10", new Date("2026-10-24T07:00:00Z"))).toBe(true);
   });
 });

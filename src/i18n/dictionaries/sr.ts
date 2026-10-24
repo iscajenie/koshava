@@ -3,7 +3,7 @@ import type { Dictionary } from "./ru";
 export const sr: Dictionary = {
   meta: {
     title: "Koshava — Lidl proizvodi sa dostavom po Beogradu",
-    description: "Lidl Srbija katalog sa aktuelnim cenama. Napunite korpu — kurir donosi porudžbinu na adresu u Beogradu.",
+    description: "Lidl Srbija katalog po zvaničnom cenovniku. Napunite korpu — kurir donosi porudžbinu na adresu u Beogradu.",
   },
   nav: {
     home: "Početna",
@@ -16,19 +16,20 @@ export const sr: Dictionary = {
     logout: "Odjava",
     admin: "Admin",
     delivery: "Dostava",
+    privacy: "Politika privatnosti",
     searchPlaceholder: "Pretraži proizvode",
     search: "Traži",
     language: "Jezik",
   },
   home: {
     heroTitle: "Lidl proizvodi sa dostavom po Beogradu",
-    heroText: "Cene kao na Lidl polici, ažurirane svakog dana. Kurir donosi porudžbinu u terminu koji vam odgovara.",
+    heroText: "Cene po zvaničnom cenovniku Lidl Srbija. Napunite korpu danas — kurir je donosi sutra.",
     heroCta: "Idi u katalog",
     perks: {
-      prices: "Aktuelne Lidl cene",
-      pricesText: "Zvanični cenovnik, ažuriranje svakog dana",
+      prices: "Lidl cene",
+      pricesText: "Po zvaničnom cenovniku Lidl Srbija",
       delivery: "Dostava {rate}",
-      deliveryText: "od vrednosti robe, porudžbina od {min}",
+      deliveryText: "od vrednosti robe, porudžbina od {min} do {max}",
       payment: "Plaćanje pouzećem",
       paymentText: "Gotovinom ili karticom kuriru",
     },
@@ -78,8 +79,8 @@ export const sr: Dictionary = {
     source: "Cena prema Lidl Srbija cenovniku na dan {date}.",
     photoLidl: "Slika i opis: lidl.rs",
     photoOff: "Slika: Open Food Facts, CC BY-SA",
-    stockPhoto: "Slika iz otvorene baze",
-    stockPhotoHint: "Slika nije od Lidl-a: preuzeta iz otvorene baze Open Food Facts po barkodu. Pakovanje može da se razlikuje.",
+    stockPhoto: "Slika je informativna",
+    stockPhotoHint: "Slika je preuzeta iz otvorene baze Open Food Facts po barkodu. Pakovanje može da se razlikuje.",
     favoriteAdd: "Dodaj u omiljeno",
     favoriteRemove: "Ukloni iz omiljenog",
     notFound: "Proizvod nije pronađen",
@@ -100,8 +101,10 @@ export const sr: Dictionary = {
     clear: "Isprazni korpu",
     minOrder: "Minimalna vrednost porudžbine je {min}",
     toMinOrder: "Dodajte još proizvoda u vrednosti od {amount} da biste naručili",
+    maxOrder: "Maksimalna vrednost porudžbine je {max}. Uklonite deo proizvoda da biste naručili.",
+    noSubstitutions: "Nema zamena: ako proizvoda nema u prodavnici, neće biti isporučen niti naplaćen.",
     unavailable: "Proizvod se više ne prodaje i neće ući u porudžbinu",
-    priceNote: "Cene se ažuriraju svakog dana prema Lidl cenovniku.",
+    priceNote: "Cene su po zvaničnom cenovniku Lidl Srbija.",
   },
   favorites: {
     title: "Omiljeno",
@@ -127,6 +130,8 @@ export const sr: Dictionary = {
     weakPassword: "Lozinka mora imati najmanje 8 karaktera",
     required: "Obavezno polje",
     loginToContinue: "Prijavite se da biste nastavili",
+    privacyNotice: "Registracijom prihvatate",
+    privacyLink: "politiku privatnosti",
     tooManyAttempts: "Previše pokušaja. Pokušajte ponovo za nekoliko minuta.",
   },
   checkout: {
@@ -144,6 +149,10 @@ export const sr: Dictionary = {
     entrance: "Ulaz",
     intercom: "Interfon",
     municipality: "Opština",
+    municipalityPlaceholder: "Izaberite opštinu",
+    municipalityCity: "Grad",
+    municipalitySuburb: "Prigradske opštine",
+    singleSlot: "Kurir od {time}",
     savedAddresses: "Sačuvane adrese",
     newAddress: "Nova adresa",
     saveAddress: "Sačuvaj adresu u profilu",
@@ -155,7 +164,7 @@ export const sr: Dictionary = {
     paymentCard: "Karticom kuriru",
     paymentNote: "Onlajn plaćanje još nije dostupno. Plaćate kuriru prilikom preuzimanja.",
     comment: "Napomena uz porudžbinu",
-    commentPlaceholder: "Na primer: pozovite 15 minuta ranije, zamena ako proizvoda nema",
+    commentPlaceholder: "Na primer: pozovite 15 minuta pre dolaska",
     summary: "Vaša porudžbina",
     placeOrder: "Potvrdi porudžbinu",
     agree: "Klikom na dugme prihvatate uslove dostave.",
@@ -163,6 +172,7 @@ export const sr: Dictionary = {
     tomorrow: "Sutra",
     errors: {
       minOrder: "Vrednost robe je ispod minimuma ({min})",
+      maxOrder: "Vrednost robe je iznad maksimuma ({max})",
       emptyCart: "Korpa je prazna",
       invalidPhone: "Proverite broj telefona",
       required: "Popunite obavezna polja",
@@ -229,13 +239,68 @@ export const sr: Dictionary = {
   delivery: {
     title: "Uslovi dostave",
     lines: [
-      "Dostavljamo kurirom po Beogradu.",
-      "Minimalna vrednost porudžbine je {min}.",
+      "Dostavljamo kurirom u svih 17 beogradskih opština.",
+      "Vrednost porudžbine je od {min} do {max}.",
       "Cena dostave je {rate} od vrednosti robe.",
+      "Dostava jednom dnevno, kurir kreće u {slots}. Porudžbina se isporučuje sledećeg dana ili izabranog datuma.",
       "Plaćanje pouzećem: gotovinom ili karticom kuriru.",
-      "Termini dostave: {slots}. Porudžbine za isti dan primamo do {cutoff}:00.",
-      "Cene odgovaraju zvaničnom cenovniku Lidl Srbija i ažuriraju se svakog dana. Ako proizvoda nema u prodavnici, dogovorićemo zamenu telefonom.",
+      "Nema zamena: ako proizvoda nema u prodavnici, neće biti isporučen niti naplaćen.",
+      "Cene odgovaraju zvaničnom cenovniku Lidl Srbija.",
     ],
+  },
+  privacy: {
+    title: "Politika privatnosti",
+    updated: "Verzija od 24. oktobra 2026.",
+    sections: [
+      {
+        title: "Ko obrađuje podatke",
+        text: [
+          "Sajt Koshava je pilot projekat dostave namirnica po Beogradu. Rukovalac podacima je tim projekta Koshava. Kontakt: {email}.",
+        ],
+      },
+      {
+        title: "Koje podatke prikupljamo",
+        text: [
+          "Pri registraciji: email adresu, lozinku (čuva se samo u šifrovanom obliku) i ime, ako ga unesete.",
+          "Pri porudžbini: ime, telefon, adresu dostave, napomenu, sadržaj i iznos porudžbine.",
+          "Tehnički podaci: kolačić sesije (prijava), kolačić korpe za goste i izabranog jezika.",
+        ],
+      },
+      {
+        title: "Zašto",
+        text: [
+          "Da bismo vodili vaš nalog, primali i isporučivali porudžbine i kontaktirali vas u vezi s njima. Osnov je izvršenje ugovora (čl. 12 Zakona o zaštiti podataka o ličnosti, ZZPL).",
+          "Podatke ne koristimo za reklame, ne prodajemo ih i na sajtu nemamo analitiku trećih strana.",
+        ],
+      },
+      {
+        title: "Kome se podaci prenose",
+        text: [
+          "Kuriru — samo ime, telefon, adresa i sadržaj porudžbine radi dostave.",
+          "Pružaocima infrastrukture koji čuvaju podatke po našem nalogu: hosting sajta i baza podataka (Supabase, data centar u Frankfurtu, EU; Vercel).",
+        ],
+      },
+      {
+        title: "Koliko dugo čuvamo podatke",
+        text: [
+          "Dok postoji nalog i tokom trajanja pilot projekta. Podaci o porudžbinama mogu se čuvati duže ako to zakon zahteva.",
+        ],
+      },
+      {
+        title: "Vaša prava",
+        text: [
+          "Možete zatražiti pristup podacima, ispravku ili brisanje, ograničenje obrade i kopiju podataka. Pišite na {email}.",
+          "Imate pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti (poverenik.rs).",
+        ],
+      },
+      {
+        title: "Kolačići",
+        text: [
+          "Koristimo samo neophodne kolačiće: sesija, korpa i omiljeno za goste, jezik. Bez njih sajt ne radi, pa za njih ne tražimo saglasnost.",
+        ],
+      },
+    ],
+    noEmail: "kontakt adresa biće navedena ovde",
   },
   footer: {
     disclaimer: "Koshava je nezavisan servis za dostavu i nije povezan sa Lidl Srbija KD. Cene su iz zvaničnog Lidl Srbija cenovnika. Slike i opisi sa lidl.rs i iz Open Food Facts (CC BY-SA).",

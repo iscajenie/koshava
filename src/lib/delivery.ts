@@ -1,16 +1,7 @@
 import { shop } from "@/config/shop";
 
-function belgradeParts(date: Date) {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: shop.timeZone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(date);
-  const get = (type: string) => parts.find((p) => p.type === type)!.value;
-  return { day: `${get("year")}-${get("month")}-${get("day")}`, hour: Number(get("hour")) };
+function belgradeDay(date: Date) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: shop.timeZone }).format(date);
 }
 
 function addDays(day: string, n: number) {
@@ -23,16 +14,10 @@ export type DeliveryDay = { date: string; offset: number; slots: string[] };
 
 /** Delivery days and slots available right now, in Belgrade time. */
 export function deliveryOptions(now = new Date()): DeliveryDay[] {
-  const { day, hour } = belgradeParts(now);
+  const today = belgradeDay(now);
   const days: DeliveryDay[] = [];
-  for (let offset = 0; offset < shop.deliveryDaysAhead; offset++) {
-    const slots =
-      offset === 0
-        ? hour < shop.sameDayCutoffHour
-          ? shop.deliverySlots.filter((s) => Number(s.split("-")[0]) >= hour + 3)
-          : []
-        : [...shop.deliverySlots];
-    if (slots.length > 0) days.push({ date: addDays(day, offset), offset, slots });
+  for (let offset = shop.firstDeliveryOffsetDays; offset < shop.firstDeliveryOffsetDays + shop.deliveryDaysAhead; offset++) {
+    days.push({ date: addDays(today, offset), offset, slots: [...shop.deliverySlots] });
   }
   return days;
 }

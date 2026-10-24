@@ -14,7 +14,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
           <p>{t.footer.disclaimer}</p>
           <p className="text-white/60">{t.footer.pilot}</p>
         </div>
-        <ul className="flex gap-4 font-medium text-white md:flex-col md:gap-2">
+        <ul className="flex flex-wrap gap-x-4 gap-y-2 font-medium text-white md:flex-col">
           <li>
             <Link href={`/${locale}/delivery`} className="hover:underline">
               {t.nav.delivery}
@@ -23,6 +23,11 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
           <li>
             <Link href={`/${locale}/catalog`} className="hover:underline">
               {t.nav.catalog}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${locale}/privacy`} className="hover:underline">
+              {t.nav.privacy}
             </Link>
           </li>
         </ul>

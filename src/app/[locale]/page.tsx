@@ -17,6 +17,7 @@ export default async function HomePage() {
   ]);
   const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
   const min = formatPrice(shop.minOrderMinor, locale);
+  const max = formatPrice(shop.maxOrderMinor, locale);
 
   return (
     <div className="space-y-10">
@@ -35,7 +36,7 @@ export default async function HomePage() {
       <section className="grid gap-3 sm:grid-cols-3">
         {[
           { icon: TagIcon, title: t.home.perks.prices, text: t.home.perks.pricesText },
-          { icon: TruckIcon, title: fmt(t.home.perks.delivery, { rate }), text: fmt(t.home.perks.deliveryText, { min }) },
+          { icon: TruckIcon, title: fmt(t.home.perks.delivery, { rate }), text: fmt(t.home.perks.deliveryText, { min, max }) },
           { icon: WalletIcon, title: t.home.perks.payment, text: t.home.perks.paymentText },
         ].map(({ icon: Icon, title, text }) => (
           <div key={title} className="card flex items-start gap-3 p-4">

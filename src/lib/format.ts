@@ -49,5 +49,5 @@ export function discountPercent(priceMinor: number, regularPriceMinor: number) {
 
 export function slotLabel(slot: string) {
   const [from, to] = slot.split("-");
-  return `${from}:00–${to}:00`;
+  return to ? `${from}:00–${to}:00` : `${from}:00`;
 }

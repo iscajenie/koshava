@@ -136,6 +136,7 @@ export function cartTotals(lines: CartLine[]) {
     totalMinor: subtotalMinor + deliveryFeeMinor,
     meetsMinimum: subtotalMinor >= shop.minOrderMinor,
     missingMinor: Math.max(0, shop.minOrderMinor - subtotalMinor),
+    exceedsMaximum: subtotalMinor > shop.maxOrderMinor,
   };
 }
 

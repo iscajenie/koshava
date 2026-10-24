@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getI18n } from "@/i18n/server";
+import { fmt } from "@/i18n";
+import { shop } from "@/config/shop";
 import { cartTotals, getCartLines } from "@/lib/cart";
 import { formatPrice } from "@/lib/money";
 import { unitLabel } from "@/lib/format";
@@ -69,12 +71,19 @@ export default async function CartPage() {
             </li>
           ))}
         </ul>
-        <p className="mt-3 text-xs text-muted">{t.cart.priceNote}</p>
+        <p className="mt-3 text-xs text-muted">
+          {t.cart.priceNote} {t.cart.noSubstitutions}
+        </p>
       </section>
       <aside className="space-y-3 lg:sticky lg:top-32 lg:self-start">
         <OrderSummary locale={locale} t={t} {...totals}>
           <MinOrderProgress locale={locale} t={t} subtotalMinor={totals.subtotalMinor} />
-          {totals.meetsMinimum ? (
+          {totals.exceedsMaximum && (
+            <div className="rounded bg-sale/10 p-3 text-sm font-semibold text-sale" data-testid="max-order">
+              {fmt(t.cart.maxOrder, { max: formatPrice(shop.maxOrderMinor, locale) })}
+            </div>
+          )}
+          {totals.meetsMinimum && !totals.exceedsMaximum ? (
             <Link href={`/${locale}/checkout`} className="btn-primary w-full" data-testid="checkout-link">
               {t.cart.checkout}
             </Link>

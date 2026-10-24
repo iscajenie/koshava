@@ -59,6 +59,7 @@ test("guest cart survives sign-up and an order is placed and processed", async (
   await page.getByLabel("Улица").fill("Knez Mihailova");
   await page.getByLabel("Дом", { exact: true }).fill("12");
   await page.getByLabel("Квартира").fill("5");
+  await page.getByLabel("Район (opština)").selectOption("Vračar");
   await page.getByTestId("place-order").click();
 
   await page.waitForURL(/\/ru\/orders\/KS-\d+\?placed=1/);
@@ -98,4 +99,19 @@ test("search understands Russian words", async ({ page }) => {
   await page.goto("/ru/catalog?q=молоко");
   await expect(page.getByTestId("product-card").first()).toBeVisible();
   await expect(page.getByTestId("product-card").first()).toContainText(/mlek/i);
+});
+
+test("order above the 30 000 RSD ceiling cannot be checked out", async ({ page }) => {
+  await page.goto("/ru/catalog?sort=priceDesc");
+  const card = page.getByTestId("product-card").first();
+  await addToCart(page, card);
+  // The most expensive item is about 4 000 RSD, so eight of them exceed the ceiling.
+  for (let i = 0; i < 7; i++) {
+    const saved = page.waitForResponse((r) => r.request().method() === "POST");
+    await card.getByRole("button", { name: "Увеличить" }).click();
+    await saved;
+  }
+  await page.goto("/ru/cart");
+  await expect(page.getByTestId("max-order")).toContainText("Максимальная сумма заказа");
+  await expect(page.getByTestId("checkout-link")).toHaveCount(0);
 });

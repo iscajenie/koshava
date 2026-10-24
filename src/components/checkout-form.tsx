@@ -5,7 +5,7 @@ import { placeOrder, type CheckoutState } from "@/actions/checkout";
 import type { AddressFields } from "@/db/schema";
 import type { DeliveryDay } from "@/lib/delivery";
 import { fmt } from "@/i18n";
-import { shop } from "@/config/shop";
+import { municipalities, shop } from "@/config/shop";
 import { formatDate, slotLabel } from "@/lib/format";
 import { formatPrice } from "@/lib/money";
 import { formatAddress } from "@/lib/address";
@@ -32,7 +32,9 @@ export function CheckoutForm({
   const errorText = state.error
     ? state.error === "minOrder"
       ? fmt(t.checkout.errors.minOrder, { min: formatPrice(shop.minOrderMinor, locale) })
-      : t.checkout.errors[state.error]
+      : state.error === "maxOrder"
+        ? fmt(t.checkout.errors.maxOrder, { max: formatPrice(shop.maxOrderMinor, locale) })
+        : t.checkout.errors[state.error]
     : null;
 
   function dayLabel(d: DeliveryDay) {
@@ -112,7 +114,22 @@ export function CheckoutForm({
             </div>
             <div className="col-span-3">
               <label className="label" htmlFor="municipality">{t.checkout.municipality}</label>
-              <input id="municipality" name="municipality" className="field" placeholder="Vračar, Novi Beograd…" />
+              <select id="municipality" name="municipality" required defaultValue="" className="field" aria-invalid={invalid("municipality")}>
+                <option value="" disabled>
+                  {t.checkout.municipalityPlaceholder}
+                </option>
+                {(["city", "suburb"] as const).map((group) => (
+                  <optgroup key={group} label={group === "city" ? t.checkout.municipalityCity : t.checkout.municipalitySuburb}>
+                    {municipalities
+                      .filter((m) => m.group === group)
+                      .map((m) => (
+                        <option key={m.value} value={m.value}>
+                          {locale === "ru" ? `${m.ru} · ${m.value}` : m.value}
+                        </option>
+                      ))}
+                  </optgroup>
+                ))}
+              </select>
             </div>
             <label className="col-span-6 flex items-center gap-2 text-sm">
               <input type="checkbox" name="saveAddress" value="1" defaultChecked className="h-4 w-4 accent-brand" />
@@ -137,16 +154,25 @@ export function CheckoutForm({
           </div>
           <div>
             <span className="label">{t.checkout.slot}</span>
-            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-invalid={invalid("deliverySlot")}>
-              {slots.map((s, i) => (
-                <label key={`${date}-${s}`} className="flex cursor-pointer items-center justify-center rounded border border-line py-2.5 text-sm font-semibold has-[:checked]:border-brand has-[:checked]:bg-brand has-[:checked]:text-white">
-                  <input type="radio" name="deliverySlot" value={s} defaultChecked={i === 0} className="sr-only" />
-                  {slotLabel(s)}
-                </label>
-              ))}
-            </div>
+            {slots.length === 1 ? (
+              // A single daily run: nothing to choose, just say when it comes.
+              <div className="field bg-surface font-semibold">
+                <input type="hidden" name="deliverySlot" value={slots[0]} />
+                {fmt(t.checkout.singleSlot, { time: slotLabel(slots[0]) })}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-invalid={invalid("deliverySlot")}>
+                {slots.map((s, i) => (
+                  <label key={`${date}-${s}`} className="flex cursor-pointer items-center justify-center rounded border border-line py-2.5 text-sm font-semibold has-[:checked]:border-brand has-[:checked]:bg-brand has-[:checked]:text-white">
+                    <input type="radio" name="deliverySlot" value={s} defaultChecked={i === 0} className="sr-only" />
+                    {slotLabel(s)}
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
         </div>
+        <p className="text-sm text-muted">{t.cart.noSubstitutions}</p>
       </fieldset>
 
       <fieldset className="card space-y-3 p-5">

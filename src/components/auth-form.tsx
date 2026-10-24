@@ -55,6 +55,15 @@ export function AuthForm({ mode, next }: { mode: "login" | "register"; next?: st
             {a[state.error]}
           </div>
         )}
+        {mode === "register" && (
+          <p className="text-xs text-muted">
+            {a.privacyNotice}{" "}
+            <Link href={`/${locale}/privacy`} target="_blank" className="font-medium text-brand underline">
+              {a.privacyLink}
+            </Link>
+            .
+          </p>
+        )}
         <button type="submit" disabled={pending} className="btn-primary w-full" data-testid="auth-submit">
           {pending ? t.common.loading : mode === "login" ? a.submitLogin : a.submitRegister}
         </button>

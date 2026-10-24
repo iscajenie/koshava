@@ -14,9 +14,9 @@ export default async function DeliveryPage() {
   const { locale, t } = await getI18n();
   const values = {
     min: formatPrice(shop.minOrderMinor, locale),
+    max: formatPrice(shop.maxOrderMinor, locale),
     rate: `${Math.round(shop.deliveryFeeRate * 100)}%`,
     slots: shop.deliverySlots.map(slotLabel).join(", "),
-    cutoff: shop.sameDayCutoffHour,
   };
   return (
     <div className="card mx-auto max-w-2xl p-6 md:p-8">

@@ -23,7 +23,7 @@ export default async function CheckoutPage() {
 
   const lines = (await getCartLines()).filter((l) => l.available);
   const totals = cartTotals(lines);
-  if (lines.length === 0 || !totals.meetsMinimum) redirect(`/${locale}/cart`);
+  if (lines.length === 0 || !totals.meetsMinimum || totals.exceedsMaximum) redirect(`/${locale}/cart`);
 
   const addresses = await db
     .select({ id: schema.addresses.id, fields: schema.addresses.fields, isDefault: schema.addresses.isDefault })
