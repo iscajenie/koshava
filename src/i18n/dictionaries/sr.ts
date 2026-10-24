@@ -78,6 +78,8 @@ export const sr: Dictionary = {
     source: "Cena prema Lidl Srbija cenovniku na dan {date}.",
     photoLidl: "Slika i opis: lidl.rs",
     photoOff: "Slika: Open Food Facts, CC BY-SA",
+    stockPhoto: "Slika iz otvorene baze",
+    stockPhotoHint: "Slika nije od Lidl-a: preuzeta iz otvorene baze Open Food Facts po barkodu. Pakovanje može da se razlikuje.",
     favoriteAdd: "Dodaj u omiljeno",
     favoriteRemove: "Ukloni iz omiljenog",
     notFound: "Proizvod nije pronađen",

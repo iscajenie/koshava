@@ -1,9 +1,9 @@
 name: Import Lidl price list
 
-# Lidl publishes the price list during the morning (Belgrade time); run twice to catch late updates.
+# Manual for the pilot (Actions -> Run workflow). For daily updates add:
+#   schedule:
+#     - cron: "23 8,14 * * *"   # Lidl publishes the list in the morning, Belgrade time
 on:
-  schedule:
-    - cron: "23 8,14 * * *"
   workflow_dispatch:
 
 concurrency:

@@ -1,5 +1,5 @@
 import "server-only";
-import { and, asc, desc, eq, ilike, inArray, lt, or, sql, type SQL } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, inArray, isNotNull, lt, or, sql, type SQL } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { searchTerms } from "@/lib/text";
 import type { SortOption } from "@/lib/sort-options";
@@ -20,6 +20,7 @@ export const productCardFields = {
   unitPriceMinor: p.unitPriceMinor,
   unitPriceLabel: p.unitPriceLabel,
   saleTo: p.saleTo,
+  contentSource: p.contentSource,
 };
 
 export type ProductCardData = {
@@ -35,6 +36,7 @@ export type ProductCardData = {
   unitPriceMinor: number | null;
   unitPriceLabel: string | null;
   saleTo: string | null;
+  contentSource: string | null;
 };
 
 export type CategoryData = { id: number; slug: string; name: string; count: number; image: string | null };
@@ -50,7 +52,7 @@ export async function listCategories(locale: Locale): Promise<CategoryData[]> {
       nameSr: schema.categories.nameSr,
       nameRu: schema.categories.nameRu,
       count: sql<number>`count(${p.id})::int`,
-      image: sql<string | null>`(array_agg(${p.imageUrl} order by ${p.id}))[1]`,
+      image: sql<string | null>`(array_agg(${p.imageUrl} order by ${p.contentSource} = 'lidl' desc, ${p.id}) filter (where ${p.imageUrl} is not null))[1]`,
     })
     .from(schema.categories)
     .innerJoin(p, and(eq(p.categoryId, schema.categories.id), visible))
@@ -98,8 +100,8 @@ function orderFor(sort: SortOption | undefined): SQL[] {
     case "discount":
       return [desc(sql`(${p.regularPriceMinor} - ${p.priceMinor})::float / greatest(${p.regularPriceMinor}, 1)`), asc(p.id)];
     default:
-      // Promotions first, then the price-list order within a category.
-      return [desc(onSale), asc(p.categoryId), asc(p.id)];
+      // Promotions first, then products with a photo, then the price-list order within a category.
+      return [desc(onSale), desc(isNotNull(p.imageUrl)), asc(p.categoryId), asc(p.id)];
   }
 }
 
@@ -163,7 +165,10 @@ export async function getSaleProducts(limit: number) {
     .select(productCardFields)
     .from(p)
     .where(and(visible, onSale))
-    .orderBy(desc(sql`(${p.regularPriceMinor} - ${p.priceMinor})::float / greatest(${p.regularPriceMinor}, 1)`))
+    .orderBy(
+      desc(isNotNull(p.imageUrl)),
+      desc(sql`(${p.regularPriceMinor} - ${p.priceMinor})::float / greatest(${p.regularPriceMinor}, 1)`),
+    )
     .limit(limit);
 }
 
@@ -173,7 +178,7 @@ export async function getFeaturedProducts(limit: number) {
   return db
     .select(productCardFields)
     .from(p)
-    .where(visible)
+    .where(and(visible, isNotNull(p.imageUrl)))
     .orderBy(sql`md5(${p.id}::text || ${day})`)
     .limit(limit);
 }

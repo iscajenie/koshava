@@ -76,6 +76,8 @@ export const ru = {
     source: "Цена — по прайс-листу Lidl Srbija на {date}.",
     photoLidl: "Фото и описание: lidl.rs",
     photoOff: "Фото: Open Food Facts, CC BY-SA",
+    stockPhoto: "Фото из открытой базы",
+    stockPhotoHint: "Фото не от Lidl: взято из открытой базы Open Food Facts по штрихкоду. Упаковка может отличаться.",
     favoriteAdd: "Добавить в избранное",
     favoriteRemove: "Убрать из избранного",
     notFound: "Товар не найден",

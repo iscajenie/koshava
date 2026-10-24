@@ -57,7 +57,11 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/p/[sl
       </nav>
 
       <div className="grid gap-6 md:grid-cols-2 md:gap-10">
-        <ProductGallery images={images} alt={product.name} />
+        <ProductGallery
+          images={images}
+          alt={product.name}
+          stockPhoto={product.contentSource === "off" ? { label: t.product.stockPhoto, hint: t.product.stockPhotoHint } : undefined}
+        />
         <div className="space-y-5">
           <div>
             {product.brand && <div className="text-sm font-semibold tracking-wide text-muted uppercase">{product.brand}</div>}

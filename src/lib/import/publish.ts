@@ -2,11 +2,11 @@ import { sql } from "drizzle-orm";
 import { db } from "@/db";
 
 /**
- * A product is shown on the site when it is in the current price list and has a photo.
- * Set PUBLISH_WITHOUT_IMAGE=true to show the whole price list with placeholders instead.
+ * Every product of the current price list is shown, with a placeholder when it has no photo.
+ * Set PUBLISH_WITHOUT_IMAGE=false to show only products with a photo.
  */
 export async function refreshPublished() {
-  const withoutImage = process.env.PUBLISH_WITHOUT_IMAGE === "true";
+  const withoutImage = process.env.PUBLISH_WITHOUT_IMAGE !== "false";
   const rows = await db.execute<{ published: number }>(sql`
     with updated as (
       update products

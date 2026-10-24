@@ -8,7 +8,7 @@ import { useShop } from "./shop-provider";
 import { PriceTag } from "./price-tag";
 import { QtyControl } from "./qty-control";
 import { FavoriteButton } from "./favorite-button";
-import { ProductImage } from "./product-image";
+import { ProductImage, StockPhotoTag } from "./product-image";
 
 export function ProductCard({ product }: { product: ProductCardData }) {
   const { locale, t } = useShop();
@@ -17,10 +17,11 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   return (
     <article className="card group relative flex flex-col overflow-hidden" data-testid="product-card">
       <FavoriteButton productId={product.id} className="absolute top-2 right-2 z-10" />
-      <Link href={href} className="block bg-white p-3">
+      <Link href={href} className="relative block bg-white p-3">
         <div className="aspect-square">
           <ProductImage src={product.imageUrl} alt={product.name} className="transition group-hover:scale-[1.03]" />
         </div>
+        {product.contentSource === "off" && <StockPhotoTag label={t.product.stockPhoto} hint={t.product.stockPhotoHint} />}
       </Link>
       <div className="flex flex-1 flex-col gap-2 px-3 pb-3">
         {product.brand && <div className="text-xs font-semibold tracking-wide text-muted uppercase">{product.brand}</div>}
