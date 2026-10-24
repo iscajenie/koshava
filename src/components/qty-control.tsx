@@ -16,7 +16,7 @@ export function QtyControl({
   unit: string | null;
   size?: "md" | "lg";
 }) {
-  const { quantities, setQty, t, locale } = useShop();
+  const { quantities, setQty, changeQty, t, locale } = useShop();
   const qty = quantities[productId] ?? 0;
   const step = soldByWeight ? shop.weightStepKg : 1;
   const height = size === "lg" ? "h-12" : "h-10";
@@ -39,7 +39,7 @@ export function QtyControl({
     <div className={`flex w-full items-center justify-between rounded bg-brand text-white ${height}`} data-testid="qty-control">
       <button
         type="button"
-        onClick={() => setQty(productId, Math.max(0, +(qty - step).toFixed(3)))}
+        onClick={() => changeQty(productId, -step)}
         className="flex h-full w-11 items-center justify-center rounded-l hover:bg-brand-dark"
         aria-label={t.product.decrease}
       >
@@ -50,7 +50,7 @@ export function QtyControl({
       </span>
       <button
         type="button"
-        onClick={() => setQty(productId, +(qty + step).toFixed(3))}
+        onClick={() => changeQty(productId, step)}
         className="flex h-full w-11 items-center justify-center rounded-r hover:bg-brand-dark"
         aria-label={t.product.increase}
       >

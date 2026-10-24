@@ -106,11 +106,12 @@ test("order above the 30 000 RSD ceiling cannot be checked out", async ({ page }
   const card = page.getByTestId("product-card").first();
   await addToCart(page, card);
   // The most expensive item is about 4 000 RSD, so eight of them exceed the ceiling.
-  for (let i = 0; i < 7; i++) {
-    const saved = page.waitForResponse((r) => r.request().method() === "POST");
-    await card.getByRole("button", { name: "Увеличить" }).click();
-    await saved;
-  }
+  // Rapid taps without waiting: every one must count.
+  const plus = card.getByRole("button", { name: "Увеличить" });
+  for (let i = 0; i < 7; i++) await plus.click();
+  await expect(card.getByTestId("qty-value")).toHaveText("8 шт.");
+  await page.waitForLoadState("networkidle");
+  await expect(card.getByTestId("qty-value")).toHaveText("8 шт.");
   await page.goto("/ru/cart");
   await expect(page.getByTestId("max-order")).toContainText("Максимальная сумма заказа");
   await expect(page.getByTestId("checkout-link")).toHaveCount(0);
