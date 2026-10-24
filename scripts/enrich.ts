@@ -145,10 +145,11 @@ async function main() {
     }
     console.log(`lidl.rs: ${fromLidl} price-list products matched by barcode`);
 
-    // Open Food Facts family, one cached lookup per (database, barcode).
+    // Open Food Facts family, one cached lookup per (database, barcode); a few products in flight at once.
     let lookups = 0;
     let fromOff = 0;
-    for (const p of needOff) {
+    const queue = [...needOff];
+    const enrichFromOpenFacts = async (p: (typeof needOff)[number]) => {
       const codes = [p.barcode, ...p.altBarcodes].filter((c): c is string => !!c);
       let found: OpenFactsProduct | null = null;
       outer: for (const source of sourcesForCategory(p.categoryCode)) {
@@ -174,7 +175,7 @@ async function main() {
           } catch (error) {
             console.warn(String(error));
           }
-          if (lookups % 100 === 0) console.log(`open facts: ${lookups} lookups, ${fromOff} photos so far`);
+          if (lookups % 100 === 0) console.log(`open facts: ${lookups} lookups, ${fromOff} photos so far, ${queue.length} products left`);
         }
       }
       if (found) {
@@ -190,7 +191,11 @@ async function main() {
           .where(eq(schema.products.id, p.id));
         fromOff++;
       }
-    }
+    };
+    const worker = async () => {
+      for (let p = queue.shift(); p; p = queue.shift()) await enrichFromOpenFacts(p);
+    };
+    await Promise.all(Array.from({ length: 4 }, worker));
 
     // Products whose only photo source vanished keep their last content; ones never enriched stay hidden.
     const [{ withoutImage }] = await db

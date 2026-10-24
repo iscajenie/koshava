@@ -33,20 +33,31 @@ export type OpenFactsProduct = {
 };
 
 const userAgent = process.env.OFF_USER_AGENT ?? "Koshava/0.1 (pilot grocery delivery in Belgrade)";
-let lastRequest = 0;
 
-/** Looks up a barcode; null when the product is unknown or has no photo. Throttled to stay under 100 requests/min. */
-export async function lookupBarcode(source: OpenFactsSource, barcode: string): Promise<OpenFactsProduct | null> {
-  const wait = lastRequest + 700 - Date.now();
-  if (wait > 0) await sleep(wait);
-  lastRequest = Date.now();
+// One shared schedule for all concurrent lookups: at most ~80 requests/min (the API allows 100).
+let nextSlot = 0;
+async function takeSlot() {
+  const now = Date.now();
+  const slot = Math.max(now, nextSlot);
+  nextSlot = slot + 750;
+  if (slot > now) await sleep(slot - now);
+}
+
+/** Looks up a barcode; null when the product is unknown or has no photo. */
+export async function lookupBarcode(source: OpenFactsSource, barcode: string, attempt = 0): Promise<OpenFactsProduct | null> {
+  await takeSlot();
   const res = await fetch(`${HOSTS[source]}/api/v2/product/${barcode}.json?fields=${FIELDS}`, {
     headers: { "User-Agent": userAgent },
+    signal: AbortSignal.timeout(20_000),
   });
   if (res.status === 404) return null;
-  if (res.status === 429) {
-    await sleep(60_000);
-    return lookupBarcode(source, barcode);
+  if (res.status === 429 || res.status >= 500) {
+    if (attempt >= 2) throw new Error(`${source} ${res.status} for ${barcode}`);
+    if (res.status === 429) {
+      console.warn(`${source}: rate limited, pausing 30 s`);
+      nextSlot = Math.max(nextSlot, Date.now() + 30_000);
+    } else await sleep(3000);
+    return lookupBarcode(source, barcode, attempt + 1);
   }
   if (!res.ok) throw new Error(`${source} ${res.status} for ${barcode}`);
   const body = (await res.json()) as { status?: number; product?: Record<string, string | undefined> };
