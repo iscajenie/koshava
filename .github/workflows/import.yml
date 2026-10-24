@@ -25,5 +25,6 @@ jobs:
       - run: npm ci
       - run: npm run db:migrate
       - run: npm run import:prices
-      # New products only; the cache keeps daily runs short.
-      - run: npm run import:content -- --limit=500
+      # Bulk photo lookup from the Open Food Facts dumps, then lidl.rs and the API for what is left.
+      - run: npm run import:dumps
+      - run: npm run import:content -- --limit=300

@@ -51,7 +51,9 @@ e2e/, tests/        тесты
 
 На сайте весь прайс-лист: товары без фото показываются с заглушкой, фото из Open Food Facts помечены тегом «Фото из открытой базы» (на карточке и странице товара). `PUBLISH_WITHOUT_IMAGE=false` оставляет только товары с фото; настройка применяется при импорте.
 
-Ответы источников кэшируются в таблице `content_cache`: ежедневный запуск запрашивает только новые товары. Ненайденные штрихкоды перепроверяются раз в 30 дней, страницы lidl.rs — раз в 14 дней.
+Ответы источников кэшируются в таблице `content_cache`: повторный запуск запрашивает только новые товары. Ненайденные штрихкоды перепроверяются раз в 30 дней, страницы lidl.rs — раз в 14 дней.
+
+API Open Food Facts на практике отдаёт около 15 ответов в минуту, поэтому первичная загрузка идёт через их ежедневные выгрузки (`import:dumps`), а API используется только для новых товаров.
 
 Lidl Srbija выкладывает на lidl.rs в основном акционные и непродовольственные товары, поэтому основная часть фото приходит из Open Food Facts.
 
@@ -64,7 +66,8 @@ cp .env.example .env.local      # указать DATABASE_URL и свой email 
 npm install
 npm run db:migrate              # создать таблицы
 npm run import:prices           # загрузить прайс-лист (~30 с)
-npm run import:content          # фото и описания (первый запуск ~1 ч, дальше минуты)
+npm run import:dumps            # фото из выгрузок Open Food Facts (~1,5 ГБ потоком, 10–15 мин)
+npm run import:content          # lidl.rs и точечные запросы к API для оставшихся (~15 мин)
 npm run dev                     # http://localhost:3000
 ```
 
@@ -84,7 +87,7 @@ npm run test:e2e                # при запущенном npm run dev; в AD
 1. **Supabase** (база данных): [supabase.com](https://supabase.com) → New project, регион Frankfurt (eu-central-1). В Project Settings → Database → Connection string скопируйте две строки:
    - **Session pooler** (порт 5432) — для миграций и импорта;
    - **Transaction pooler** (порт 6543) — для сайта на Vercel.
-2. Локально с session-строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:content`.
+2. Загрузить данные: запустить workflow `Import Lidl price list` (шаг 4) или локально с session-строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:dumps && npm run import:content`.
 3. **Vercel** (хостинг): [vercel.com](https://vercel.com) → Add New → Project → импорт репозитория из GitHub. В Environment Variables:
    - `DATABASE_URL` — transaction pooler (6543);
    - `ADMIN_EMAILS` — ваш email.
