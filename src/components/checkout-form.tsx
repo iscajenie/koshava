@@ -118,16 +118,10 @@ export function CheckoutForm({
                 <option value="" disabled>
                   {t.checkout.municipalityPlaceholder}
                 </option>
-                {(["city", "suburb"] as const).map((group) => (
-                  <optgroup key={group} label={group === "city" ? t.checkout.municipalityCity : t.checkout.municipalitySuburb}>
-                    {municipalities
-                      .filter((m) => m.group === group)
-                      .map((m) => (
-                        <option key={m.value} value={m.value}>
-                          {locale === "ru" ? `${m.ru} · ${m.value}` : m.value}
-                        </option>
-                      ))}
-                  </optgroup>
+                {municipalities.map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
                 ))}
               </select>
             </div>

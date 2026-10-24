@@ -3,7 +3,9 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 
 async function main() {
-  const client = postgres(process.env.DATABASE_URL!, { max: 1 });
+  const url = process.env.DATABASE_URL!;
+  const local = /@(localhost|127\.0\.0\.1)[:/]/.test(url) || url.includes("sslmode=disable");
+  const client = postgres(url, { max: 1, ssl: local ? false : "require", onnotice: () => {} });
   await migrate(drizzle(client), { migrationsFolder: "drizzle" });
   await client.end();
   console.log("Migrations applied");

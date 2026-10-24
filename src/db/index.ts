@@ -13,6 +13,8 @@ const client =
     max: Number(process.env.DATABASE_POOL_SIZE ?? 5),
     // Supabase's transaction pooler (port 6543) does not support prepared statements.
     prepare: !url.includes(":6543"),
+    // Hosted databases (Supabase, Neon) expect TLS; a local server usually has none.
+    ssl: /@(localhost|127\.0\.0\.1)[:/]/.test(url) || url.includes("sslmode=disable") ? false : "require",
   });
 if (process.env.NODE_ENV !== "production") globalForDb.pg = client;
 

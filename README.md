@@ -12,7 +12,7 @@
 | Карточка товара | Фото, описание, цена, цена за кг/л, сроки акции, штрихкод, похожие товары |
 | Корзина | Работает без регистрации; после входа гостевая корзина переносится в аккаунт. Шаг для весовых товаров — 0,5 кг |
 | Избранное | Работает без регистрации, тоже переносится при входе |
-| Оформление | Сумма товаров от 5 000 до 30 000 дин., доставка 10%, один выезд курьера в день в 10:00 начиная со следующего дня, район из списка 17 общин Белграда, оплата наличными или картой курьеру. Замен нет: отсутствующий товар не доставляется и не оплачивается |
+| Оформление | Сумма товаров от 5 000 до 30 000 дин., доставка 10%, один выезд курьера в день в 10:00 начиная со следующего дня, городской район Белграда из списка (10 общин), оплата наличными или картой курьеру. Замен нет: отсутствующий товар не доставляется и не оплачивается |
 | Профиль | Имя, телефон, сохранённые адреса, история и статусы заказов |
 | Регистрация | Email и пароль, открытая; восстановления пароля пока нет |
 | Политика конфиденциальности | `/privacy` на двух языках, ссылка в подвале и в форме регистрации; контакт из `CONTACT_EMAIL` |
@@ -87,17 +87,37 @@ npm run test:e2e                # при запущенном npm run dev; в AD
 
 Всё ниже бесплатно и нужно только для публичной ссылки. Локально сайт работает и без этого.
 
-1. **Supabase** (база данных): [supabase.com](https://supabase.com) → New project, регион Frankfurt (eu-central-1). В Project Settings → Database → Connection string скопируйте две строки:
+### 1. Supabase (база данных)
+
+1. [supabase.com](https://supabase.com) → Start your project → вход через GitHub.
+2. New project: имя `koshava`, придумать и сохранить пароль базы, регион **Central EU (Frankfurt)**, тариф Free.
+3. Через 1–2 минуты нажать **Connect** вверху страницы проекта и скопировать две строки подключения, подставив пароль вместо `[YOUR-PASSWORD]`:
    - **Session pooler** (порт 5432) — для миграций и импорта;
    - **Transaction pooler** (порт 6543) — для сайта на Vercel.
-2. Загрузить данные: запустить workflow `Import Lidl price list` (шаг 4) или локально с session-строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:dumps && npm run import:content`.
-3. **Vercel** (хостинг): [vercel.com](https://vercel.com) → Add New → Project → импорт репозитория из GitHub. В Environment Variables:
-   - `DATABASE_URL` — transaction pooler (6543);
-   - `ADMIN_EMAILS` — ваш email;
-   - `CONTACT_EMAIL` — контакт для страницы политики конфиденциальности.
 
-   Deploy. Адрес будет вида `koshava.vercel.app`, свой домен подключается потом в Settings → Domains.
-4. **GitHub Actions** (обновление цен, когда понадобится): в репозитории Settings → Secrets and variables → Actions → New secret `DATABASE_URL` (session pooler, 5432). Workflow `Import Lidl price list` запускается вручную (Actions → Run workflow). Для ежедневного обновления раскомментируйте `schedule` в `.github/workflows/import.yml`.
+Таблицы закрыты от REST API Supabase миграцией `0001_enable_rls` (RLS без политик); сайт подключается напрямую к Postgres и этого не замечает.
+
+### 2. Загрузка данных
+
+Вариант A — через GitHub Actions, пароль никуда не передаётся:
+
+1. Репозиторий → Settings → Secrets and variables → Actions → New repository secret: `DATABASE_URL` = строка **Session pooler**.
+2. Actions → Import Lidl price list → Run workflow. Занимает 20–25 минут: миграции, прайс-лист, фото из выгрузок Open Food Facts и lidl.rs.
+
+Вариант B — локально с той же строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:dumps && npm run import:content`.
+
+### 3. Vercel (хостинг)
+
+1. [vercel.com](https://vercel.com) → Sign Up → Hobby → вход через GitHub.
+2. Add New → Project → Import рядом с `koshava`. Если репозитория нет в списке: Adjust GitHub App Permissions → дать доступ к `koshava`.
+3. Framework Preset определится сам (Next.js). В Environment Variables добавить:
+   - `DATABASE_URL` — строка **Transaction pooler** (6543);
+   - `ADMIN_EMAILS` — email администратора;
+   - `CONTACT_EMAIL` — контакт для страницы политики конфиденциальности.
+4. Deploy — 1–2 минуты. Адрес вида `koshava.vercel.app`; поменять можно в Settings → Domains.
+5. Зарегистрироваться на сайте с email из `ADMIN_EMAILS` — появится ссылка «Админка».
+
+Функции работают во Франкфурте (`vercel.json`), рядом с базой. Каждый push в `main` деплоится автоматически.
 
 Ограничения бесплатных тарифов: Supabase Free ставит проект на паузу после 7 дней без запросов (снимается в панели одной кнопкой), 500 МБ базы. Vercel Hobby предназначен для некоммерческого использования; для запуска с реальными заказами нужен Pro ($20/мес.).
 

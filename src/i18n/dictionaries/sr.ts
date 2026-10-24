@@ -150,8 +150,6 @@ export const sr: Dictionary = {
     intercom: "Interfon",
     municipality: "Opština",
     municipalityPlaceholder: "Izaberite opštinu",
-    municipalityCity: "Grad",
-    municipalitySuburb: "Prigradske opštine",
     singleSlot: "Kurir od {time}",
     savedAddresses: "Sačuvane adrese",
     newAddress: "Nova adresa",
@@ -239,7 +237,7 @@ export const sr: Dictionary = {
   delivery: {
     title: "Uslovi dostave",
     lines: [
-      "Dostavljamo kurirom u svih 17 beogradskih opština.",
+      "Dostavljamo kurirom u gradskim opštinama Beograda: {zone}.",
       "Vrednost porudžbine je od {min} do {max}.",
       "Cena dostave je {rate} od vrednosti robe.",
       "Dostava jednom dnevno, kurir kreće u {slots}. Porudžbina se isporučuje sledećeg dana ili izabranog datuma.",

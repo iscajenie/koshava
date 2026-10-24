@@ -148,8 +148,6 @@ export const ru = {
     intercom: "Домофон",
     municipality: "Район (opština)",
     municipalityPlaceholder: "Выберите район",
-    municipalityCity: "Город",
-    municipalitySuburb: "Пригород",
     singleSlot: "Курьер с {time}",
     savedAddresses: "Сохранённые адреса",
     newAddress: "Новый адрес",
@@ -237,7 +235,7 @@ export const ru = {
   delivery: {
     title: "Условия доставки",
     lines: [
-      "Доставляем курьером по всем 17 районам Белграда.",
+      "Доставляем курьером по городским районам Белграда: {zone}.",
       "Сумма заказа — от {min} до {max}.",
       "Стоимость доставки — {rate} от суммы товаров.",
       "Доставка раз в день, курьер выезжает в {slots}. Заказ доставляется на следующий день или в выбранную дату.",

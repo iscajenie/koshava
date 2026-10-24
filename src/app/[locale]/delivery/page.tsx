@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getI18n } from "@/i18n/server";
 import { fmt } from "@/i18n";
-import { shop } from "@/config/shop";
+import { municipalities, shop } from "@/config/shop";
 import { formatPrice } from "@/lib/money";
 import { slotLabel } from "@/lib/format";
 
@@ -17,6 +17,7 @@ export default async function DeliveryPage() {
     max: formatPrice(shop.maxOrderMinor, locale),
     rate: `${Math.round(shop.deliveryFeeRate * 100)}%`,
     slots: shop.deliverySlots.map(slotLabel).join(", "),
+    zone: municipalities.join(", "),
   };
   return (
     <div className="card mx-auto max-w-2xl p-6 md:p-8">

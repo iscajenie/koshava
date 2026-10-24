@@ -16,28 +16,21 @@ export const shop = {
   weightStepKg: 0.5,
 } as const;
 
-// Belgrade's 17 city municipalities, values as couriers read them; labels in Russian.
+// Delivery zone: Belgrade's urban municipalities, named as couriers read them.
 export const municipalities = [
-  { value: "Vračar", ru: "Врачар", group: "city" },
-  { value: "Stari grad", ru: "Стари-Град", group: "city" },
-  { value: "Savski venac", ru: "Савски-Венац", group: "city" },
-  { value: "Palilula", ru: "Палилула", group: "city" },
-  { value: "Zvezdara", ru: "Звездара", group: "city" },
-  { value: "Voždovac", ru: "Вождовац", group: "city" },
-  { value: "Čukarica", ru: "Чукарица", group: "city" },
-  { value: "Rakovica", ru: "Раковица", group: "city" },
-  { value: "Novi Beograd", ru: "Нови-Београд", group: "city" },
-  { value: "Zemun", ru: "Земун", group: "city" },
-  { value: "Surčin", ru: "Сурчин", group: "suburb" },
-  { value: "Grocka", ru: "Гроцка", group: "suburb" },
-  { value: "Barajevo", ru: "Бараево", group: "suburb" },
-  { value: "Sopot", ru: "Сопот", group: "suburb" },
-  { value: "Obrenovac", ru: "Обреновац", group: "suburb" },
-  { value: "Lazarevac", ru: "Лазаревац", group: "suburb" },
-  { value: "Mladenovac", ru: "Младеновац", group: "suburb" },
+  "Čukarica",
+  "Novi Beograd",
+  "Palilula",
+  "Rakovica",
+  "Savski venac",
+  "Stari grad",
+  "Voždovac",
+  "Vračar",
+  "Zemun",
+  "Zvezdara",
 ] as const;
 
-export const municipalityValues: readonly string[] = municipalities.map((m) => m.value);
+export const municipalityValues: readonly string[] = municipalities;
 
 export function deliveryFeeFor(subtotalMinor: number) {
   return Math.round(subtotalMinor * shop.deliveryFeeRate);
