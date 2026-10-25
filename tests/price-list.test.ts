@@ -32,7 +32,7 @@ describe("parsePriceRow", () => {
       "2026-10-24",
     )!;
     expect(r).toMatchObject({
-      key: "4056489789246",
+      barcode: "4056489789246",
       priceMinor: 26999,
       regularPriceMinor: 26999,
       unitPriceMinor: 53998,

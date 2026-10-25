@@ -8,7 +8,7 @@ import { useShop } from "./shop-provider";
 import { PriceTag } from "./price-tag";
 import { QtyControl } from "./qty-control";
 import { FavoriteButton } from "./favorite-button";
-import { ProductImage, StockPhotoTag } from "./product-image";
+import { isStockPhoto, ProductImage, StockPhotoTag } from "./product-image";
 
 export function ProductCard({ product }: { product: ProductCardData }) {
   const { locale, t } = useShop();
@@ -21,7 +21,12 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <div className="aspect-square">
           <ProductImage src={product.imageUrl} alt={product.name} className="transition group-hover:scale-[1.03]" />
         </div>
-        {product.contentSource === "off" && <StockPhotoTag label={t.product.stockPhoto} hint={t.product.stockPhotoHint} />}
+        {isStockPhoto(product.contentSource) && (
+          <StockPhotoTag
+            label={t.product.stockPhoto}
+            hint={product.contentSource === "maxi" ? t.product.stockPhotoHintMaxi : t.product.stockPhotoHint}
+          />
+        )}
       </Link>
       <div className="flex flex-1 flex-col gap-2 px-3 pb-3">
         {product.brand && <div className="text-xs font-semibold tracking-wide text-muted uppercase">{product.brand}</div>}

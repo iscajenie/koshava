@@ -48,7 +48,7 @@ e2e/, tests/        тесты
 | Цены, акции, категории, штрихкоды | [cene_proizvoda_Lidl.csv](https://www.lidl.rs/explore/assets/webPriceData/rs/cene_proizvoda_Lidl.csv), официальный прайс-лист Lidl Srbija (обязателен по закону, зеркало на [data.gov.rs](https://data.gov.rs/sr/datasets/cenovnici-proizvoda-prema-pravilniku-o-uslovima-sadrzaju-i-nacinu-objavljivanja-cenovnika-lidl/)) | Основа каталога, около 3 100 товаров |
 | Дополнительные штрихкоды | [EAN.csv](https://www.lidl.rs/explore/assets/webPriceData/rs/EAN.csv) | Расширяют поиск фото |
 | Фото и описания | lidl.rs: штрихкод (GTIN) из разметки страницы товара | Точное совпадение по штрихкоду |
-| Фото (если нет на lidl.rs) | [Open Food Facts](https://world.openfoodfacts.org) / Open Beauty Facts / Open Products Facts, лицензия CC BY-SA | Точное совпадение по штрихкоду, на карточке есть ссылка на источник |
+| Фото (если нет на lidl.rs) | [maxi.rs](https://www.maxi.rs), затем [Open Food Facts](https://world.openfoodfacts.org) / Open Beauty Facts / Open Products Facts (CC BY-SA) | Точное совпадение по штрихкоду через поиск maxi.rs и выгрузки OFF; на карточке пометка «Фото ознакомительное» |
 
 На сайте весь прайс-лист: товары без фото показываются с заглушкой, фото из Open Food Facts помечены тегом «Фото ознакомительное» (на карточке и странице товара). `PUBLISH_WITHOUT_IMAGE=false` оставляет только товары с фото; настройка применяется при импорте.
 
@@ -56,7 +56,11 @@ e2e/, tests/        тесты
 
 API Open Food Facts на практике отдаёт около 15 ответов в минуту, поэтому первичная загрузка идёт через их ежедневные выгрузки (`import:dumps`), а API используется только для новых товаров.
 
-Lidl Srbija выкладывает на lidl.rs в основном акционные и непродовольственные товары, поэтому основная часть фото приходит из Open Food Facts.
+Lidl Srbija выкладывает на lidl.rs в основном акционные и непродовольственные товары, поэтому основная часть фото приходит из Open Food Facts и maxi.rs. Порядок выбора: lidl.rs → maxi.rs → Open Food Facts.
+
+Товар определяется по названию из прайс-листа, а не по штрихкоду: Lidl каждый день подставляет к одному названию штрихкод другого варианта (вкуса, поставщика). Все штрихкоды, которые были у товара, сохраняются и используются для поиска фото. Повторяющиеся названия (например, два вида яблок по разной цене) нумеруются.
+
+Мелкие категории прайс-листа (меньше ~30 товаров) объединены с близкими — `src/lib/import/categories.ts`. «Rasprodaja» — виртуальная категория со всеми товарами со скидкой.
 
 ## Локальный запуск
 
@@ -69,6 +73,7 @@ npm run db:migrate              # создать таблицы
 npm run import:prices           # загрузить прайс-лист (~30 с)
 npm run import:dumps            # фото из выгрузок Open Food Facts (~1,5 ГБ потоком, 10–15 мин)
 npm run import:content          # lidl.rs и точечные запросы к API для оставшихся (~15 мин)
+npm run import:maxi             # фото с maxi.rs вместо фото из Open Food Facts (~15 мин)
 npm run dev                     # http://localhost:3000
 ```
 

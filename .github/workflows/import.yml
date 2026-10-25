@@ -5,6 +5,16 @@ name: Import Lidl price list
 #     - cron: "23 8,14 * * *"   # Lidl publishes the list in the morning, Belgrade time
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "full: prices + every photo source (~25 min); quick: prices, photos for new products, Maxi (~15 min)"
+        type: choice
+        options: [full, quick]
+        default: quick
+      maxi_missing:
+        description: "Also look for Maxi photos for products that have none"
+        type: boolean
+        default: false
 
 concurrency:
   group: import
@@ -13,7 +23,7 @@ concurrency:
 jobs:
   import:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
@@ -26,5 +36,11 @@ jobs:
       - run: npm run db:migrate
       - run: npm run import:prices
       # Bulk photo lookup from the Open Food Facts dumps, then lidl.rs and the API for what is left.
-      - run: npm run import:dumps
-      - run: npm run import:content -- --limit=300
+      - if: inputs.mode == 'full'
+        run: npm run import:dumps
+      - if: inputs.mode == 'full'
+        run: npm run import:content -- --limit=300
+      - if: inputs.mode == 'quick'
+        run: npm run import:content -- --skip-lidl --limit=300
+      # Maxi photos replace Open Food Facts ones where Maxi carries the barcode.
+      - run: npm run import:maxi -- ${{ inputs.maxi_missing && '--include-missing' || '' }}

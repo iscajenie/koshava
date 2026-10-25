@@ -43,17 +43,18 @@ export function Header({
       </div>
       <nav className="mx-auto max-w-7xl px-4" aria-label={t.nav.catalog}>
         <ul className="scrollbar-none -mx-1 flex gap-1 overflow-x-auto py-2 text-sm font-medium whitespace-nowrap">
-          <li>
-            <Link href={`/${locale}/catalog?sale=1`} className="flex items-center gap-1.5 rounded px-2.5 py-1.5 font-semibold text-sale hover:bg-surface">
-              <TagIcon size={16} />
-              {t.nav.sale}
-            </Link>
-          </li>
           {categories.map((c) => (
-            <li key={c.id}>
-              <Link href={`/${locale}/catalog/${c.slug}`} className="block rounded px-2.5 py-1.5 hover:bg-surface hover:text-brand">
-                {c.name}
-              </Link>
+            <li key={c.slug}>
+              {c.isSale ? (
+                <Link href={`/${locale}/catalog/${c.slug}`} className="flex items-center gap-1.5 rounded px-2.5 py-1.5 font-semibold text-sale hover:bg-surface">
+                  <TagIcon size={16} />
+                  {c.name}
+                </Link>
+              ) : (
+                <Link href={`/${locale}/catalog/${c.slug}`} className="block rounded px-2.5 py-1.5 hover:bg-surface hover:text-brand">
+                  {c.name}
+                </Link>
+              )}
             </li>
           ))}
         </ul>

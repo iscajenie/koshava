@@ -5,7 +5,7 @@ import { useTransition } from "react";
 import { sortOptions, type SortOption } from "@/lib/sort-options";
 import { useShop } from "./shop-provider";
 
-export function CatalogToolbar({ countLabel }: { countLabel: string }) {
+export function CatalogToolbar({ countLabel, showSaleToggle = true }: { countLabel: string; showSaleToggle?: boolean }) {
   const { t } = useShop();
   const router = useRouter();
   const pathname = usePathname();
@@ -26,16 +26,18 @@ export function CatalogToolbar({ countLabel }: { countLabel: string }) {
       <span className="text-sm text-muted" data-testid="result-count">
         {countLabel}
       </span>
-      <label className="ml-auto flex items-center gap-2 text-sm font-medium">
-        <input
-          type="checkbox"
-          className="h-4 w-4 accent-sale"
-          checked={search.get("sale") === "1"}
-          onChange={(e) => update("sale", e.target.checked ? "1" : null)}
-        />
-        {t.catalog.onlySale}
-      </label>
-      <label className="flex items-center gap-2 text-sm">
+      {showSaleToggle && (
+        <label className="ml-auto flex items-center gap-2 text-sm font-medium">
+          <input
+            type="checkbox"
+            className="h-4 w-4 accent-sale"
+            checked={search.get("sale") === "1"}
+            onChange={(e) => update("sale", e.target.checked ? "1" : null)}
+          />
+          {t.catalog.onlySale}
+        </label>
+      )}
+      <label className={`flex items-center gap-2 text-sm ${showSaleToggle ? "" : "ml-auto"}`}>
         <span className="sr-only">{t.catalog.sort}</span>
         <select
           value={sort}

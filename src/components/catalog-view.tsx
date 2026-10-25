@@ -22,15 +22,15 @@ export async function CatalogView({
 }: {
   locale: Locale;
   t: Dictionary;
-  category?: { id: number; slug: string; name: string };
+  category?: { id: number; slug: string; name: string; isSale?: boolean };
   searchParams: Search;
 }) {
   const q = one(searchParams.q)?.trim().slice(0, 100) || undefined;
-  const onlySale = one(searchParams.sale) === "1";
+  const onlySale = category?.isSale || one(searchParams.sale) === "1";
   const sort = parseSort(one(searchParams.sort));
   const page = Math.max(1, Number(one(searchParams.page)) || 1);
   const [result, categories] = await Promise.all([
-    listProducts({ categoryId: category?.id, q, onlySale, sort, page }),
+    listProducts({ categoryId: category?.isSale ? undefined : category?.id, q, onlySale, sort, page }),
     listCategories(locale),
   ]);
 
@@ -52,7 +52,7 @@ export async function CatalogView({
       <section>
         <h1 className="mb-3 text-2xl font-extrabold tracking-tight md:text-3xl">{title}</h1>
         <Suspense>
-          <CatalogToolbar countLabel={plural(t.catalog.items, result.total, locale)} />
+          <CatalogToolbar countLabel={plural(t.catalog.items, result.total, locale)} showSaleToggle={!category?.isSale} />
         </Suspense>
         {result.items.length === 0 ? (
           <div className="card p-10 text-center">
@@ -103,8 +103,11 @@ function CategoryList({
           </Link>
         </li>
         {categories.map((c) => (
-          <li key={c.id}>
-            <Link href={`/${locale}/catalog/${c.slug}`} className={`${link} ${activeSlug === c.slug ? "bg-white font-bold text-brand" : ""}`}>
+          <li key={c.slug}>
+            <Link
+              href={`/${locale}/catalog/${c.slug}`}
+              className={`${link} ${activeSlug === c.slug ? "bg-white font-bold text-brand" : ""} ${c.isSale ? "font-semibold text-sale" : ""}`}
+            >
               <span>{c.name}</span>
               <span className="text-muted">{c.count}</span>
             </Link>

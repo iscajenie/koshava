@@ -1,38 +1,37 @@
-// Russian names for the 25 categories of the official price list, keyed by category code.
-export const categoryNamesRu: Record<string, string> = {
-  "1": "Молочные продукты и яйца",
-  "2": "Напитки, кофе и чай",
-  "3": "Овощи и фрукты",
-  "4": "Консервы, соусы и намазки",
-  "5": "Хлеб и выпечка",
-  "6": "Бобовые",
-  "7": "Замороженные продукты",
-  "8": "Мясо и колбасы",
-  "9": "Рыба и морепродукты",
-  "10": "Снеки и орехи",
-  "11": "Сладости и хлопья",
-  "12": "Сахар и мёд",
-  "13": "Мука и всё для выпечки",
-  "14": "Макароны и тесто",
-  "15": "Масла и жиры",
-  "16": "Уксус",
-  "17": "Рис и крупы",
-  "18": "Супы, соль и специи",
-  "19": "Бытовая химия",
-  "20": "Бумажные и кухонные товары",
-  "21": "Гигиена и косметика",
-  "22": "Детское питание",
-  "23": "Подгузники",
-  "24": "Алкоголь",
-  "25": "Корм для животных",
+// Categories of the official price list are keyed by code. Small ones (under ~30 products) are merged
+// into a related category so the navigation stays short.
+export const categoryMerges: Record<string, string> = {
+  "6": "14", // Mahunarke -> Testenine
+  "17": "14", // Pirinač i druge žitarice -> Testenine
+  "12": "13", // Šećer i med -> Brašno
+  "15": "18", // Ulja i masti -> Supe, so, začini
+  "16": "18", // Sirće -> Supe, so, začini
+  "23": "22", // Pelene -> Hrana za bebe
 };
 
-// Shorter Serbian labels for navigation; the full official name stays in the database.
-export const categoryShortSr: Record<string, string> = {
-  "1": "Mleko, mlečni proizvodi i jaja",
-  "2": "Bezalkoholna pića, kafa i čaj",
-  "4": "Prerađeno voće, povrće i namazi",
-  "13": "Brašno i sve za pecivo",
-  "18": "Supe, so i začini",
-  "20": "Papirna galanterija",
+export function siteCategoryCode(priceListCode: string) {
+  return categoryMerges[priceListCode] ?? priceListCode;
+}
+
+// Site names per category code: Serbian (Latin) and Russian.
+export const categoryNames: Record<string, { sr: string; ru: string }> = {
+  "1": { sr: "Mleko, mlečni proizvodi i jaja", ru: "Молочные продукты и яйца" },
+  "2": { sr: "Bezalkoholna pića, kafa i čaj", ru: "Напитки, кофе и чай" },
+  "3": { sr: "Sveže voće i povrće", ru: "Овощи и фрукты" },
+  "4": { sr: "Prerađeno voće, povrće i namazi", ru: "Консервы, соусы и намазки" },
+  "5": { sr: "Hleb i peciva", ru: "Хлеб и выпечка" },
+  "7": { sr: "Smrznuti proizvodi", ru: "Замороженные продукты" },
+  "8": { sr: "Sveže i prerađeno meso", ru: "Мясо и колбасы" },
+  "9": { sr: "Sveža i prerađena riba", ru: "Рыба и морепродукты" },
+  "10": { sr: "Slani konditori", ru: "Снеки и орехи" },
+  "11": { sr: "Slatki konditori i cerealije", ru: "Сладости и хлопья" },
+  "13": { sr: "Brašno, šećer i sve za pecivo", ru: "Мука, сахар и всё для выпечки" },
+  "14": { sr: "Testenine, pirinač i mahunarke", ru: "Макароны, крупы и бобовые" },
+  "18": { sr: "Ulja, začini i supe", ru: "Масла, специи и супы" },
+  "19": { sr: "Kućna hemija", ru: "Бытовая химия" },
+  "20": { sr: "Papirna galanterija", ru: "Бумажные и кухонные товары" },
+  "21": { sr: "Lična higijena i kozmetika", ru: "Гигиена и косметика" },
+  "22": { sr: "Sve za bebe", ru: "Всё для малышей" },
+  "24": { sr: "Alkoholna pića", ru: "Алкоголь" },
+  "25": { sr: "Hrana za kućne ljubimce", ru: "Корм для животных" },
 };

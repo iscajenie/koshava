@@ -4,6 +4,7 @@ import { db, schema } from "@/db";
 import { searchTerms } from "@/lib/text";
 import type { SortOption } from "@/lib/sort-options";
 import type { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n";
 
 const p = schema.products;
 
@@ -39,7 +40,10 @@ export type ProductCardData = {
   contentSource: string | null;
 };
 
-export type CategoryData = { id: number; slug: string; name: string; count: number; image: string | null };
+export type CategoryData = { id: number; slug: string; name: string; count: number; image: string | null; isSale?: boolean };
+
+// "Rasprodaja" is a virtual category: every discounted product, which also stays in its own category.
+export const SALE_CATEGORY_SLUG = "rasprodaja";
 
 const visible = eq(p.isPublished, true);
 const onSale = lt(p.priceMinor, p.regularPriceMinor);
@@ -58,19 +62,34 @@ export async function listCategories(locale: Locale): Promise<CategoryData[]> {
     .innerJoin(p, and(eq(p.categoryId, schema.categories.id), visible))
     .groupBy(schema.categories.id)
     .orderBy(asc(schema.categories.sort), asc(schema.categories.nameSr));
-  return rows.map((r) => ({
-    id: r.id,
-    slug: r.slug,
-    name: (locale === "ru" ? r.nameRu : null) ?? r.nameSr,
-    count: r.count,
-    image: r.image,
-  }));
+  const [sale] = await db
+    .select({
+      count: sql<number>`count(*)::int`,
+      image: sql<string | null>`(array_agg(${p.imageUrl} order by ${p.regularPriceMinor} - ${p.priceMinor} desc) filter (where ${p.imageUrl} is not null))[1]`,
+    })
+    .from(p)
+    .where(and(visible, onSale));
+  const saleCategory: CategoryData[] =
+    sale.count > 0
+      ? [{ id: 0, slug: SALE_CATEGORY_SLUG, name: getDictionary(locale).nav.sale, count: sale.count, image: sale.image, isSale: true }]
+      : [];
+  return [
+    ...saleCategory,
+    ...rows.map((r) => ({
+      id: r.id,
+      slug: r.slug,
+      name: (locale === "ru" ? r.nameRu : null) ?? r.nameSr,
+      count: r.count,
+      image: r.image,
+    })),
+  ];
 }
 
 export async function getCategory(slug: string, locale: Locale) {
+  if (slug === SALE_CATEGORY_SLUG) return { id: 0, slug, name: getDictionary(locale).nav.sale, isSale: true };
   const [row] = await db.select().from(schema.categories).where(eq(schema.categories.slug, slug)).limit(1);
   if (!row) return null;
-  return { id: row.id, slug: row.slug, name: (locale === "ru" ? row.nameRu : null) ?? row.nameSr };
+  return { id: row.id, slug: row.slug, name: (locale === "ru" ? row.nameRu : null) ?? row.nameSr, isSale: false };
 }
 
 

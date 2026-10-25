@@ -12,6 +12,7 @@ import { PriceTag } from "@/components/price-tag";
 import { QtyControl } from "@/components/qty-control";
 import { FavoriteButton } from "@/components/favorite-button";
 import { ProductGallery } from "@/components/product-gallery";
+import { isStockPhoto } from "@/components/product-image";
 import { ProductGrid } from "@/components/product-card";
 import { SectionHeader } from "@/components/section-header";
 import { ChevronRight } from "@/components/icons";
@@ -60,7 +61,14 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/p/[sl
         <ProductGallery
           images={images}
           alt={product.name}
-          stockPhoto={product.contentSource === "off" ? { label: t.product.stockPhoto, hint: t.product.stockPhotoHint } : undefined}
+          stockPhoto={
+            isStockPhoto(product.contentSource)
+              ? {
+                  label: t.product.stockPhoto,
+                  hint: product.contentSource === "maxi" ? t.product.stockPhotoHintMaxi : t.product.stockPhotoHint,
+                }
+              : undefined
+          }
         />
         <div className="space-y-5">
           <div>
@@ -126,6 +134,7 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/p/[sl
                   {t.product.photoLidl}
                 </a>
               )}
+              {product.contentSource === "maxi" && <span>{t.product.photoMaxi}</span>}
               {product.contentSource === "off" && product.barcode && (
                 <a href={`https://world.openfoodfacts.org/product/${product.barcode}`} target="_blank" rel="noopener noreferrer" className="underline">
                   {t.product.photoOff}

@@ -8,10 +8,11 @@ import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { parseCsv } from "@/lib/import/csv";
 import { CURRENT_LIST, parsePriceRow, parseSisterBarcodes, productSlug, type PriceRow } from "@/lib/import/price-list";
-import { categoryNamesRu, categoryShortSr } from "@/lib/import/categories";
+import { categoryNames, siteCategoryCode } from "@/lib/import/categories";
 import { belgradeToday, loadText } from "@/lib/import/fetch";
 import { normalizeText, slugify } from "@/lib/text";
 import { refreshPublished } from "@/lib/import/publish";
+import { rekeyLegacyProducts } from "@/lib/import/rekey";
 
 const PRICES_URL =
   process.env.LIDL_PRICES_CSV_URL ?? "https://www.lidl.rs/explore/assets/webPriceData/rs/cene_proizvoda_Lidl.csv";
@@ -31,9 +32,21 @@ async function main() {
     const rows = parseCsv(await loadText(source))
       .map((r) => parsePriceRow(r, today))
       .filter((r): r is PriceRow => r !== null);
+    // Repeated names are different products (e.g. two apple varieties): number them in a stable order.
+    const byName = new Map<string, PriceRow[]>();
+    for (const r of rows.filter((x) => x.kind === CURRENT_LIST)) byName.set(r.key, [...(byName.get(r.key) ?? []), r]);
     const current = new Map<string, PriceRow>();
-    for (const r of rows) if (r.kind === CURRENT_LIST && !current.has(r.key)) current.set(r.key, r);
+    for (const [key, same] of byName) {
+      same.sort((a, b) => a.regularPriceMinor - b.regularPriceMinor || (a.barcode ?? "").localeCompare(b.barcode ?? ""));
+      same.forEach((r, i) => {
+        r.key = i === 0 ? key : `${key}-${i + 1}`;
+        current.set(r.key, r);
+      });
+    }
     if (current.size < 500) throw new Error(`Only ${current.size} current rows in ${source}; refusing to deactivate the catalog`);
+
+    const merged = await rekeyLegacyProducts();
+    if (merged > 0) console.log(`Re-keyed products by name, merged ${merged} duplicates`);
 
     let sisters = new Map<string, Set<string>>();
     try {
@@ -42,23 +55,17 @@ async function main() {
       console.warn("EAN.csv unavailable, continuing without sister barcodes:", error);
     }
 
-    // Categories
+    // Categories: small price-list categories are merged into related ones (see categoryMerges).
+    for (const r of current.values()) r.categoryCode = siteCategoryCode(r.categoryCode);
     const categoryRows = new Map<string, string>();
     for (const r of current.values()) categoryRows.set(r.categoryCode, r.categoryName);
-    for (const [code, nameSr] of categoryRows) {
+    for (const [code, listName] of categoryRows) {
+      const nameSr = categoryNames[code]?.sr ?? listName;
+      const nameRu = categoryNames[code]?.ru ?? null;
       await db
         .insert(schema.categories)
-        .values({
-          code,
-          slug: slugify(categoryShortSr[code] ?? nameSr),
-          nameSr: categoryShortSr[code] ?? nameSr,
-          nameRu: categoryNamesRu[code] ?? null,
-          sort: Number(code) || 999,
-        })
-        .onConflictDoUpdate({
-          target: schema.categories.code,
-          set: { nameSr: categoryShortSr[code] ?? nameSr, nameRu: categoryNamesRu[code] ?? null },
-        });
+        .values({ code, slug: slugify(nameSr), nameSr, nameRu, sort: Number(code) || 999 })
+        .onConflictDoUpdate({ target: schema.categories.code, set: { slug: slugify(nameSr), nameSr, nameRu } });
     }
     const categoryIds = new Map(
       (await db.select({ id: schema.categories.id, code: schema.categories.code }).from(schema.categories)).map((c) => [c.code, c.id]),
@@ -66,11 +73,23 @@ async function main() {
 
     // Products
     const now = new Date();
+    const previous = new Map(
+      (await db.select({ key: schema.products.sourceKey, barcode: schema.products.barcode, alt: schema.products.altBarcodes }).from(schema.products)).map(
+        (p) => [p.key, p],
+      ),
+    );
+    // Every barcode a product has carried, plus Lidl's sister codes, helps find its photo.
+    const altBarcodesFor = (r: PriceRow) => {
+      const prev = previous.get(r.key);
+      const codes = new Set([...(prev?.alt ?? []), ...(prev?.barcode ? [prev.barcode] : []), ...(r.barcode ? [...(sisters.get(r.barcode) ?? [])] : [])]);
+      if (r.barcode) codes.delete(r.barcode);
+      return [...codes];
+    };
     const values = [...current.values()].map((r) => ({
       sourceKey: r.key,
       slug: productSlug(r.name, r.key),
       barcode: r.barcode,
-      altBarcodes: r.barcode ? [...(sisters.get(r.barcode) ?? [])] : [],
+      altBarcodes: altBarcodesFor(r),
       name: r.name,
       sourceName: r.sourceName,
       brand: r.brand,
@@ -86,12 +105,20 @@ async function main() {
       saleTo: r.saleTo,
       priceListDate: r.listDate,
       isActive: true,
-      searchText: normalizeText([r.name, r.brand, r.categoryName, categoryNamesRu[r.categoryCode]].filter(Boolean).join(" ")),
+      searchText: normalizeText(
+        [r.name, r.brand, r.categoryName, categoryNames[r.categoryCode]?.sr, categoryNames[r.categoryCode]?.ru].filter(Boolean).join(" "),
+      ),
       updatedAt: now,
     }));
-    const existing = new Set(
-      (await db.select({ key: schema.products.sourceKey }).from(schema.products)).map((p) => p.key),
-    );
+    const existingRows = await db.select({ key: schema.products.sourceKey, slug: schema.products.slug }).from(schema.products);
+    const existing = new Set(existingRows.map((p) => p.key));
+    // Two products can share a name and the last digits of their barcode; the newcomer gets the full key.
+    const slugOwner = new Map(existingRows.map((p) => [p.slug, p.key]));
+    for (const v of values) {
+      const owner = slugOwner.get(v.slug);
+      if (owner && owner !== v.sourceKey) v.slug = `${slugify(v.name)}-${v.sourceKey}`;
+      slugOwner.set(v.slug, v.sourceKey);
+    }
     for (const batch of chunks(values, 400)) {
       await db
         .insert(schema.products)
@@ -124,7 +151,7 @@ async function main() {
     }
     const history = new Map<string, { productId: number; day: string; priceMinor: number; regularPriceMinor: number }>();
     for (const r of rows) {
-      const productId = ids.get(r.key);
+      const productId = ids.get(r.key) ?? ids.get(r.key.replace(/-\d+$/, ""));
       if (productId) history.set(`${productId}:${r.listDate}`, { productId, day: r.listDate, priceMinor: r.priceMinor, regularPriceMinor: r.regularPriceMinor });
     }
     for (const batch of chunks([...history.values()], 1000)) {
@@ -136,6 +163,9 @@ async function main() {
           set: { priceMinor: sql`excluded.price_minor`, regularPriceMinor: sql`excluded.regular_price_minor` },
         });
     }
+
+    // Categories left without products (merged away) are removed.
+    await db.execute(sql`delete from categories c where not exists (select 1 from products p where p.category_id = c.id)`);
 
     const published = await refreshPublished();
     const stats = {

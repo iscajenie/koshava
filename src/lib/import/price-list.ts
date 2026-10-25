@@ -38,6 +38,7 @@ const UNIT_PRICE_LABEL: Record<string, string> = {
 
 export type PriceRow = {
   kind: string;
+  /** nameKey of the name; import-prices adds "-2", "-3" for repeated names. */
   key: string;
   barcode: string | null;
   sourceName: string;
@@ -81,8 +82,11 @@ export function cleanName(raw: string) {
   return s.replace(/\s+,/g, ",").trim();
 }
 
-export function stableKey(barcode: string | null, name: string) {
-  if (barcode) return barcode;
+/**
+ * A product is identified by its price-list name: Lidl swaps the barcode of a name between variants
+ * (flavours, suppliers) from day to day, while the name stays. Duplicate names get a suffix on import.
+ */
+export function nameKey(name: string) {
   return `n-${createHash("sha1").update(normalizeText(name)).digest("hex").slice(0, 12)}`;
 }
 
@@ -111,7 +115,7 @@ export function parsePriceRow(r: Record<string, string>, today: string): PriceRo
 
   return {
     kind: r[COL.kind] ?? CURRENT_LIST,
-    key: stableKey(barcode, sourceName),
+    key: nameKey(sourceName),
     barcode,
     sourceName,
     name: cleanName(sourceName),

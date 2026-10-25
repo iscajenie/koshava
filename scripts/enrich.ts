@@ -139,7 +139,7 @@ async function main() {
           })
           .where(eq(schema.products.id, p.id));
         fromLidl++;
-      } else if (codes.length > 0 && p.contentSource !== "lidl") {
+      } else if (codes.length > 0 && p.contentSource !== "lidl" && p.contentSource !== "maxi") {
         needOff.push(p);
       }
     }

@@ -116,3 +116,14 @@ test("order above the 30 000 RSD ceiling cannot be checked out", async ({ page }
   await expect(page.getByTestId("max-order")).toContainText("Максимальная сумма заказа");
   await expect(page.getByTestId("checkout-link")).toHaveCount(0);
 });
+
+test("Rasprodaja lists every discounted product as its own category", async ({ page }) => {
+  await page.goto("/sr");
+  await page.getByRole("navigation", { name: "Katalog" }).getByRole("link", { name: "Rasprodaja" }).click();
+  await expect(page).toHaveURL(/\/sr\/catalog\/rasprodaja/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Rasprodaja");
+  const cards = page.getByTestId("product-card");
+  const count = await cards.count();
+  expect(count).toBeGreaterThan(0);
+  for (let i = 0; i < count; i++) await expect(cards.nth(i)).toContainText("−");
+});

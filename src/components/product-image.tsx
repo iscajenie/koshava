@@ -1,4 +1,9 @@
-/** Marks photos that come from Open Food Facts rather than Lidl. */
+/** Photos that are not Lidl's own: Open Food Facts or Maxi, matched by barcode. */
+export function isStockPhoto(contentSource: string | null) {
+  return contentSource === "off" || contentSource === "maxi";
+}
+
+/** Marks photos that are not Lidl's own. */
 export function StockPhotoTag({ label, hint, className = "" }: { label: string; hint: string; className?: string }) {
   return (
     <span

@@ -3,7 +3,7 @@ import { getI18n } from "@/i18n/server";
 import { fmt } from "@/i18n";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/money";
-import { getFeaturedProducts, getSaleProducts, listCategories } from "@/lib/catalog";
+import { getFeaturedProducts, getSaleProducts, listCategories, SALE_CATEGORY_SLUG } from "@/lib/catalog";
 import { ProductGrid } from "@/components/product-card";
 import { SectionHeader } from "@/components/section-header";
 import { TagIcon, TruckIcon, WalletIcon } from "@/components/icons";
@@ -56,15 +56,18 @@ export default async function HomePage() {
           <SectionHeader title={t.home.categories} />
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {categories.map((c) => (
-              <li key={c.id}>
-                <Link href={`/${locale}/catalog/${c.slug}`} className="card flex h-full flex-col items-center gap-2 p-3 text-center hover:border-brand">
+              <li key={c.slug}>
+                <Link
+                  href={`/${locale}/catalog/${c.slug}`}
+                  className={`card flex h-full flex-col items-center gap-2 p-3 text-center hover:border-brand ${c.isSale ? "border-sale/40" : ""}`}
+                >
                   <div className="aspect-square w-full max-w-28">
                     {c.image && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={c.image} alt="" loading="lazy" className="h-full w-full object-contain" />
                     )}
                   </div>
-                  <span className="text-sm leading-tight font-semibold">{c.name}</span>
+                  <span className={`text-sm leading-tight font-semibold ${c.isSale ? "text-sale" : ""}`}>{c.name}</span>
                   <span className="text-xs text-muted">{c.count}</span>
                 </Link>
               </li>
@@ -75,7 +78,7 @@ export default async function HomePage() {
 
       {sale.length > 0 && (
         <section>
-          <SectionHeader title={t.home.onSale} href={`/${locale}/catalog?sale=1`} linkLabel={t.home.allOnSale} />
+          <SectionHeader title={t.home.onSale} href={`/${locale}/catalog/${SALE_CATEGORY_SLUG}`} linkLabel={t.home.allOnSale} />
           <ProductGrid products={sale} />
         </section>
       )}
