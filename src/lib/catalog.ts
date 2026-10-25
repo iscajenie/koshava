@@ -44,6 +44,7 @@ export type CategoryData = { id: number; slug: string; name: string; count: numb
 
 // "Rasprodaja" is a virtual category: every discounted product, which also stays in its own category.
 export const SALE_CATEGORY_SLUG = "rasprodaja";
+const SALE_CATEGORY_IMAGE = "/images/rasprodaja.svg";
 
 const visible = eq(p.isPublished, true);
 const onSale = lt(p.priceMinor, p.regularPriceMinor);
@@ -63,15 +64,12 @@ export async function listCategories(locale: Locale): Promise<CategoryData[]> {
     .groupBy(schema.categories.id)
     .orderBy(asc(schema.categories.sort), asc(schema.categories.nameSr));
   const [sale] = await db
-    .select({
-      count: sql<number>`count(*)::int`,
-      image: sql<string | null>`(array_agg(${p.imageUrl} order by ${p.regularPriceMinor} - ${p.priceMinor} desc) filter (where ${p.imageUrl} is not null))[1]`,
-    })
+    .select({ count: sql<number>`count(*)::int` })
     .from(p)
     .where(and(visible, onSale));
   const saleCategory: CategoryData[] =
     sale.count > 0
-      ? [{ id: 0, slug: SALE_CATEGORY_SLUG, name: getDictionary(locale).nav.sale, count: sale.count, image: sale.image, isSale: true }]
+      ? [{ id: 0, slug: SALE_CATEGORY_SLUG, name: getDictionary(locale).nav.sale, count: sale.count, image: SALE_CATEGORY_IMAGE, isSale: true }]
       : [];
   return [
     ...saleCategory,
