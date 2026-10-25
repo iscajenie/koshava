@@ -9,7 +9,7 @@ import type { AddressFields } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth/session";
 import { cartTotals, getCartLines } from "@/lib/cart";
 import { isValidSlot } from "@/lib/delivery";
-import { municipalityValues } from "@/config/shop";
+import { municipalityValues, shop } from "@/config/shop";
 import { defaultLocale, isLocale } from "@/i18n/config";
 
 export type CheckoutState = {
@@ -35,7 +35,7 @@ const checkoutSchema = z.object({
   municipality: z.string().optional().transform((v) => (v && municipalityValues.includes(v) ? v : undefined)),
   deliveryDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   deliverySlot: z.string().min(1).max(10),
-  paymentMethod: z.enum(["cash", "card"]),
+  paymentMethod: z.enum(shop.paymentMethods),
   comment: z.string().trim().max(1000).optional(),
   saveAddress: z.string().optional(),
 });

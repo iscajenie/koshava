@@ -172,7 +172,7 @@ export function CheckoutForm({
       <fieldset className="card space-y-3 p-5">
         <legend className="float-left mb-2 w-full text-lg font-bold">{t.checkout.payment}</legend>
         <div className="clear-both grid gap-2 sm:grid-cols-2">
-          {(["cash", "card"] as const).map((m, i) => (
+          {shop.paymentMethods.map((m, i) => (
             <label key={m} className="flex cursor-pointer items-center gap-3 rounded border border-line p-3 has-[:checked]:border-brand has-[:checked]:bg-brand-light">
               <input type="radio" name="paymentMethod" value={m} defaultChecked={i === 0} className="accent-brand" />
               <span className="font-medium">{m === "cash" ? t.checkout.paymentCash : t.checkout.paymentCard}</span>

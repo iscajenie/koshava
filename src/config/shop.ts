@@ -14,6 +14,8 @@ export const shop = {
   deliverySlots: ["10"],
   // Weighed goods are added in steps of this many kilograms.
   weightStepKg: 0.5,
+  // "card" (card to the courier) needs a mobile POS terminal; add it back once the courier has one.
+  paymentMethods: ["cash"],
 } as const;
 
 // Delivery zone: Belgrade's urban municipalities, named as couriers read them.
