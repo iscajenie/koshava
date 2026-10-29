@@ -17,7 +17,7 @@ import { sleep } from "@/lib/import/fetch";
 
 const REFRESH_DAYS = 7;
 // Photos stored per product: the card preview by default. The free database tier (500 MB) holds
-// roughly 20 000 previews; raise this to keep gallery photos too.
+// roughly 25 000 previews; raise this to keep gallery photos too.
 const IMAGES_PER_PRODUCT = Number(process.env.LIDL_LIBRARY_IMAGES ?? 1);
 const DAY = 24 * 60 * 60 * 1000;
 

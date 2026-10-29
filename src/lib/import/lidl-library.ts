@@ -53,7 +53,7 @@ export async function fetchLidlRecord(erp: string, url: string): Promise<LidlRec
   return res ? parseLidlPage(erp, url, await res.text()) : null;
 }
 
-/** Downloads a photo and stores it as WebP, at most 600 px (about 20–25 KB), so it stays available after Lidl removes it. */
+/** Downloads a photo and stores it as WebP, at most 600 px (15 KB on average), so it stays available after Lidl removes it. */
 export async function storeLidlImage(erp: string, sourceUrl: string, position: number) {
   const res = await get(sourceUrl);
   if (!res) return false;
