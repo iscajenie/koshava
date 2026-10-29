@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { gunzipSync } from "node:zlib";
 import sharp from "sharp";
 import { and, eq, inArray, sql } from "drizzle-orm";
@@ -190,6 +192,14 @@ export async function saveLidlRecord(record: LidlRecord, now: Date, country = "r
  * Photos from other Lidl countries only go to products that have no photo at all, nearest country first,
  * and are shown as reference photos (contentSource "lidl-intl"): the packaging may be in another language.
  */
+/** Price-list products matched by hand-reviewed name to a lidl.rs library entry: source key -> library key. */
+function nameMatches() {
+  const file = path.join(process.cwd(), "data/lidl-name-matches.json");
+  if (!fs.existsSync(file)) return new Map<string, string>();
+  const data = JSON.parse(fs.readFileSync(file, "utf8")) as Record<string, { erp: string }>;
+  return new Map(Object.entries(data).map(([key, m]) => [key, m.erp]));
+}
+
 export async function applyLidlLibrary() {
   const lib = schema.lidlLibrary;
   // Entries still on lidl.rs and the most recently seen come last, so they win when GTINs repeat.
@@ -233,11 +243,13 @@ export async function applyLidlLibrary() {
       barcode: p.barcode,
       altBarcodes: p.altBarcodes,
       description: p.description,
+      sourceKey: p.sourceKey,
       imageUrl: p.imageUrl,
       contentSource: p.contentSource,
     })
     .from(p)
     .where(eq(p.isActive, true));
+  const byName = nameMatches();
   let matched = 0;
   for (const product of products) {
     const codes = [product.barcode, ...product.altBarcodes].filter((c): c is string => !!c).map((c) => c.replace(/^0+/, ""));
@@ -245,6 +257,17 @@ export async function applyLidlLibrary() {
     if (!entry) {
       const foreign = codes.map((c) => abroad.get(c)).find(Boolean);
       if (product.imageUrl && product.contentSource !== "lidl-intl") continue;
+      // Reviewed name matches (data/lidl-name-matches.json): the same product on lidl.rs under another barcode.
+      const named = byName.get(product.sourceKey);
+      const namedIds = named && imagesByErp.get(named);
+      if (!foreign && namedIds && (!product.imageUrl || product.contentSource === "lidl-name")) {
+        await db
+          .update(p)
+          .set({ imageUrl: `/api/img/${namedIds[0]}`, images: [`/api/img/${namedIds[0]}`], lidlUrl: null, contentSource: "lidl-name", enrichedAt: new Date() })
+          .where(eq(p.id, product.id));
+        matched++;
+        continue;
+      }
       if (!foreign) {
         // A photo from abroad that no longer matches (stricter rules) is taken away again.
         if (product.contentSource === "lidl-intl") {

@@ -1,6 +1,6 @@
 /** Photos that do not show the Serbian product for sure: Open Food Facts, Maxi, Idea or another Lidl country, matched by barcode. */
 export function isStockPhoto(contentSource: string | null) {
-  return contentSource === "off" || contentSource === "maxi" || contentSource === "idea" || contentSource === "lidl-intl";
+  return contentSource === "off" || contentSource === "maxi" || contentSource === "idea" || contentSource === "lidl-intl" || contentSource === "lidl-name";
 }
 
 /** Marks photos that are not Lidl's own. */
