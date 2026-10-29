@@ -29,6 +29,11 @@
   "erp": "11219027",
   "lidl": "Kokice za mikrotalasnu"
  },
+ "n-0adeee82e656": {
+  "product": "Baget 250g",
+  "erp": "everli:img-6d5113d58d",
+  "lidl": "Baguette (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-0ae70815d3dd": {
   "product": "Pileći batak i karabatak MIX ca. 1kg",
   "erp": "11495200",
@@ -78,6 +83,11 @@
   "product": "Gazirano piće sa ukusom limuna 0,33l",
   "erp": "11494196",
   "lidl": "SAGUARO EDITION Gazirano piće sa ukusom limuna"
+ },
+ "n-137e765536a1": {
+  "product": "Rustični hleb sa kiselim test. 500g",
+  "erp": "everli:img-31445b15e4",
+  "lidl": "Pane rustico a lievitazione naturale (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-13b31dc3c899": {
   "product": "Svinj.rebra \"short ribs\" ca 900g",
@@ -224,6 +234,11 @@
   "erp": "11498128",
   "lidl": "Voćna kaša"
  },
+ "n-279b864f5d68": {
+  "product": "Hleb beli 500g",
+  "erp": "everli:img-36301950f8",
+  "lidl": "Pane bianco rotondo (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-27ce83dbb8b4": {
   "product": "Mineralna negazirana voda 6l",
   "erp": "11497358",
@@ -283,6 +298,11 @@
   "product": "Meš. 60%svinj.40%jun. usitnj. 500g",
   "erp": "everli:515143",
   "lidl": "Macinato Misto di Suino e Bovino, confezione 0.500kg"
+ },
+ "n-39fbb46c0ba5": {
+  "product": "Hleb ražani 600g",
+  "erp": "everli:img-bef2fa717b",
+  "lidl": "Pane di segale (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-3a773efac260": {
   "product": "Domaća jabuka crveni delišes, rinfuz",
@@ -539,6 +559,11 @@
   "erp": "everli:514253",
   "lidl": "Cuori di Iceberg, confezione 0.200kg"
  },
+ "n-609d057741ed": {
+  "product": "Mini Pizza Margherita 110g",
+  "erp": "everli:img-c3294784e8",
+  "lidl": "Pizzetta margherita (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-63dfeca06db8": {
   "product": "Mandarine, rinfuz",
   "erp": "11214590",
@@ -679,6 +704,11 @@
   "erp": "11266385",
   "lidl": "Domaće povrće za supu"
  },
+ "n-8034d9c85716": {
+  "product": "Zemička 55g",
+  "erp": "everli:img-708f7943f1",
+  "lidl": "Panino (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-80cddf67719a": {
   "product": "Grožđe belo besemeno 2kg PK 2kg",
   "erp": "everli:529111",
@@ -713,6 +743,11 @@
   "product": "Svetlo pivo 4% Vol 0,5l",
   "erp": "11252297",
   "lidl": "Svetlo pivo"
+ },
+ "n-86e405af9119": {
+  "product": "Putero kroasan 27%/ 60g",
+  "erp": "everli:img-e0f5d585c8",
+  "lidl": "Cornetto al burro (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-8974f064579c": {
   "product": "Napolitanke preliv. čokoladom 180g",
@@ -813,6 +848,11 @@
   "product": "Pileća posebna mini 500g",
   "erp": "11316482",
   "lidl": "Pileća posebna XXL"
+ },
+ "n-9a037f45b9c2": {
+  "product": "Baltički hleb sa semenkama 400g",
+  "erp": "everli:img-283cdea540",
+  "lidl": "Pane scuro ai semi (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-9a61a7044405": {
   "product": "Pileći karabatak bez kože i ko. 500g",
@@ -929,6 +969,11 @@
   "erp": "everli:555645",
   "lidl": "Cipolla Dorata, rete 1kg"
  },
+ "n-ad03c4538ce9": {
+  "product": "Bavarska pereca 95g",
+  "erp": "everli:img-6d6e044175",
+  "lidl": "Brezel (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-ad6a3988cd33": {
   "product": "Nektar jabuka 50% 0,2l",
   "erp": "11496828",
@@ -948,6 +993,11 @@
   "product": "Smrznuta boranija zelena 1kg",
   "erp": "11495369",
   "lidl": "Zelena boranija"
+ },
+ "n-aec707e65e25": {
+  "product": "Kroasan sa čokoladnim nadevom 80g",
+  "erp": "everli:img-6b84321865",
+  "lidl": "Cornetto con ripieno al cioccolato (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-aed571f189de": {
   "product": "Svinjske šnicle od buta 850g",
@@ -1059,6 +1109,11 @@
   "erp": "11497989",
   "lidl": "Čajna kobasica"
  },
+ "n-c63e557b559e": {
+  "product": "Rustik baget 300g",
+  "erp": "everli:img-651cde028d",
+  "lidl": "Baguette rustica (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-c72c3ea5513f": {
   "product": "Suva hrana za mačke(Better)1kg/ 1kg",
   "erp": "11684484",
@@ -1084,10 +1139,20 @@
   "erp": "11493234",
   "lidl": "Šumadijski sir XXL"
  },
+ "n-ca4105787cb6": {
+  "product": "Hleb tamni domaći 500g",
+  "erp": "everli:img-8f0c0c1f52",
+  "lidl": "Pane scuro ai cereali (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-ca73460ba8a0": {
   "product": "Kakao duo krem 500g",
   "erp": "11494189",
   "lidl": "MISTER CHOC Kakao duo krem XXL"
+ },
+ "n-caf7c3062bd7": {
+  "product": "Fokača sa biberom 150g",
+  "erp": "everli:img-093c341071",
+  "lidl": "Focaccia (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-cb006980ed6e": {
   "product": "Jaja iz pod. uzgoja L 10kom.",
@@ -1139,6 +1204,11 @@
   "erp": "everli:515353",
   "lidl": "Prugne Secche, confezione 0.500kg"
  },
+ "n-d5e20b7dbb76": {
+  "product": "Kajzerica rustična 80g",
+  "erp": "everli:img-f763ee1575",
+  "lidl": "Kaiser (panino) (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-d6d7c421ccc8": {
   "product": "Grčki tip jogurta kajsija 400g",
   "erp": "11314885",
@@ -1168,6 +1238,11 @@
   "product": "Limun, rinfuz",
   "erp": "11030073",
   "lidl": "Limun"
+ },
+ "n-db35c5a12932": {
+  "product": "Okrugli hleb sa kromp. i lukom 400g",
+  "erp": "everli:img-93ed160353",
+  "lidl": "Pane rotondo (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-dbe9477daf04": {
   "product": "Šampon za kosu 500ml",
@@ -1284,6 +1359,11 @@
   "erp": "11492997",
   "lidl": "PIKOK Stišnjena šunka XXL"
  },
+ "n-e59b61ec9a22": {
+  "product": "Somun 160g",
+  "erp": "everli:img-e1d1610dc7",
+  "lidl": "Pane piatto (pita) (Lidl Italia, Everli; recognized from the photo)"
+ },
  "n-e69d5c9af45c": {
   "product": "Pileća prsa u omotu 400g",
   "erp": "11405202",
@@ -1338,6 +1418,11 @@
   "product": "Pileća posebna sa sirom 400g",
   "erp": "11316482",
   "lidl": "Pileća posebna XXL"
+ },
+ "n-f14677ce39a4": {
+  "product": "Putero kroasan 24% 53g",
+  "erp": "everli:img-e0f5d585c8",
+  "lidl": "Cornetto al burro (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-f161d1a00ca2": {
   "product": "Svinjski file ca. 400g",
