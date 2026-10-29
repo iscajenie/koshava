@@ -14,6 +14,11 @@
   "erp": "11494968",
   "lidl": "Pašteta sa šunkom"
  },
+ "n-048158f4565c": {
+  "product": "Prirodni šampon za kosu 500ml",
+  "erp": "everli:2918686",
+  "lidl": "Cien Nature Shampoo Bio Lavaggi Frequenti Aloe Calendula, flacone 0.250l"
+ },
  "n-049f35e7dcaf": {
   "product": "Kokosov orah, komad 1kom.",
   "erp": "everli:555693",
@@ -88,6 +93,16 @@
   "product": "Kuh. Ubrus Troslojni 2x50 lis. 2x50listic",
   "erp": "everli:515869",
   "lidl": "Floralys Asciugatutto Maxi 3 Veli, confezione 3pz"
+ },
+ "n-0db13d8befe7": {
+  "product": "Toalet papir 100% celu.3slojni 1500listić",
+  "erp": "everli:3529420",
+  "lidl": "Floralys Carta Igienica Soft 3 Veli 200 Strappi, confezione 12pz"
+ },
+ "n-0e6992eb25d1": {
+  "product": "Toaletna voda za muškarce 75ml",
+  "erp": "everli:1888896",
+  "lidl": "G. Bellini Profumo Uomo One Fragrance, confezione 0.075l"
  },
  "n-0fb869ff0d8c": {
   "product": "Grčki tip jogurta 0% 150g",
@@ -259,6 +274,11 @@
   "erp": "11498128",
   "lidl": "Voćna kaša"
  },
+ "n-26cae22b9ec5": {
+  "product": "Toalet papir 100% celu.3slojni 2000 listić.",
+  "erp": "everli:3529420",
+  "lidl": "Floralys Carta Igienica Soft 3 Veli 200 Strappi, confezione 12pz"
+ },
  "n-26d005fecfd2": {
   "product": "Edamer sir 250g",
   "erp": "everli:515281",
@@ -283,6 +303,16 @@
   "product": "Mineralna negazirana voda 6l",
   "erp": "11497358",
   "lidl": "Mineralna negazirana voda"
+ },
+ "n-2a2473e2c71a": {
+  "product": "Intimna nega 400ml",
+  "erp": "everli:516821",
+  "lidl": "Cien Detergente Intimo, flacone 0.500l"
+ },
+ "n-2a87dc70e718": {
+  "product": "Prirodni balzam za kosu 350ml",
+  "erp": "everli:2918678",
+  "lidl": "Cien Nature Balsamo Bio per Capelli Secchi Avena Camomilla, flacone 0.250l"
  },
  "n-2b05cfb7aeb0": {
   "product": "Spumante Bianco Dolce 0,75l",
@@ -599,6 +629,11 @@
   "erp": "everli:937554",
   "lidl": "Certossa Pan Bauletto Integrale a Fette, confezione 0.400kg"
  },
+ "n-5a696c165c08": {
+  "product": "Papirne maramice, 4-slojne 100listić",
+  "erp": "everli:1188860",
+  "lidl": "Floralys Fazzoletti Box 4 Veli, confezione 100pz"
+ },
  "n-5a7c75708bf8": {
   "product": "Pileće grudi 500g",
   "erp": "everli:517263",
@@ -618,6 +653,11 @@
   "product": "Kocke za potpalu 48kom.",
   "erp": "everli:513979",
   "lidl": "Tavolette Accendifuoco, scatola 48pz"
+ },
+ "n-5ca10ca3c3a0": {
+  "product": "Konac za zube 1kom.",
+  "erp": "everli:545109",
+  "lidl": "Dentalux Filo Interdentale, confezione 1pz"
  },
  "n-5cbbf30243f6": {
   "product": "Kikiriki u opni, pečeni, slani 1kg",
@@ -714,6 +754,11 @@
   "erp": "everli:4887761",
   "lidl": "Milbona Yogurt Bianco Intero 3,5% Grassi, confezione 1kg"
  },
+ "n-68444d8d4d19": {
+  "product": "Vlažne mar. za skidanje šminke 25kom.",
+  "erp": "everli:3890013",
+  "lidl": "Cien Salviettine Struccanti, confezione 50pz"
+ },
  "n-68ee3c91e691": {
   "product": "Pirinač okruglog zrna 1kg",
   "erp": "everli:513807",
@@ -729,6 +774,11 @@
   "erp": "11493225",
   "lidl": "Domaća kobasica"
  },
+ "n-6ae74be9511f": {
+  "product": "Šampon za svakodn. pranje kose 500ml",
+  "erp": "everli:2869080",
+  "lidl": "Cien Shampoo Tutti i Giorni, flacone 1l"
+ },
  "n-6b2f6b2992fc": {
   "product": "Tiramisu 400g",
   "erp": "everli:514129",
@@ -743,6 +793,11 @@
   "product": "Smrznuti grašak 1kg",
   "erp": "everli:514611",
   "lidl": "Freshona Piselli Fini, busta 1kg"
+ },
+ "n-6d5109a09ce2": {
+  "product": "Interdentalni set za negu zuba 1kom.,6kom.",
+  "erp": "everli:516079",
+  "lidl": "Dentalux Scovolino Interdentale Fine, confezione 6pz"
  },
  "n-6dec12f9957d": {
   "product": "Halloween bundeva, rinfuz",
@@ -814,10 +869,20 @@
   "erp": "everli:937552",
   "lidl": "Certossa Pan Bauletto Bianco a Fette, confezione 0.400kg"
  },
+ "n-726069a70ce1": {
+  "product": "Kremasti sapun sa 25% kreme 90g",
+  "erp": "everli:5197401",
+  "lidl": "Dove Beauty Cream Bar Deep Moisture For Soft Skin Bars, Imballaggio 2x90g"
+ },
  "n-7394232191bd": {
   "product": "Četkica za zube za decu 2kom.",
   "erp": "everli:3901761",
   "lidl": "Dentalux Spazzolino da Denti per Bambini Junior 6+ Anni, confezione 2pz"
+ },
+ "n-758c6a49890f": {
+  "product": "Kozmetičke maramice 2-sloj. 200kom.",
+  "erp": "everli:3833419",
+  "lidl": "Cien Veline Cosmetiche 2 Veli, confezione 200pz"
  },
  "n-75f9a1ddfdfb": {
   "product": "Kivi, rinfuz",
@@ -919,6 +984,11 @@
   "erp": "everli:img-e0f5d585c8",
   "lidl": "Cornetto al burro 57g (Lidl Italia)"
  },
+ "n-8816d30b3161": {
+  "product": "Maramice od rec. papira 4-sl. 100st",
+  "erp": "everli:1188860",
+  "lidl": "Floralys Fazzoletti Box 4 Veli, confezione 100pz"
+ },
  "n-88ed434e2360": {
   "product": "Tečni deterg. za r. pra. posuđa 1.5l",
   "erp": "everli:569785",
@@ -989,10 +1059,20 @@
   "erp": "everli:515925",
   "lidl": "Broccoli, pezzo 0.500kg"
  },
+ "n-93673348a079": {
+  "product": "Teč. sapun sa pumpicom 0,5l",
+  "erp": "everli:515687",
+  "lidl": "Cien Sapone Liquido Mani Oliva, dispenser 0.500l"
+ },
  "n-947b3e698fc4": {
   "product": "Aluminijumska folija 30cmx30m 1kom.",
   "erp": "11253931",
   "lidl": "Aluminijumska folija"
+ },
+ "n-94a9c344c39c": {
+  "product": "Dezodorans u spreju za muškar. 200ml",
+  "erp": "everli:2384858",
+  "lidl": "Cien Deodorante Spray Uomo Extra Dry, bomboletta 0.200l"
  },
  "n-974b2a267ab5": {
   "product": "Suve urme 200g",
@@ -1069,10 +1149,25 @@
   "erp": "11331220",
   "lidl": "MAX & MILA'S WORLD Beli pesak za mačke"
  },
+ "n-9ce7a2a9b845": {
+  "product": "Tečni sapun 1l",
+  "erp": "everli:2018238",
+  "lidl": "Cien Sapone Ricarica Antibatterico Aloe Vera, confezione 1l"
+ },
+ "n-9e32fefa1f93-2": {
+  "product": "Pamučna vata 200g",
+  "erp": "everli:516921",
+  "lidl": "Cien Cotone Idrofilo Pretagliato Medicale, confezione 0.100kg"
+ },
  "n-9ea72dd2d288": {
   "product": "Felix vlažna hrana za mačke 18x85g",
   "erp": "everli:5225135",
   "lidl": "Felix Original Selezioni Saporite in Gelatina Pollo, Manzo 12x85g, Confezione 1.02 kg"
+ },
+ "n-9f229332362b": {
+  "product": "Krema za ruke 200ml",
+  "erp": "everli:3041602",
+  "lidl": "Cien Crema Mani Riparatrice, tubetto 0.100l"
  },
  "n-9f88c5595652": {
   "product": "Jaja iz podnog uzgoja M 30/ 1 30kom.",
@@ -1284,6 +1379,11 @@
   "erp": "everli:3710651",
   "lidl": "Mazzancolle Tropicali Intere Precotte, confezione 0.250kg"
  },
+ "n-b7b8aad8d677": {
+  "product": "Tečni sapun dopuna 1l",
+  "erp": "everli:2018238",
+  "lidl": "Cien Sapone Ricarica Antibatterico Aloe Vera, confezione 1l"
+ },
  "n-b91cd247c3ca": {
   "product": "Jezgro lešnika 200g",
   "erp": "everli:517641",
@@ -1298,6 +1398,11 @@
   "product": "Slanina narezana bez kože 500g",
   "erp": "everli:514401",
   "lidl": "Pancetta a Fette, confezione 0.400kg"
+ },
+ "n-bbde593b71cf": {
+  "product": "Antiseptik tečni sapun BA 1l",
+  "erp": "everli:2018238",
+  "lidl": "Cien Sapone Ricarica Antibatterico Aloe Vera, confezione 1l"
  },
  "n-bc9d3b47a2e8": {
   "product": "Pileće grudi 500g",
@@ -1334,6 +1439,11 @@
   "erp": "11214527",
   "lidl": "Avokado"
  },
+ "n-c3397c30fdeb": {
+  "product": "Toalet papir 68m 2-sl,100% rec. 1kom.",
+  "erp": "everli:3968461",
+  "lidl": "Floralys Carta Igienica Riciclata 2 Veli 4x300 Strappi, confezione 4pz"
+ },
  "n-c34892db52f7": {
   "product": "Beli luk, rinfuz",
   "erp": "everli:529073",
@@ -1348,6 +1458,11 @@
   "product": "Stišnjena šunka 350g",
   "erp": "11492997",
   "lidl": "PIKOK Stišnjena šunka XXL"
+ },
+ "n-c4838b1236e8": {
+  "product": "Kremasti gel za tuširanje 500ml",
+  "erp": "everli:2882052",
+  "lidl": "Cien Doccia Crema Argan e Cocco, flacone 0.500l"
  },
  "n-c4957145b8ea": {
   "product": "Čajna kobasica od svinjs. mesa 300g",
@@ -1434,6 +1549,11 @@
   "erp": "everli:513935",
   "lidl": "Milbona Yogurt Cremoso Fragola, vasetto 0.150kg"
  },
+ "n-ce316874c5a8": {
+  "product": "Balzam za kosu 500ml",
+  "erp": "everli:4956831",
+  "lidl": "Cien Balsamo Hair Fuits Banana, flacone 0.400l"
+ },
  "n-cf7e65344735": {
   "product": "Jaja iz podnog uzgoja M 15/ 1 15kom.",
   "erp": "11313832",
@@ -1473,6 +1593,11 @@
   "product": "Kajzerica rustična 80g",
   "erp": "everli:img-f763ee1575",
   "lidl": "Rosetta 65g (Lidl Italia)"
+ },
+ "n-d6239f330d76": {
+  "product": "Papirni štapići za uši 300 kom. 300kom.",
+  "erp": "everli:4891137",
+  "lidl": "Cien Bastoncini Cotonati con Cotone Bio, confezione 400pz"
  },
  "n-d6d7c421ccc8": {
   "product": "Grčki tip jogurta kajsija 400g",
@@ -1518,6 +1643,11 @@
   "product": "Domaći krompir beli, rinfuz",
   "erp": "11151197",
   "lidl": "Domaći beli krompir"
+ },
+ "n-dcfceffa053a": {
+  "product": "Sunđer za kupanje 1kom.",
+  "erp": "everli:516877",
+  "lidl": "Cien Spugna Corpo con Lato Massaggio, confezione 1pz"
  },
  "n-dda8cecf2b86": {
   "product": "Prašak za pecivo 8x10g 80g",
@@ -1714,6 +1844,11 @@
   "erp": "everli:511785",
   "lidl": "Filetto di Maiale, sottovuoto 0.580kg"
  },
+ "n-f1db62e5acfa": {
+  "product": "Maramice, 3-slojne 10x10kom.",
+  "erp": "everli:1188968",
+  "lidl": "Floralys Fazzoletti 30pz x 10, confezione 30pz"
+ },
  "n-f32cd882f2b9": {
   "product": "Mineralna negazirana voda 1,5l",
   "erp": "11497358",
@@ -1788,6 +1923,11 @@
   "product": "Amaretto 28% Vol. 0,7l",
   "erp": "everli:575981",
   "lidl": "Armilar Amaretto 28% Vol., bottiglia 0.700l"
+ },
+ "n-fbcfad6917e7": {
+  "product": "Tečni sapun za ruke Premium 500ml",
+  "erp": "everli:569823",
+  "lidl": "Cien Sapone Liquido Mani Melagrana, dispenser 0.500l"
  },
  "n-fbee36b8ba37": {
   "product": "Kuhinjska so u posipaču 250g",

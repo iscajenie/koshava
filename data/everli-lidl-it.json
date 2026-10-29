@@ -20,6 +20,20 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2020/16/1765e8aa1db270f68450092028ee87634ac6b0c2.jpeg",
   "url": "https://spesa.everli.com/en/products/3/100112?brand=lidl"
  },
+ "everli:1188860": {
+  "name": "Floralys Fazzoletti Box 4 Veli, confezione 100pz",
+  "brand": "Floralys",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2020/26/4c75d2ac10043c6e0d80051ac8fd056ac89e7cc4.jpeg",
+  "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
+ },
+ "everli:1188968": {
+  "name": "Floralys Fazzoletti 30pz x 10, confezione 30pz",
+  "brand": "Floralys",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2020/26/7993c6be1fc29cdb88fb9b356f75f4f6e6dbfade.webp",
+  "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
+ },
  "everli:1298064": {
   "name": "Filetto di Salmone senza Pelle, confezione 0.180kg",
   "brand": "Gastronomia di Mare",
@@ -55,12 +69,75 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/12/2/aeafdcc1a715169d4b9ce145bdf304ae908656d3.webp",
   "url": "https://spesa.everli.com/en/products/3/100113?brand=lidl"
  },
+ "everli:1888896": {
+  "name": "G. Bellini Profumo Uomo One Fragrance, confezione 0.075l",
+  "brand": "G. Bellini",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/04/28/bdf13b18fbe4bc6d71da1b0e57983401366ab92c.webp",
+  "url": "https://spesa.everli.com/en/products/19/100219?brand=lidl"
+ },
+ "everli:2018238": {
+  "name": "Cien Sapone Ricarica Antibatterico Aloe Vera, confezione 1l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/07/30/7fd4b2edda0b018de436d76060484d6466303655.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
  "everli:2157120": {
   "name": "Entrecote di Scottona, confezione 0.200kg",
   "brand": null,
   "category": "Carne e Pesce",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/7/12/29e644bc9ac6487d852acb15ff7e4ac2788c71d8.webp",
   "url": "https://spesa.everli.com/en/products/1/100278?brand=lidl"
+ },
+ "everli:2384858": {
+  "name": "Cien Deodorante Spray Uomo Extra Dry, bomboletta 0.200l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/27/8a3220277a4623309b85cc522df5691517b65600.webp",
+  "url": "https://spesa.everli.com/en/products/19/100219?brand=lidl"
+ },
+ "everli:2869080": {
+  "name": "Cien Shampoo Tutti i Giorni, flacone 1l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/39/1bab4381f06ccb2ed25095f37bc9d727ca30e798.webp",
+  "url": "https://spesa.everli.com/en/products/19/100213?brand=lidl"
+ },
+ "everli:2882052": {
+  "name": "Cien Doccia Crema Argan e Cocco, flacone 0.500l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/39/0ad5b1ca9b287aaad7ec41f572485a07ac53d57f.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
+ "everli:2918678": {
+  "name": "Cien Nature Balsamo Bio per Capelli Secchi Avena Camomilla, flacone 0.250l",
+  "brand": "Cien Nature",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/7/7/bb4d0b9207725d7ad0c355f7dc74fc03de35ffd0.webp",
+  "url": "https://spesa.everli.com/en/products/19/100213?brand=lidl"
+ },
+ "everli:2918686": {
+  "name": "Cien Nature Shampoo Bio Lavaggi Frequenti Aloe Calendula, flacone 0.250l",
+  "brand": "Cien Nature",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/7/7/edacb2c26f37dc15c36c71546ace7e18ab4f2899.webp",
+  "url": "https://spesa.everli.com/en/products/19/100213?brand=lidl"
+ },
+ "everli:3041602": {
+  "name": "Cien Crema Mani Riparatrice, tubetto 0.100l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/7/abce374cfaba9fcb1ec83a34af573851a433903c.webp",
+  "url": "https://spesa.everli.com/en/products/19/100216?brand=lidl"
+ },
+ "everli:3529420": {
+  "name": "Floralys Carta Igienica Soft 3 Veli 200 Strappi, confezione 12pz",
+  "brand": "Floralys",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/42/eded5ba8ff1d845ab6deead79849f7ed291da716.webp",
+  "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
  },
  "everli:3710651": {
   "name": "Mazzancolle Tropicali Intere Precotte, confezione 0.250kg",
@@ -90,6 +167,20 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/10/18/69bca72fa60e285a5fe7e052707a21ff23b7c7f7.webp",
   "url": "https://spesa.everli.com/en/products/6/100140?brand=lidl"
  },
+ "everli:3833419": {
+  "name": "Cien Veline Cosmetiche 2 Veli, confezione 200pz",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/10/18/e9a2e62c4944a6f3ed4eb1a737cafde14c3519fe.webp",
+  "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
+ },
+ "everli:3890013": {
+  "name": "Cien Salviettine Struccanti, confezione 50pz",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/17/db8aa1dd478909fd187f646196d58154526b23fe.webp",
+  "url": "https://spesa.everli.com/en/products/19/100214?brand=lidl"
+ },
  "everli:3901761": {
   "name": "Dentalux Spazzolino da Denti per Bambini Junior 6+ Anni, confezione 2pz",
   "brand": "Dentalux",
@@ -103,6 +194,13 @@
   "category": "Frutta e Verdura",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/4/11/c415efbc7d8874e9fb03a8db073e7b61b1273e30.webp",
   "url": "https://spesa.everli.com/en/products/3/100113?brand=lidl"
+ },
+ "everli:3968461": {
+  "name": "Floralys Carta Igienica Riciclata 2 Veli 4x300 Strappi, confezione 4pz",
+  "brand": "Floralys",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/25/f7bb5a6e9c2d918aba174571208efac3e705ca03.webp",
+  "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
  },
  "everli:4035077": {
   "name": "Lupilu Salviettine Baby Igieniche Formato Viaggio, confezione 20pz",
@@ -138,6 +236,20 @@
   "category": "Latticini e Uova",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/5/15/592909df4370b9d38bc2f2c3ecc78ee7e153c98b.webp",
   "url": "https://spesa.everli.com/en/products/6/100144?brand=lidl"
+ },
+ "everli:4891137": {
+  "name": "Cien Bastoncini Cotonati con Cotone Bio, confezione 400pz",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/4/8eabf80bf6da7459dd4ed5f2ff664f5f7be8c848.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
+ "everli:4956831": {
+  "name": "Cien Balsamo Hair Fuits Banana, flacone 0.400l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/3/11/7df947ce571402fedfca8207f440d88fc178c71c.webp",
+  "url": "https://spesa.everli.com/en/products/19/100213?brand=lidl"
  },
  "everli:511775": {
   "name": "Fettine di Vitello, confezione 0.300kg",
@@ -496,6 +608,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/12/5/b2ab7d33a26923538a255e6c8f7468d944b9b925.webp",
   "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
  },
+ "everli:515687": {
+  "name": "Cien Sapone Liquido Mani Oliva, dispenser 0.500l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/3c3a0/fc291/631b7/1667325274_img.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
  "everli:515773": {
   "name": "Belbake Lievito in Polvere, confezione 0.042kg",
   "brand": "Belbake",
@@ -573,6 +692,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/21/80ef0489abd3ba8ed2cc63ae5d3cc71160e98fe0.webp",
   "url": "https://spesa.everli.com/en/products/1/100102?brand=lidl"
  },
+ "everli:516079": {
+  "name": "Dentalux Scovolino Interdentale Fine, confezione 6pz",
+  "brand": "Dentalux",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/5c158/a51df/8c869/1173899011_img.webp",
+  "url": "https://spesa.everli.com/en/products/19/100218?brand=lidl"
+ },
  "everli:516335": {
   "name": "Milbona Yogurt alla Greca Fragola, secchiello 1kg",
   "brand": "Milbona",
@@ -593,6 +719,27 @@
   "category": "Caffè, Tè e Zucchero",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/6/6/6538c8b04b7e64cc5c87a170a9dcf18943e1017e.webp",
   "url": "https://spesa.everli.com/en/products/10/100156?brand=lidl"
+ },
+ "everli:516821": {
+  "name": "Cien Detergente Intimo, flacone 0.500l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/0aea0/51326/e7e9f/768699405_img.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
+ "everli:516877": {
+  "name": "Cien Spugna Corpo con Lato Massaggio, confezione 1pz",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/91eda/eb453/6162d/804028110_img.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
+ "everli:516921": {
+  "name": "Cien Cotone Idrofilo Pretagliato Medicale, confezione 0.100kg",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2020/26/ad169b08320092ba993a6031f5c1f43a704b726e.webp",
+  "url": "https://spesa.everli.com/en/products/19/100214?brand=lidl"
  },
  "everli:517223": {
   "name": "Grattugiato Italiano, confezione 0.100kg",
@@ -650,6 +797,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2026/7/17/b5194e7ce384910224ad4e1d6979c3b2e78bb032.webp",
   "url": "https://spesa.everli.com/en/products/17/100200?brand=lidl"
  },
+ "everli:5197401": {
+  "name": "Dove Beauty Cream Bar Deep Moisture For Soft Skin Bars, Imballaggio 2x90g",
+  "brand": "Dove",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/5/22/d737c6c81841adbddf61df2c8ae38b6c4ba5c74d.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
  "everli:521683": {
   "name": "W5 Candeggina, flacone 2l",
   "brand": "W5",
@@ -706,6 +860,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/7c707/3f83a/47307/2139886686_img.webp",
   "url": "https://spesa.everli.com/en/products/3/100112?brand=lidl"
  },
+ "everli:545109": {
+  "name": "Dentalux Filo Interdentale, confezione 1pz",
+  "brand": "Dentalux",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/2/3/4a12838353663433d47e4b305c09ab917c5f1061.webp",
+  "url": "https://spesa.everli.com/en/products/19/100218?brand=lidl"
+ },
  "everli:555635": {
   "name": "Mele Granny Smith, vassoio 1kg",
   "brand": null,
@@ -754,6 +915,13 @@
   "category": "Cura Casa",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/8/27/dc07d559ba30b49c3c2405fb42261f4fadbd0b20.webp",
   "url": "https://spesa.everli.com/en/products/21/100232?brand=lidl"
+ },
+ "everli:569823": {
+  "name": "Cien Sapone Liquido Mani Melagrana, dispenser 0.500l",
+  "brand": "Cien",
+  "category": "Cura Persona",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/a0b8d/f9113/0b641/1333428024_img.webp",
+  "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
  },
  "everli:575981": {
   "name": "Armilar Amaretto 28% Vol., bottiglia 0.700l",
