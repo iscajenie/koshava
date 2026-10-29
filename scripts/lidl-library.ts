@@ -14,6 +14,7 @@ import { db, schema } from "@/db";
 import {
   applyLidlLibrary,
   fetchLidlRecord,
+  importReferenceEntries,
   listSearchProducts,
   listSitemapProducts,
   saveLidlRecord,
@@ -136,6 +137,9 @@ async function main() {
       migrated++;
     }
 
+    // Lidl Italia products from Everli that reviewed name matches point to (data/everli-lidl-it.json).
+    const reference = await importReferenceEntries(now);
+
     // Previews that failed to download (network errors) are retried while Lidl still serves the photo.
     const withoutPreview = await db
       .select({ erp: lib.erp, imageUrls: lib.imageUrls })
@@ -147,7 +151,7 @@ async function main() {
     // Matching is cheap and also picks up edits to data/lidl-name-matches.json, so it runs every time.
     await applyLidlLibrary();
     await refreshPublished();
-    if (fetched + migrated + images + removed.length === 0) {
+    if (fetched + migrated + reference + images + removed.length === 0) {
       console.log("Lidl library: nothing new", listed);
       return;
     }
@@ -158,6 +162,7 @@ async function main() {
       added,
       removed: removed.length,
       migrated,
+      reference,
       newPhotos: images,
       ...library,
       ...(sitemap.status === "fulfilled" && sitemap.value.lastModified ? { sitemapBuilt: sitemap.value.lastModified } : {}),

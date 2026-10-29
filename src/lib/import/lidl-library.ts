@@ -192,7 +192,41 @@ export async function saveLidlRecord(record: LidlRecord, now: Date, country = "r
  * Photos from other Lidl countries only go to products that have no photo at all, nearest country first,
  * and are shown as reference photos (contentSource "lidl-intl"): the packaging may be in another language.
  */
-/** Price-list products matched by hand-reviewed name to a lidl.rs library entry: source key -> library key. */
+/**
+ * Lidl Italia products from its Everli store (data/everli-lidl-it.json), kept in the library so that reviewed name
+ * matches can use their photos. Everli lists no barcodes, so these entries only serve data/lidl-name-matches.json.
+ */
+export async function importReferenceEntries(now: Date) {
+  const file = path.join(process.cwd(), "data/everli-lidl-it.json");
+  if (!fs.existsSync(file)) return 0;
+  const data = JSON.parse(fs.readFileSync(file, "utf8")) as Record<
+    string,
+    { name: string; brand: string | null; category: string | null; image: string; url: string }
+  >;
+  const lib = schema.lidlLibrary;
+  const known = new Set((await db.select({ erp: lib.erp }).from(lib).where(eq(lib.country, "it"))).map((r) => r.erp));
+  let added = 0;
+  for (const [key, entry] of Object.entries(data)) {
+    if (known.has(key)) continue;
+    await db.insert(lib).values({
+      erp: key,
+      country: "it",
+      url: entry.url,
+      title: entry.name,
+      brand: entry.brand,
+      category: entry.category,
+      imageUrls: [entry.image],
+      firstSeenAt: now,
+      lastSeenAt: now,
+      fetchedAt: now,
+    });
+    await storePreviews(key, [entry.image]);
+    added++;
+  }
+  return added;
+}
+
+/** Price-list products matched by hand-reviewed name to a library entry: source key -> library key. */
 function nameMatches() {
   const file = path.join(process.cwd(), "data/lidl-name-matches.json");
   if (!fs.existsSync(file)) return new Map<string, string>();

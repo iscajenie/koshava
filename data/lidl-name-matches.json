@@ -1,8 +1,23 @@
 {
+ "n-0116ba7f058a": {
+  "product": "Pileći karab. sa kož.i kost. 500g",
+  "erp": "everli:515181",
+  "lidl": "Sovracosce di Pollo, confezione 1kg"
+ },
  "n-03077eb3c0fe": {
   "product": "Pašteta sa šunkom 130g",
   "erp": "11494968",
   "lidl": "Pašteta sa šunkom"
+ },
+ "n-049f35e7dcaf": {
+  "product": "Kokosov orah, komad 1kom.",
+  "erp": "everli:555693",
+  "lidl": "Noci di Cocco, pezzo 0.400kg"
+ },
+ "n-08cc63ad0563": {
+  "product": "Svinjsko mleveno meso light 400g",
+  "erp": "everli:517275",
+  "lidl": "Macinato di Suino, confezione 0.500kg"
  },
  "n-09e8316f0316": {
   "product": "Papir za pečenje 38cmx42cm 30kom.",
@@ -54,10 +69,40 @@
   "erp": "11700059",
   "lidl": "Polutvrdi dimljeni sir"
  },
+ "n-11d64d0c3ce8": {
+  "product": "Domaća jabuka zelena, Granny Smith 2kg",
+  "erp": "everli:555635",
+  "lidl": "Mele Granny Smith, vassoio 1kg"
+ },
  "n-1342d929d3af": {
   "product": "Gazirano piće sa ukusom limuna 0,33l",
   "erp": "11494196",
   "lidl": "SAGUARO EDITION Gazirano piće sa ukusom limuna"
+ },
+ "n-13b31dc3c899": {
+  "product": "Svinj.rebra \"short ribs\" ca 900g",
+  "erp": "everli:606965",
+  "lidl": "Costine di Suino, confezione 0.600kg"
+ },
+ "n-13fcfd524582": {
+  "product": "Pileći batak 500g",
+  "erp": "everli:514275",
+  "lidl": "Fusi di Pollo, confezione 0.800kg"
+ },
+ "n-15aac14071ad": {
+  "product": "Brokoli, 500g",
+  "erp": "everli:515925",
+  "lidl": "Broccoli, pezzo 0.500kg"
+ },
+ "n-15dbc69262e4": {
+  "product": "Svinj. kare bez koske narezan 400g",
+  "erp": "everli:605453",
+  "lidl": "Fettine di Lonza di Suino, confezione 0.400kg"
+ },
+ "n-16fec2ab1bba": {
+  "product": "Peršun, rezani 25g",
+  "erp": "everli:1453494",
+  "lidl": "Prezzemolo, vassoio 0.030kg"
  },
  "n-1725467915d7": {
   "product": "Vlažna hrana za mačke losos 100g",
@@ -69,10 +114,35 @@
   "erp": "11314876",
   "lidl": "PILOS Grčki tip jogurta XXL"
  },
+ "n-17cee11655a0": {
+  "product": "Svinjsko mleveno meso 500g",
+  "erp": "everli:517275",
+  "lidl": "Macinato di Suino, confezione 0.500kg"
+ },
+ "n-1850f1f269ca": {
+  "product": "Šljiva, 1kg",
+  "erp": "everli:515897",
+  "lidl": "Susine, vassoio 1kg"
+ },
  "n-19768b41e0f9": {
   "product": "Donut sa glazurom 55,4g",
   "erp": "11330828",
   "lidl": "Donut sa kakao glazurom"
+ },
+ "n-19a0752de475": {
+  "product": "Svinjski vrat narez. sa koskom ca. 500g",
+  "erp": "everli:605451",
+  "lidl": "Braciole di Coppa di Suino, confezione 0.700kg"
+ },
+ "n-1b35b046116b": {
+  "product": "Svinjska rebra \"short ribs\" ca 900g",
+  "erp": "everli:606965",
+  "lidl": "Costine di Suino, confezione 0.600kg"
+ },
+ "n-1b7ba40508a5": {
+  "product": "Rukola oprana 0.070kg",
+  "erp": "everli:911276",
+  "lidl": "Rucola, confezione 0.125kg"
  },
  "n-1b94a27edca2": {
   "product": "Budimska kobasica 300g",
@@ -83,6 +153,11 @@
   "product": "Slane kokice za mikrotalasnu 3x100g",
   "erp": "11219027",
   "lidl": "Kokice za mikrotalasnu"
+ },
+ "n-1c2e1026adfe": {
+  "product": "Urme 1kg",
+  "erp": "everli:513781",
+  "lidl": "Datteri Deglet Nour, confezione 0.250kg"
  },
  "n-1c63f1da6fc4": {
   "product": "Domaća mlevena kafa MK 28 100g",
@@ -134,6 +209,16 @@
   "erp": "11498128",
   "lidl": "Voćna kaša"
  },
+ "n-26d005fecfd2": {
+  "product": "Edamer sir 250g",
+  "erp": "everli:515281",
+  "lidl": "Edam a Fette, confezione 0.200kg"
+ },
+ "n-26e803ce3e1d": {
+  "product": "Mini Mozzarella Classic. 125g",
+  "erp": "everli:984840",
+  "lidl": "Ciliegine di Mozzarella, confezione 0.150kg"
+ },
  "n-2772af97b771": {
   "product": "Voćna kaša kruška+Vit.C 200g",
   "erp": "11498128",
@@ -174,6 +259,11 @@
   "erp": "11001783",
   "lidl": "W5 Sredstvo za čišćenje staklenih površina"
  },
+ "n-31d4f8121da1": {
+  "product": "Indijski orah pečeni slani 500g",
+  "erp": "everli:515179",
+  "lidl": "Anacardi, confezione 0.200kg"
+ },
  "n-3699d483f6dc": {
   "product": "Jabuka crvena Gala, domaća 1kg",
   "erp": "11214563",
@@ -189,6 +279,11 @@
   "erp": "11497543",
   "lidl": "Kiselo mleko"
  },
+ "n-39bd6b0132c8": {
+  "product": "Meš. 60%svinj.40%jun. usitnj. 500g",
+  "erp": "everli:515143",
+  "lidl": "Macinato Misto di Suino e Bovino, confezione 0.500kg"
+ },
  "n-3a773efac260": {
   "product": "Domaća jabuka crveni delišes, rinfuz",
   "erp": "11214563",
@@ -203,6 +298,11 @@
   "product": "Svinjske šnicle od buta 500g",
   "erp": "11496449",
   "lidl": "Domaće sveže svinjske šnicle od buta"
+ },
+ "n-3e0e3aa621f9": {
+  "product": "Cezar salata 0,27kg",
+  "erp": "everli:984866",
+  "lidl": "Caesar Salad, Confezione 140g"
  },
  "n-3e28865d0385": {
   "product": "Kroasan sa Nuss-Nougat kremom 85g",
@@ -229,6 +329,11 @@
   "erp": "11150912",
   "lidl": "Ananas"
  },
+ "n-40345a4ffa0e": {
+  "product": "Kivi žuti, komad 1kom.",
+  "erp": "everli:600563",
+  "lidl": "Kiwi Gold, vassoio 0.500kg"
+ },
  "n-420fb511e995": {
   "product": "Grejpfrut, rinfuz",
   "erp": "11030156",
@@ -248,6 +353,11 @@
   "product": "Luk crveni, rinfuz",
   "erp": "11029474",
   "lidl": "Domaći crveni luk"
+ },
+ "n-4841410feeb0": {
+  "product": "Paradajz, rinfuz",
+  "erp": "everli:555639",
+  "lidl": "Pomodori, rete 1kg"
  },
  "n-494214b3dd76": {
   "product": "Čips slani 150g",
@@ -289,6 +399,16 @@
   "erp": "11497068",
   "lidl": "Mlevena kafa"
  },
+ "n-4e372b47445a": {
+  "product": "Bio domaći luk crni, 500g",
+  "erp": "everli:515947",
+  "lidl": "Cipolla Bio, confezione 0.500kg"
+ },
+ "n-4f1ef10ffa23": {
+  "product": "Filet svežeg lososa ca. 600g,4 ca. 600g",
+  "erp": "everli:516373",
+  "lidl": "Filetto di Salmone con Pelle, vaschetta 0.250kg"
+ },
  "n-4fac5f8124eb": {
   "product": "Kisela pavlaka 20%, domaća 400g",
   "erp": "11493266",
@@ -309,6 +429,11 @@
   "erp": "11494155",
   "lidl": "Sveže mleko XXL"
  },
+ "n-5171e5836c1e": {
+  "product": "Pečeni lešnik 200g",
+  "erp": "everli:517641",
+  "lidl": "Nocciole Sgusciate, Tostate, Pelate, confezione 0.100kg"
+ },
  "n-51825fbbc7d9": {
   "product": "Premium pašteta za mačke MSC 100g",
   "erp": "11701112",
@@ -319,20 +444,70 @@
   "erp": "11029676",
   "lidl": "Domaća bundeva"
  },
+ "n-51d4dc5e076d": {
+  "product": "Domaći krompir crveni, rinfuz",
+  "erp": "everli:3923213",
+  "lidl": "Patate Rosse, rete 2.0kg"
+ },
+ "n-532858aa127b": {
+  "product": "Grožđe belo besemeno, rinfuz",
+  "erp": "everli:529111",
+  "lidl": "Uva Bianca senza Semi, vassoio 0.500kg"
+ },
  "n-55e9af165d2b": {
   "product": "Dugotrajno mleko 3,2% 1l",
   "erp": "11274285",
   "lidl": "PILOS Dugotrajno mleko"
+ },
+ "n-56fa082c3921": {
+  "product": "Pileći file ca. 1kg",
+  "erp": "everli:517263",
+  "lidl": "Petto di Pollo senza Osso, confezione 0.400kg"
+ },
+ "n-5787aade6915": {
+  "product": "Julienne Mozzarella rendana 200g",
+  "erp": "everli:3758369",
+  "lidl": "Mozzarella Grattugiata, confezione 0.250kg"
+ },
+ "n-58b14cef3c10": {
+  "product": "Grožđe belo 1,25kg PK 1,25kg",
+  "erp": "everli:515899",
+  "lidl": "Uva Bianca, vassoio 1.0kg"
+ },
+ "n-5a7c75708bf8": {
+  "product": "Pileće grudi 500g",
+  "erp": "everli:517263",
+  "lidl": "Petto di Pollo senza Osso, confezione 0.400kg"
  },
  "n-5b7bb528d790": {
   "product": "Čajna kobasica narezak 100g",
   "erp": "11497989",
   "lidl": "Čajna kobasica"
  },
+ "n-5ba536cfb22f": {
+  "product": "Šljiva, rinfuz",
+  "erp": "everli:515897",
+  "lidl": "Susine, vassoio 1kg"
+ },
  "n-5cbbf30243f6": {
   "product": "Kikiriki u opni, pečeni, slani 1kg",
   "erp": "11139088",
   "lidl": "Hrskavi kikiriki u opni"
+ },
+ "n-5da977a6ffeb": {
+  "product": "Juneća pljeskavica 400g",
+  "erp": "everli:514645",
+  "lidl": "Hamburger di Bovino, confezione 0.400kg"
+ },
+ "n-5e12089e16c0": {
+  "product": "Juneće mleveno meso 500g",
+  "erp": "everli:517731",
+  "lidl": "Macinato di Bovino, confezione 0.500kg"
+ },
+ "n-5e36e7d30a05": {
+  "product": "Juneći ramstek skinpack ca. 500g",
+  "erp": "everli:1063878",
+  "lidl": "Scamone di Scottona, 1 pz - circa 300g"
  },
  "n-5e8b8fc81f2b": {
   "product": "Grčki tip jogurta 9,9% 150g",
@@ -354,6 +529,16 @@
   "erp": "66000304",
   "lidl": "Pašteta za odrasle pse"
  },
+ "n-5fefc9b995b0": {
+  "product": "Ramstek BK, ca. 500g ca. 500g",
+  "erp": "everli:1063878",
+  "lidl": "Scamone di Scottona, 1 pz - circa 300g"
+ },
+ "n-605bd06bc7df": {
+  "product": "Iceberg opran i isečen 0.2kg",
+  "erp": "everli:514253",
+  "lidl": "Cuori di Iceberg, confezione 0.200kg"
+ },
  "n-63dfeca06db8": {
   "product": "Mandarine, rinfuz",
   "erp": "11214590",
@@ -363,6 +548,11 @@
   "product": "Domaća mlevena kafa 500g",
   "erp": "11497068",
   "lidl": "Mlevena kafa"
+ },
+ "n-66a4622ca575": {
+  "product": "GTA Grana Padano 16 mes.dozr. 200g",
+  "erp": "everli:511795",
+  "lidl": "Grana Padano Dop 16 Mesi, confezione 0.400kg"
  },
  "n-673f45f84670": {
   "product": "Maslac 82% 125g",
@@ -404,10 +594,20 @@
   "erp": "11494950",
   "lidl": "Jetrena pašteta"
  },
+ "n-6e6694baa358": {
+  "product": "Orijenta salata oprana 160g",
+  "erp": "everli:513741",
+  "lidl": "Mix Orientale, confezione 0.100kg"
+ },
  "n-6e95a535068a": {
   "product": "Domaći krompir beli oprani, rinfuz",
   "erp": "11151197",
   "lidl": "Domaći beli krompir"
+ },
+ "n-6f600f4d875f": {
+  "product": "Kiwi Schale 1 kg 1kg",
+  "erp": "everli:515905",
+  "lidl": "Kiwi, vassoio 1kg"
  },
  "n-6fbcfc4961df": {
   "product": "Dimljeni svinjski vrat z 300g",
@@ -444,6 +644,11 @@
   "erp": "11494189",
   "lidl": "MISTER CHOC Kakao duo krem XXL"
  },
+ "n-75f9a1ddfdfb": {
+  "product": "Kivi, rinfuz",
+  "erp": "everli:515905",
+  "lidl": "Kiwi, vassoio 1kg"
+ },
  "n-771b2fc5114b": {
   "product": "Aluminijumska folija 20m 10μ 1kom.",
   "erp": "11253931",
@@ -474,6 +679,11 @@
   "erp": "11266385",
   "lidl": "Domaće povrće za supu"
  },
+ "n-80cddf67719a": {
+  "product": "Grožđe belo besemeno 2kg PK 2kg",
+  "erp": "everli:529111",
+  "lidl": "Uva Bianca senza Semi, vassoio 0.500kg"
+ },
  "n-80d94f620a58": {
   "product": "Tablete za maš. pranje posuđa 80x12g",
   "erp": "11006788",
@@ -494,6 +704,11 @@
   "erp": "11314989",
   "lidl": "BELBAKE Puding od vanile"
  },
+ "n-83196a515e2e": {
+  "product": "Šljiva tamna, rinfuz",
+  "erp": "everli:515897",
+  "lidl": "Susine, vassoio 1kg"
+ },
  "n-863770416008": {
   "product": "Svetlo pivo 4% Vol 0,5l",
   "erp": "11252297",
@@ -513,6 +728,11 @@
   "product": "Deterg. za pr. belog i sv. veš 3,75kg",
   "erp": "11253897",
   "lidl": "Deterdžent za pranje belog i svetlog veša"
+ },
+ "n-8be140c8f62b": {
+  "product": "Svinj. vrat bez koske narezan 500g",
+  "erp": "everli:578975",
+  "lidl": "Fettine di Coppa di Suino senza Osso, confezione 0.400kg"
  },
  "n-8cb40b22f316": {
   "product": "Aluminij. folija 9µ, 29cmx50m 1kom.",
@@ -544,10 +764,25 @@
   "erp": "11496013",
   "lidl": "Mineralna gazirana voda"
  },
+ "n-90977d3f4402": {
+  "product": "Matovilac opran 0.050kg",
+  "erp": "everli:515911",
+  "lidl": "Valeriana, confezione 0.125kg"
+ },
+ "n-919d18ab0d7a": {
+  "product": "Brokoli, rinfuz",
+  "erp": "everli:515925",
+  "lidl": "Broccoli, pezzo 0.500kg"
+ },
  "n-947b3e698fc4": {
   "product": "Aluminijumska folija 30cmx30m 1kom.",
   "erp": "11253931",
   "lidl": "Aluminijumska folija"
+ },
+ "n-974b2a267ab5": {
+  "product": "Suve urme 200g",
+  "erp": "everli:513781",
+  "lidl": "Datteri Deglet Nour, confezione 0.250kg"
  },
  "n-97e892fca228": {
   "product": "Kupka 1l",
@@ -569,6 +804,11 @@
   "erp": "11150885",
   "lidl": "Crveno grožđe"
  },
+ "n-997c89f898de": {
+  "product": "Klementine, rinfuz",
+  "erp": "everli:558801",
+  "lidl": "Clementine, rete 1.0kg"
+ },
  "n-99914bd890e8": {
   "product": "Pileća posebna mini 500g",
   "erp": "11316482",
@@ -589,6 +829,11 @@
   "erp": "11497543",
   "lidl": "Kiselo mleko"
  },
+ "n-9bb6a6bcc8ff": {
+  "product": "Komorač komad 1kom.",
+  "erp": "everli:512087",
+  "lidl": "Finocchio, 1 pz - circa 400g"
+ },
  "n-9bff703b4bce": {
   "product": "Maslac 82% 250g",
   "erp": "11492992",
@@ -604,10 +849,25 @@
   "erp": "11313832",
   "lidl": "SVEŽA JAJA Jaja iz podnog uzgoja XXL"
  },
+ "n-9fd0fab05a89": {
+  "product": "Pileća minut šnicla od grudi 400g",
+  "erp": "everli:517477",
+  "lidl": "Fettine Sottili di Petto di Pollo, confezione 0.250kg"
+ },
  "n-a0ac953f765c": {
   "product": "Bio šargarepa, 500g",
   "erp": "11029413",
   "lidl": "Bio šargarepa"
+ },
+ "n-a33059f2abdc": {
+  "product": "Plavi patlidžan, rinfuz",
+  "erp": "everli:512075",
+  "lidl": "Melanzane, 1 pz - circa 350g"
+ },
+ "n-a42fe067a05f": {
+  "product": "Bio grožđe belo besemeno, 500g",
+  "erp": "everli:1073032",
+  "lidl": "Uva Bianca Bio, Confezione 500g"
  },
  "n-a5bc1ad5f97b": {
   "product": "Vojvodj. dugotrajno mleko 2,8% 1l",
@@ -634,6 +894,16 @@
   "erp": "11102044",
   "lidl": "CIEN Gel za tuširanje XXL"
  },
+ "n-a968c1311ffa": {
+  "product": "Šampinjoni, rinfuz",
+  "erp": "everli:515933",
+  "lidl": "Champignon, vassoio 0.500kg"
+ },
+ "n-aba8f5512fb5": {
+  "product": "Domaći krompir crveni, 5kg",
+  "erp": "everli:3923213",
+  "lidl": "Patate Rosse, rete 2.0kg"
+ },
  "n-abae5f656897": {
   "product": "Dimljena slanina,2 ca. 350g",
   "erp": "11497712",
@@ -648,6 +918,16 @@
   "product": "Knedle sa kakao kremom/višnja 800g",
   "erp": "11496481",
   "lidl": "Knedle sa kakao kremom"
+ },
+ "n-abe89380b1a0": {
+  "product": "Slatki krompir (batat), rinfuz",
+  "erp": "everli:512073",
+  "lidl": "Patate Dolci, A peso"
+ },
+ "n-ac8778720395": {
+  "product": "Luk crni, rinfuz",
+  "erp": "everli:555645",
+  "lidl": "Cipolla Dorata, rete 1kg"
  },
  "n-ad6a3988cd33": {
   "product": "Nektar jabuka 50% 0,2l",
@@ -684,6 +964,16 @@
   "erp": "11315163",
   "lidl": "BARONI Pizza šunka"
  },
+ "n-b18eab9739f9": {
+  "product": "Kivi, komad 1 kom",
+  "erp": "everli:529355",
+  "lidl": "Kiwi, 1 pz - circa 110g"
+ },
+ "n-b22e4943900a": {
+  "product": "Karfiol, rinfuz",
+  "erp": "everli:1748634",
+  "lidl": "Cavolfiore, 1 pz - circa 1kg"
+ },
  "n-b3818865bf41": {
   "product": "Sveži sir 25% 400g",
   "erp": "11496426",
@@ -709,6 +999,31 @@
   "erp": "11497068",
   "lidl": "Mlevena kafa"
  },
+ "n-b78631720da5": {
+  "product": "Kuvane kozice 400g",
+  "erp": "everli:3710651",
+  "lidl": "Mazzancolle Tropicali Intere Precotte, confezione 0.250kg"
+ },
+ "n-b91cd247c3ca": {
+  "product": "Jezgro lešnika 200g",
+  "erp": "everli:517641",
+  "lidl": "Nocciole Sgusciate, Tostate, Pelate, confezione 0.100kg"
+ },
+ "n-bab32b3a7902": {
+  "product": "Slanina narezana bez kože 500g",
+  "erp": "everli:514401",
+  "lidl": "Pancetta a Fette, confezione 0.400kg"
+ },
+ "n-bc9d3b47a2e8": {
+  "product": "Pileće grudi 500g",
+  "erp": "everli:517263",
+  "lidl": "Petto di Pollo senza Osso, confezione 0.400kg"
+ },
+ "n-becc2e29a0b5": {
+  "product": "Paprika mix 500g",
+  "erp": "everli:529103",
+  "lidl": "Peperoni Misti, busta 0.500kg"
+ },
  "n-c0bd8dd2dbd0": {
   "product": "Dimljeni losos 100g",
   "erp": "11008845",
@@ -723,6 +1038,16 @@
   "product": "Avokado, komad 1 kom",
   "erp": "11214527",
   "lidl": "Avokado"
+ },
+ "n-c34892db52f7": {
+  "product": "Beli luk, rinfuz",
+  "erp": "everli:529073",
+  "lidl": "Aglio, rete 0.200kg"
+ },
+ "n-c43a9a9e8c8b": {
+  "product": "Bundeva Hokaido, rinfuz",
+  "erp": "everli:555809",
+  "lidl": "Zucca, sfuso 2.0kg"
  },
  "n-c43b94d2bf71": {
   "product": "Stišnjena šunka 350g",
@@ -749,6 +1074,11 @@
   "erp": "11493266",
   "lidl": "Kisela pavlaka"
  },
+ "n-c8aa93a53707": {
+  "product": "Pileća krilca bez špiceva ca. 1kg",
+  "erp": "everli:517269",
+  "lidl": "Ali di Pollo Separate, confezione 0.450kg"
+ },
  "n-c9fea26a181b": {
   "product": "Šumadijski zreli sir 500g",
   "erp": "11493234",
@@ -764,10 +1094,20 @@
   "erp": "11313832",
   "lidl": "SVEŽA JAJA Jaja iz podnog uzgoja XXL"
  },
+ "n-cb9b6a1d89c9": {
+  "product": "Teleći odresci od buta 400g",
+  "erp": "everli:511775",
+  "lidl": "Fettine di Vitello, confezione 0.300kg"
+ },
  "n-cc38b4a3b30b": {
   "product": "Gumene bombone, ukus jagoda 300g",
   "erp": "11663448",
   "lidl": "Gumene bombone"
+ },
+ "n-ccf523cf9064": {
+  "product": "Krastavac, rinfuz",
+  "erp": "everli:512077",
+  "lidl": "Cetrioli, 1 pz - circa 200g"
  },
  "n-cf7e65344735": {
   "product": "Jaja iz podnog uzgoja M 15/ 1 15kom.",
@@ -793,6 +1133,11 @@
   "product": "Voćna kaša ja.,šlj.,viš. 200g",
   "erp": "11498128",
   "lidl": "Voćna kaša"
+ },
+ "n-d30e5460758e": {
+  "product": "Suva šljiva 600g",
+  "erp": "everli:515353",
+  "lidl": "Prugne Secche, confezione 0.500kg"
  },
  "n-d6d7c421ccc8": {
   "product": "Grčki tip jogurta kajsija 400g",
@@ -859,10 +1204,20 @@
   "erp": "11494968",
   "lidl": "Pašteta sa šunkom"
  },
+ "n-e05359ce928c": {
+  "product": "Kaki, rinfuz",
+  "erp": "everli:575985",
+  "lidl": "Cachi, vassoio 0.800kg"
+ },
  "n-e0813759daa7": {
   "product": "Pileća posebna narezak 200g",
   "erp": "11316482",
   "lidl": "Pileća posebna XXL"
+ },
+ "n-e0f0c59f275e": {
+  "product": "Studentski miks 200g",
+  "erp": "everli:1439200",
+  "lidl": "Mix Frutta Secca e Uva Sultanina Student Mix, confezione 0.125kg"
  },
  "n-e158b0cd1dd0": {
   "product": "Pariska kobasica 350g",
@@ -883,6 +1238,21 @@
   "product": "Bio krompir beli, 1kg",
   "erp": "11151197",
   "lidl": "Domaći beli krompir"
+ },
+ "n-e1ba95564083": {
+  "product": "Mini pileći file 400g",
+  "erp": "everli:516055",
+  "lidl": "Controfiletti di Pollo, confezione 0.400kg"
+ },
+ "n-e23c77426bc3": {
+  "product": "Paradajz grapolo, rinfuz",
+  "erp": "everli:512081",
+  "lidl": "Pomodori Grappolo, 1 pz - circa 250g"
+ },
+ "n-e29ef96dd0f5": {
+  "product": "Svinjska kremenadla sa koskom ca. 500g",
+  "erp": "everli:605467",
+  "lidl": "Braciole di Suino, confezione 0.700kg"
  },
  "n-e3e6ff326bd5": {
   "product": "Kisela pavlaka 12% 700g",
@@ -924,6 +1294,11 @@
   "erp": "11497985",
   "lidl": "Higijenski ulošci"
  },
+ "n-e8ba6083d01e": {
+  "product": "Pileći batak ca. 1kg",
+  "erp": "everli:514275",
+  "lidl": "Fusi di Pollo, confezione 0.800kg"
+ },
  "n-e957f547a649": {
   "product": "Nektar jabuka 50% 2l",
   "erp": "11496828",
@@ -933,6 +1308,16 @@
   "product": "Šargarepa, rinfuz",
   "erp": "11029413",
   "lidl": "Bio šargarepa"
+ },
+ "n-eb2c44945cf5": {
+  "product": "Pomorandže, rinfuz",
+  "erp": "everli:529083",
+  "lidl": "Arance, Var. Navel, rete 2kg"
+ },
+ "n-eb65bec7a293": {
+  "product": "Luk crni, 10kg",
+  "erp": "everli:555645",
+  "lidl": "Cipolla Dorata, rete 1kg"
  },
  "n-efc22bd2daee": {
   "product": "Kisela pavlaka 20% 400g",
@@ -944,10 +1329,20 @@
   "erp": "11495953",
   "lidl": "Žuta boranija XXL"
  },
+ "n-f0afe54c5d0e": {
+  "product": "Domaći krompir crveni oprani, rinfu 1kg",
+  "erp": "everli:3923213",
+  "lidl": "Patate Rosse, rete 2.0kg"
+ },
  "n-f141f8317c4c": {
   "product": "Pileća posebna sa sirom 400g",
   "erp": "11316482",
   "lidl": "Pileća posebna XXL"
+ },
+ "n-f161d1a00ca2": {
+  "product": "Svinjski file ca. 400g",
+  "erp": "everli:511785",
+  "lidl": "Filetto di Maiale, sottovuoto 0.580kg"
  },
  "n-f32cd882f2b9": {
   "product": "Mineralna negazirana voda 1,5l",
@@ -958,6 +1353,11 @@
   "product": "Sjaj za ispiranje posuđa 1l",
   "erp": "11003782",
   "lidl": "W5 Sjaj za ispiranje posuđa"
+ },
+ "n-f581171923fd": {
+  "product": "Italijanski rendani sir 100g",
+  "erp": "everli:517223",
+  "lidl": "Grattugiato Italiano, confezione 0.100kg"
  },
  "n-f6b3aa866f94": {
   "product": "Voćna kaša jab.br.jag. 200g",
@@ -979,6 +1379,11 @@
   "erp": "11497358",
   "lidl": "Mineralna negazirana voda"
  },
+ "n-f9657618ecfc": {
+  "product": "Meš. 60%svinj.40%jun. usitnj. 850g",
+  "erp": "everli:515143",
+  "lidl": "Macinato Misto di Suino e Bovino, confezione 0.500kg"
+ },
  "n-fa53672e22ab": {
   "product": "Panceta PC13 ca. 400g",
   "erp": "11495242",
@@ -994,10 +1399,25 @@
   "erp": "11495765",
   "lidl": "Čajna kobasica XXL"
  },
+ "n-fcdf5d229bae": {
+  "product": "Filet svežeg lososa ca.0,2-0,4kgMK2 ca. 0,2-0,4kg",
+  "erp": "everli:1298064",
+  "lidl": "Filetto di Salmone senza Pelle, confezione 0.180kg"
+ },
+ "n-fd5c6b22c8af": {
+  "product": "Grožđe belo, sa košticama, rinfuz",
+  "erp": "everli:515899",
+  "lidl": "Uva Bianca, vassoio 1.0kg"
+ },
  "n-fe8b8082e244": {
   "product": "Šlag krem 500g",
   "erp": "11496313",
   "lidl": "Šlag krem"
+ },
+ "n-fee0340802fc": {
+  "product": "Rib eye steak skinpack ca. 500g",
+  "erp": "everli:2157120",
+  "lidl": "Entrecote di Scottona, confezione 0.200kg"
  },
  "n-ff49c2431f21": {
   "product": "Vlažna hrana za mačke ćuretina 100g",
