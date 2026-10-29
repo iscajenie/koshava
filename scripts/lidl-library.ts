@@ -50,22 +50,13 @@ async function main() {
     const now = new Date();
     const pages = await listProductPages();
     if (pages.length < 50) throw new Error(`Only ${pages.length} products in the lidl.rs sitemap; not marking the rest as removed`);
-    const listed = pages.map((p) => p.erp);
     const known = new Map((await db.select({ erp: lib.erp, fetchedAt: lib.fetchedAt }).from(lib)).map((r) => [r.erp, r.fetchedAt]));
-
-    // Presence: everything in the sitemap is on the site; the rest has been removed (kept, not deleted).
-    const removed = await db
-      .update(lib)
-      .set({ removedAt: now })
-      .where(and(isNull(lib.removedAt), notInArray(lib.erp, listed)))
-      .returning({ erp: lib.erp });
-    for (let i = 0; i < listed.length; i += 500) {
-      await db.update(lib).set({ lastSeenAt: now, removedAt: null }).where(inArray(lib.erp, listed.slice(i, i + 500)));
-    }
 
     let fetched = 0;
     let added = 0;
     let images = 0;
+    // The sitemap keeps some products whose pages already answer 404; those count as removed.
+    const gone = new Set<string>();
     for (const page of pages) {
       const fetchedAt = known.get(page.erp);
       if (fetchedAt && now.getTime() - fetchedAt.getTime() < REFRESH_DAYS * DAY) continue;
@@ -77,6 +68,8 @@ async function main() {
           fetched++;
           if (!known.has(page.erp)) added++;
           if (fetched % 50 === 0) console.log(`lidl library: ${fetched} pages, ${images} new photos`);
+        } else {
+          gone.add(page.erp);
         }
       } catch (error) {
         console.warn(`${page.url}:`, String(error));
@@ -84,14 +77,25 @@ async function main() {
       await sleep(600);
     }
 
+    // Presence: listed pages that still open are on the site; the rest is removed (kept, not deleted).
+    const onSite = pages.map((p) => p.erp).filter((erp) => !gone.has(erp));
+    const removed = await db
+      .update(lib)
+      .set({ removedAt: now })
+      .where(and(isNull(lib.removedAt), notInArray(lib.erp, onSite)))
+      .returning({ erp: lib.erp });
+    for (let i = 0; i < onSite.length; i += 500) {
+      await db.update(lib).set({ lastSeenAt: now, removedAt: null }).where(inArray(lib.erp, onSite.slice(i, i + 500)));
+    }
+
     // One-off: products seen by the earlier lidl.rs crawler that are no longer listed join the library too.
     const legacy = await db
-      .select({ key: schema.contentCache.key, data: schema.contentCache.data })
+      .select({ key: schema.contentCache.key, data: schema.contentCache.data, checkedAt: schema.contentCache.checkedAt })
       .from(schema.contentCache)
       .where(and(eq(schema.contentCache.source, "lidl"), eq(schema.contentCache.found, true)));
     const inLibrary = new Set((await db.select({ erp: lib.erp }).from(lib)).map((r) => r.erp));
     let migrated = 0;
-    for (const { key, data } of legacy) {
+    for (const { key, data, checkedAt } of legacy) {
       if (inLibrary.has(key) || !data) continue;
       const old = data as unknown as LidlProduct;
       await db.insert(lib).values({
@@ -102,9 +106,9 @@ async function main() {
         gtins: old.gtins ?? [],
         description: old.description?.length ? old.description.join("\n") : null,
         imageUrls: old.images ?? [],
-        firstSeenAt: now,
-        lastSeenAt: now,
-        removedAt: listed.includes(key) ? null : now,
+        firstSeenAt: checkedAt,
+        lastSeenAt: onSite.includes(key) ? now : checkedAt,
+        removedAt: onSite.includes(key) ? null : now,
       });
       images += await storeMissingImages(key, old.images ?? []);
       migrated++;
