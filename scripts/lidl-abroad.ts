@@ -13,7 +13,7 @@
  */
 import { and, eq, isNull } from "drizzle-orm";
 import { db, schema } from "@/db";
-import { applyLidlLibrary, fetchLidlRecord, saveLidlRecord, searchCatalog, storePreviews } from "@/lib/import/lidl-library";
+import { applyLidlLibrary, fetchLidlRecord, probeSite, saveLidlRecord, searchCatalog, storePreviews } from "@/lib/import/lidl-library";
 import { LIDL_SITES, searchBatches, trustedAbroad, type LidlSite } from "@/lib/import/lidl-page";
 import { refreshPublished } from "@/lib/import/publish";
 import { sleep } from "@/lib/import/fetch";
@@ -27,8 +27,20 @@ type Candidate = { site: LidlSite; erp: string; url: string; codes: Set<string> 
 async function main() {
   const startedAt = new Date();
   try {
+    // One working entry per country: catalogs that do not answer yet (Lidl's next markets) are skipped.
     const only = args.countries?.split(",");
-    const sites = LIDL_SITES.filter((s) => s.country !== "rs" && (!only || only.includes(s.country)));
+    const sites: LidlSite[] = [];
+    const offline = new Set<string>();
+    for (const site of LIDL_SITES) {
+      if (site.country === "rs" || (only && !only.includes(site.country)) || sites.some((s) => s.country === site.country)) continue;
+      if ((await probeSite(site)) > 0) {
+        sites.push(site);
+        offline.delete(site.country);
+      } else {
+        offline.add(site.country);
+      }
+    }
+    console.log(`${sites.length} Lidl catalogs online; not online: ${[...offline].join(", ") || "none"}`);
 
     // Every barcode products without a photo ever had (Lidl swaps barcodes between variants).
     const p = schema.products;
@@ -127,6 +139,7 @@ async function main() {
       confirmed,
       newPhotos,
       filled: before - stillMissing,
+      catalogs: sites.length,
       byCountry: Object.entries(byCountry)
         .map(([country, n]) => `${country} ${n}`)
         .join(", "),

@@ -90,6 +90,18 @@ export async function searchCatalog(site: LidlSite, query: string): Promise<Lidl
   return [...pages].map(([erp, url]) => ({ erp, url }));
 }
 
+/** How many products a catalog lists; 0 when the site has no catalog (yet), redirects elsewhere or rejects the locale. */
+export async function probeSite(site: LidlSite) {
+  // fetchsize 12 like the site itself: some catalogs answer "empty" to smaller pages.
+  const params = new URLSearchParams({ q: "*", offset: "0", fetchsize: "12", locale: site.locale, assortment: site.assortment, version: "2.1.0" });
+  try {
+    const res = await get(`https://${site.host}/q/api/search?${params}`);
+    return res ? parseSearchPage(await res.json()).numFound : 0;
+  } catch {
+    return 0;
+  }
+}
+
 /** Products the lidl.rs search returns right now, including the ones Lidl published since the last sitemap rebuild. */
 export const listSearchProducts = () => searchCatalog(LIDL_SITES[0], "*");
 

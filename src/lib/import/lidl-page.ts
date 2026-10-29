@@ -59,9 +59,18 @@ export type LidlSite = { country: string; host: string; assortment: string; loca
 /**
  * Lidl online catalogs that answer the same search API, lidl.rs first, then by distance from Serbia:
  * neighbours often sell the same own-brand products, with the same barcode and similar packaging.
+ * Bosnia and Herzegovina, Montenegro and North Macedonia are Lidl's next markets (stores from late 2026); their
+ * catalogs are listed ahead, with the locales Lidl may choose, and join the search once they answer (see probeSite).
+ * Not listed: Northern Ireland, which shows the GB catalog.
  */
 export const LIDL_SITES: LidlSite[] = [
   ["rs", "www.lidl.rs", "sr_RS"],
+  ["ba", "www.lidl.ba", "bs_BA"],
+  ["ba", "www.lidl.ba", "sr_BA"],
+  ["ba", "www.lidl.ba", "hr_BA"],
+  ["me", "www.lidl.me", "sr_ME"],
+  ["me", "www.lidl.me", "cnr_ME"],
+  ["mk", "www.lidl.mk", "mk_MK"],
   ["hr", "www.lidl.hr", "hr_HR"],
   ["si", "www.lidl.si", "sl_SI"],
   ["bg", "www.lidl.bg", "bg_BG"],
@@ -88,8 +97,10 @@ export const LIDL_SITES: LidlSite[] = [
   ["lt", "www.lidl.lt", "lt_LT"],
   ["lv", "www.lidl.lv", "lv_LV"],
   ["ee", "www.lidl.ee", "et_EE"],
+  ["lu", "www.lidl.lu", "fr_LU"],
   ["gb", "www.lidl.co.uk", "en_GB"],
   ["ie", "www.lidl.ie", "en_IE"],
+  ["us", "www.lidl.com", "en_US"],
 ].map(([country, host, locale]) => ({ country, host, locale, assortment: locale.slice(3) }));
 
 /**
@@ -97,7 +108,7 @@ export const LIDL_SITES: LidlSite[] = [
  * each country, so abroad the same number can be another product (a Serbian croissant is a pain au chocolat in
  * France). They are trusted only in the neighbouring countries that share Serbia's assortment; GTINs everywhere.
  */
-const SHARED_ASSORTMENT = new Set(["rs", "hr", "si", "bg", "ro", "hu", "gr"]);
+const SHARED_ASSORTMENT = new Set(["rs", "ba", "me", "mk", "hr", "si", "bg", "ro", "hu", "gr"]);
 export function trustedAbroad(code: string, country: string) {
   const internal = code.startsWith("2") && (code.length === 8 || code.length === 13);
   return !internal || SHARED_ASSORTMENT.has(country);

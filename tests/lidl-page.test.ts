@@ -127,6 +127,9 @@ describe("other Lidl countries", () => {
     expect(libraryKey("hr", "11000015")).toBe("hr:11000015");
     const de = LIDL_SITES.find((s) => s.country === "de")!;
     expect(de).toEqual({ country: "de", host: "www.lidl.de", locale: "de_DE", assortment: "DE" });
+    // Lidl's next markets wait in the list with every locale Lidl may choose.
+    expect(LIDL_SITES.filter((s) => s.country === "ba").map((s) => s.locale)).toEqual(["bs_BA", "sr_BA", "hr_BA"]);
+    expect(LIDL_SITES[0].country).toBe("rs");
     const json = { numFound: 1, items: [{ gridbox: { data: { erpNumber: "100393125", canonicalUrl: "/p/roba/p100393125" } } }] };
     expect(parseSearchPage(json, "https://www.lidl.de").products).toEqual([{ erp: "100393125", url: "https://www.lidl.de/p/roba/p100393125" }]);
   });

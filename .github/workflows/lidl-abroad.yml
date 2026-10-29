@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: "13 1 * * 2,5" # Tuesday and Friday nights, away from the hourly lidl.rs runs
   workflow_dispatch:
+    inputs:
+      countries:
+        description: "Only these countries, comma-separated (e.g. us,lu); empty = all catalogs"
+        type: string
+        default: ""
 
 concurrency:
   group: import
@@ -26,4 +31,4 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run db:migrate
-      - run: npm run import:lidl-abroad
+      - run: npm run import:lidl-abroad -- ${{ inputs.countries && format('--countries={0}', inputs.countries) || '' }}
