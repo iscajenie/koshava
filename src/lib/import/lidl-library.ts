@@ -204,10 +204,19 @@ export async function importReferenceEntries(now: Date) {
     { name: string; brand: string | null; category: string | null; image: string; url: string }
   >;
   const lib = schema.lidlLibrary;
-  const known = new Set((await db.select({ erp: lib.erp }).from(lib).where(eq(lib.country, "it"))).map((r) => r.erp));
+  const known = new Map(
+    (await db.select({ erp: lib.erp, title: lib.title, url: lib.url }).from(lib).where(eq(lib.country, "it"))).map((r) => [r.erp, r]),
+  );
   let added = 0;
   for (const [key, entry] of Object.entries(data)) {
-    if (known.has(key)) continue;
+    const current = known.get(key);
+    if (current) {
+      // Names can be corrected in the file (e.g. once the product's real name is known).
+      if (current.title !== entry.name || current.url !== entry.url) {
+        await db.update(lib).set({ title: entry.name, url: entry.url, brand: entry.brand, category: entry.category }).where(eq(lib.erp, key));
+      }
+      continue;
+    }
     await db.insert(lib).values({
       erp: key,
       country: "it",
@@ -290,11 +299,12 @@ export async function applyLidlLibrary() {
     const entry = codes.map((c) => home.get(c)).find(Boolean);
     if (!entry) {
       const foreign = codes.map((c) => abroad.get(c)).find(Boolean);
-      if (product.imageUrl && product.contentSource !== "lidl-intl") continue;
-      // Reviewed name matches (data/lidl-name-matches.json): the same product on lidl.rs under another barcode.
+      if (product.imageUrl && product.contentSource !== "lidl-intl" && product.contentSource !== "lidl-name") continue;
+      // Reviewed name matches (data/lidl-name-matches.json): the same product on lidl.rs under another barcode,
+      // or a Lidl Italia product from Everli. A barcode match from abroad still comes first.
       const named = byName.get(product.sourceKey);
       const namedIds = named && imagesByErp.get(named);
-      if (!foreign && namedIds && (!product.imageUrl || product.contentSource === "lidl-name")) {
+      if (!foreign && namedIds) {
         await db
           .update(p)
           .set({ imageUrl: `/api/img/${namedIds[0]}`, images: [`/api/img/${namedIds[0]}`], lidlUrl: null, contentSource: "lidl-name", enrichedAt: new Date() })
@@ -303,8 +313,8 @@ export async function applyLidlLibrary() {
         continue;
       }
       if (!foreign) {
-        // A photo from abroad that no longer matches (stricter rules) is taken away again.
-        if (product.contentSource === "lidl-intl") {
+        // A photo from abroad or a name pair that no longer holds (stricter rules, pair removed) is taken away again.
+        if (product.contentSource === "lidl-intl" || product.contentSource === "lidl-name") {
           await db.update(p).set({ imageUrl: null, images: [], contentSource: null }).where(eq(p.id, product.id));
         }
         continue;

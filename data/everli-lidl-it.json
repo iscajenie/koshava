@@ -462,112 +462,105 @@
   "url": "https://spesa.everli.com/en/products/4/100314?brand=lidl"
  },
  "everli:img-093c341071": {
-  "name": "Focaccia (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Focaccia tradizionale 130g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/2/18/512_90_a6c40a7225bd5c2315f69935260866823c8f4c35.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
+ "everli:img-1c29d76edb": {
+  "name": "Baguette 250g (Lidl Italia)",
+  "brand": null,
+  "category": "Pane e Pasticceria",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_e334a3506c49d8023bebfea2a47601ba05c0a77c.webp",
+  "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
+ },
  "everli:img-283cdea540": {
-  "name": "Pane scuro ai semi (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Pane proteico 400g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/4/512_90_53dddca833cf3eed3ddaaf1cdd17f33fe4b7f811.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-31445b15e4": {
-  "name": "Pane rustico a lievitazione naturale (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Pane di segale 600g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_c5648a26119b6e78abd7c50c8997b34ab5412cea.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
- "everli:img-36301950f8": {
-  "name": "Pane bianco rotondo (Lidl Italia, Everli; recognized from the photo)",
+ "everli:img-5a749eb123": {
+  "name": "Stick alle olive 80g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
-  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_112f93e3a045885eae63f634658f714d4c9d6f0c.webp",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_ee7ec0bd7e9d53c5bc1d0f8607ab63da5c06df78.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-651cde028d": {
-  "name": "Baguette rustica (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Rustiguette 240g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_201f57dd16b07e8d86b8f7a807733c9201117f36.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
- "everli:img-6b84321865": {
-  "name": "Cornetto con ripieno al cioccolato (Lidl Italia, Everli; recognized from the photo)",
-  "brand": null,
-  "category": "Pane e Pasticceria",
-  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_1edde157e26a15c6aa66cc24838cc204c58edbff.webp",
-  "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
- },
- "everli:img-6d5113d58d": {
-  "name": "Baguette (Lidl Italia, Everli; recognized from the photo)",
-  "brand": null,
-  "category": "Pane e Pasticceria",
-  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_981bb704b084a87bebd5ea8d6e7411d330f27685.webp",
-  "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
- },
  "everli:img-6d6e044175": {
-  "name": "Brezel (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Brezel 95g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_3d37af5300b914a2a296b411ff359a6c696dbd7b.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-708f7943f1": {
-  "name": "Panino (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Panino tondo 65g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_f1a22b41ed4c4be2ae5e6f1700a2c26cf419dbb3.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-8f0c0c1f52": {
-  "name": "Pane scuro ai cereali (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Pane ai semi 750g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_236088b85956db26da11bc159de2584d9ae732f4.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-93ed160353": {
-  "name": "Pane rotondo (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Pane bianco 750g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_8fb7ee56ac7aed164f11818dba34a9b7d7fb1d1e.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
- "everli:img-bef2fa717b": {
-  "name": "Pane di segale (Lidl Italia, Everli; recognized from the photo)",
+ "everli:img-94dfbaed28": {
+  "name": "Treccia con noci pecan 86g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
-  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_81067824ba4abcd7ae7da872da6f0abf7c31f3af.webp",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2026/06/07/512_90_e9b58bc8d2ed7b0a3d99beea433b978793b9c3e2.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-c3294784e8": {
-  "name": "Pizzetta margherita (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Pizza 142g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_8360cac0cf2c1335f7e0941083d636ed35c04065.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-e0f5d585c8": {
-  "name": "Cornetto al burro (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Cornetto al burro 57g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_7fc67d217ee7b785f51333714698396048268818.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-e1d1610dc7": {
-  "name": "Pane piatto (pita) (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Pita 160g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/21/512_90_435c5b3fc5e74e435f9089ba37667ec4ba57804c.webp",
   "url": "https://spesa.everli.com/en/products/8/100300?brand=lidl"
  },
  "everli:img-f763ee1575": {
-  "name": "Kaiser (panino) (Lidl Italia, Everli; recognized from the photo)",
+  "name": "Rosetta 65g (Lidl Italia)",
   "brand": null,
   "category": "Pane e Pasticceria",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/11/04/512_90_988973d646a517119ea4cccee12ecfaefe641efb.webp",

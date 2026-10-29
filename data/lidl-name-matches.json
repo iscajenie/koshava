@@ -31,8 +31,8 @@
  },
  "n-0adeee82e656": {
   "product": "Baget 250g",
-  "erp": "everli:img-6d5113d58d",
-  "lidl": "Baguette (Lidl Italia, Everli; recognized from the photo)"
+  "erp": "everli:img-1c29d76edb",
+  "lidl": "Baguette 250g (Lidl Italia)"
  },
  "n-0ae70815d3dd": {
   "product": "Pileći batak i karabatak MIX ca. 1kg",
@@ -83,11 +83,6 @@
   "product": "Gazirano piće sa ukusom limuna 0,33l",
   "erp": "11494196",
   "lidl": "SAGUARO EDITION Gazirano piće sa ukusom limuna"
- },
- "n-137e765536a1": {
-  "product": "Rustični hleb sa kiselim test. 500g",
-  "erp": "everli:img-31445b15e4",
-  "lidl": "Pane rustico a lievitazione naturale (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-13b31dc3c899": {
   "product": "Svinj.rebra \"short ribs\" ca 900g",
@@ -236,8 +231,8 @@
  },
  "n-279b864f5d68": {
   "product": "Hleb beli 500g",
-  "erp": "everli:img-36301950f8",
-  "lidl": "Pane bianco rotondo (Lidl Italia, Everli; recognized from the photo)"
+  "erp": "everli:img-93ed160353",
+  "lidl": "Pane bianco 750g (Lidl Italia)"
  },
  "n-27ce83dbb8b4": {
   "product": "Mineralna negazirana voda 6l",
@@ -301,8 +296,8 @@
  },
  "n-39fbb46c0ba5": {
   "product": "Hleb ražani 600g",
-  "erp": "everli:img-bef2fa717b",
-  "lidl": "Pane di segale (Lidl Italia, Everli; recognized from the photo)"
+  "erp": "everli:img-31445b15e4",
+  "lidl": "Pane di segale 600g (Lidl Italia)"
  },
  "n-3a773efac260": {
   "product": "Domaća jabuka crveni delišes, rinfuz",
@@ -319,6 +314,11 @@
   "erp": "11496449",
   "lidl": "Domaće sveže svinjske šnicle od buta"
  },
+ "n-3c98bcb517e3": {
+  "product": "Canadier (sa pekan orasima) 81g",
+  "erp": "everli:img-94dfbaed28",
+  "lidl": "Treccia con noci pecan 86g (Lidl Italia)"
+ },
  "n-3e0e3aa621f9": {
   "product": "Cezar salata 0,27kg",
   "erp": "everli:984866",
@@ -333,6 +333,11 @@
   "product": "Paprika u pavlaci seckana 230g",
   "erp": "11274288",
   "lidl": "Paprika u pavlaci"
+ },
+ "n-3ee460aace75": {
+  "product": "Proteinski hleb 400g",
+  "erp": "everli:img-283cdea540",
+  "lidl": "Pane proteico 400g (Lidl Italia)"
  },
  "n-3ef3062cbfb6": {
   "product": "Domaća mlevena kafa 100g",
@@ -562,7 +567,7 @@
  "n-609d057741ed": {
   "product": "Mini Pizza Margherita 110g",
   "erp": "everli:img-c3294784e8",
-  "lidl": "Pizzetta margherita (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Pizza 142g (Lidl Italia)"
  },
  "n-63dfeca06db8": {
   "product": "Mandarine, rinfuz",
@@ -707,7 +712,7 @@
  "n-8034d9c85716": {
   "product": "Zemička 55g",
   "erp": "everli:img-708f7943f1",
-  "lidl": "Panino (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Panino tondo 65g (Lidl Italia)"
  },
  "n-80cddf67719a": {
   "product": "Grožđe belo besemeno 2kg PK 2kg",
@@ -747,7 +752,7 @@
  "n-86e405af9119": {
   "product": "Putero kroasan 27%/ 60g",
   "erp": "everli:img-e0f5d585c8",
-  "lidl": "Cornetto al burro (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Cornetto al burro 57g (Lidl Italia)"
  },
  "n-8974f064579c": {
   "product": "Napolitanke preliv. čokoladom 180g",
@@ -851,8 +856,8 @@
  },
  "n-9a037f45b9c2": {
   "product": "Baltički hleb sa semenkama 400g",
-  "erp": "everli:img-283cdea540",
-  "lidl": "Pane scuro ai semi (Lidl Italia, Everli; recognized from the photo)"
+  "erp": "everli:img-8f0c0c1f52",
+  "lidl": "Pane ai semi 750g (Lidl Italia)"
  },
  "n-9a61a7044405": {
   "product": "Pileći karabatak bez kože i ko. 500g",
@@ -972,7 +977,7 @@
  "n-ad03c4538ce9": {
   "product": "Bavarska pereca 95g",
   "erp": "everli:img-6d6e044175",
-  "lidl": "Brezel (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Brezel 95g (Lidl Italia)"
  },
  "n-ad6a3988cd33": {
   "product": "Nektar jabuka 50% 0,2l",
@@ -993,11 +998,6 @@
   "product": "Smrznuta boranija zelena 1kg",
   "erp": "11495369",
   "lidl": "Zelena boranija"
- },
- "n-aec707e65e25": {
-  "product": "Kroasan sa čokoladnim nadevom 80g",
-  "erp": "everli:img-6b84321865",
-  "lidl": "Cornetto con ripieno al cioccolato (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-aed571f189de": {
   "product": "Svinjske šnicle od buta 850g",
@@ -1112,7 +1112,7 @@
  "n-c63e557b559e": {
   "product": "Rustik baget 300g",
   "erp": "everli:img-651cde028d",
-  "lidl": "Baguette rustica (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Rustiguette 240g (Lidl Italia)"
  },
  "n-c72c3ea5513f": {
   "product": "Suva hrana za mačke(Better)1kg/ 1kg",
@@ -1139,11 +1139,6 @@
   "erp": "11493234",
   "lidl": "Šumadijski sir XXL"
  },
- "n-ca4105787cb6": {
-  "product": "Hleb tamni domaći 500g",
-  "erp": "everli:img-8f0c0c1f52",
-  "lidl": "Pane scuro ai cereali (Lidl Italia, Everli; recognized from the photo)"
- },
  "n-ca73460ba8a0": {
   "product": "Kakao duo krem 500g",
   "erp": "11494189",
@@ -1152,7 +1147,7 @@
  "n-caf7c3062bd7": {
   "product": "Fokača sa biberom 150g",
   "erp": "everli:img-093c341071",
-  "lidl": "Focaccia (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Focaccia tradizionale 130g (Lidl Italia)"
  },
  "n-cb006980ed6e": {
   "product": "Jaja iz pod. uzgoja L 10kom.",
@@ -1207,7 +1202,7 @@
  "n-d5e20b7dbb76": {
   "product": "Kajzerica rustična 80g",
   "erp": "everli:img-f763ee1575",
-  "lidl": "Kaiser (panino) (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Rosetta 65g (Lidl Italia)"
  },
  "n-d6d7c421ccc8": {
   "product": "Grčki tip jogurta kajsija 400g",
@@ -1238,11 +1233,6 @@
   "product": "Limun, rinfuz",
   "erp": "11030073",
   "lidl": "Limun"
- },
- "n-db35c5a12932": {
-  "product": "Okrugli hleb sa kromp. i lukom 400g",
-  "erp": "everli:img-93ed160353",
-  "lidl": "Pane rotondo (Lidl Italia, Everli; recognized from the photo)"
  },
  "n-dbe9477daf04": {
   "product": "Šampon za kosu 500ml",
@@ -1362,7 +1352,7 @@
  "n-e59b61ec9a22": {
   "product": "Somun 160g",
   "erp": "everli:img-e1d1610dc7",
-  "lidl": "Pane piatto (pita) (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Pita 160g (Lidl Italia)"
  },
  "n-e69d5c9af45c": {
   "product": "Pileća prsa u omotu 400g",
@@ -1373,6 +1363,11 @@
   "product": "Higijenski ulošci sa krilcima 20kom.",
   "erp": "11497985",
   "lidl": "Higijenski ulošci"
+ },
+ "n-e842a078ce91": {
+  "product": "Štapići sa maslinama 60g",
+  "erp": "everli:img-5a749eb123",
+  "lidl": "Stick alle olive 80g (Lidl Italia)"
  },
  "n-e8ba6083d01e": {
   "product": "Pileći batak ca. 1kg",
@@ -1422,7 +1417,7 @@
  "n-f14677ce39a4": {
   "product": "Putero kroasan 24% 53g",
   "erp": "everli:img-e0f5d585c8",
-  "lidl": "Cornetto al burro (Lidl Italia, Everli; recognized from the photo)"
+  "lidl": "Cornetto al burro 57g (Lidl Italia)"
  },
  "n-f161d1a00ca2": {
   "product": "Svinjski file ca. 400g",
