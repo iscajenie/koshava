@@ -237,7 +237,7 @@ export const sr: Dictionary = {
     noAccess: "Nemate pristup",
     library: {
       title: "Lidl biblioteka",
-      intro: "Slike svih proizvoda koji su se pojavili na lidl.rs. Sinhronizacija jednom dnevno; proizvodi uklonjeni sa sajta ostaju u arhivi zajedno sa slikama.",
+      intro: "Slike svih proizvoda koji su se pojavili na lidl.rs. Sinhronizacija svakog sata radnim danima i svake noći; proizvodi uklonjeni sa sajta ostaju u arhivi zajedno sa slikama.",
       products: "Proizvoda u biblioteci",
       onSite: "Trenutno na lidl.rs",
       archived: "U arhivi",

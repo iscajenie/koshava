@@ -1,15 +1,24 @@
 /**
  * Keeps a permanent library of lidl.rs products and their photos.
- *  - The lidl.rs sitemap lists every product page published right now (mostly weekly offers).
+ *  - Sources: the lidl.rs sitemap (rebuilt by Lidl once a night, around 23:05 UTC) and the site search, which also
+ *    shows products Lidl's editors publish during the day. Both list only current offers, not the whole assortment.
  *  - New pages, and known ones not refreshed for a week, are fetched; their photos are stored in the database.
  *  - Products that leave lidl.rs stay in the library (marked removed), photos included.
  *  - Price-list products then get the library photo whose GTIN matches one of their barcodes.
+ * Runs without news are not recorded, so it can run every hour (see .github/workflows/lidl-library.yml).
  *
  *   npm run import:lidl
  */
-import { and, eq, inArray, isNull, notInArray, sql } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, notInArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
-import { applyLidlLibrary, fetchLidlRecord, listProductPages, saveLidlRecord, storeLidlImage } from "@/lib/import/lidl-library";
+import {
+  applyLidlLibrary,
+  fetchLidlRecord,
+  listSearchProducts,
+  listSitemapProducts,
+  saveLidlRecord,
+  storeLidlImage,
+} from "@/lib/import/lidl-library";
 import { libraryStats } from "@/lib/library";
 import type { LidlProduct } from "@/lib/import/lidl-page";
 import { refreshPublished } from "@/lib/import/publish";
@@ -43,47 +52,85 @@ async function storeMissingImages(erp: string, urls: string[]) {
   return added;
 }
 
+/** Pages that answered 404 recently; the sitemap keeps listing expired offers for a while. */
+async function recentlyGone() {
+  const rows = await db
+    .select({ key: schema.contentCache.key })
+    .from(schema.contentCache)
+    .where(
+      and(
+        eq(schema.contentCache.source, "lidl-page"),
+        eq(schema.contentCache.found, false),
+        gt(schema.contentCache.checkedAt, new Date(Date.now() - REFRESH_DAYS * DAY)),
+      ),
+    );
+  return new Set(rows.map((r) => r.key));
+}
+
+async function rememberGone(erp: string) {
+  await db
+    .insert(schema.contentCache)
+    .values({ source: "lidl-page", key: erp, found: false, data: null, checkedAt: new Date() })
+    .onConflictDoUpdate({ target: [schema.contentCache.source, schema.contentCache.key], set: { found: false, checkedAt: new Date() } });
+}
+
 async function main() {
-  const [run] = await db.insert(schema.importRuns).values({ kind: "lidl-library" }).returning();
   const lib = schema.lidlLibrary;
+  const startedAt = new Date();
+  const now = startedAt;
   try {
-    const now = new Date();
-    const pages = await listProductPages();
-    if (pages.length < 50) throw new Error(`Only ${pages.length} products in the lidl.rs sitemap; not marking the rest as removed`);
+    const [sitemap, search] = await Promise.allSettled([listSitemapProducts(), listSearchProducts()]);
+    if (sitemap.status === "rejected") console.warn("sitemap:", String(sitemap.reason));
+    if (search.status === "rejected") console.warn("search:", String(search.reason));
+    const fromSitemap = sitemap.status === "fulfilled" ? sitemap.value.pages : [];
+    const fromSearch = search.status === "fulfilled" ? search.value : [];
+    const pages = new Map([...fromSitemap, ...fromSearch].map((p) => [p.erp, p.url]));
+    if (pages.size < 50) throw new Error(`Only ${pages.size} products listed on lidl.rs; not marking the rest as removed`);
+    const searchable = new Set(fromSearch.map((p) => p.erp));
     const known = new Map((await db.select({ erp: lib.erp, fetchedAt: lib.fetchedAt }).from(lib)).map((r) => [r.erp, r.fetchedAt]));
+    const goneBefore = await recentlyGone();
 
     let fetched = 0;
     let added = 0;
     let images = 0;
-    // The sitemap keeps some products whose pages already answer 404; those count as removed.
     const gone = new Set<string>();
-    for (const page of pages) {
-      const fetchedAt = known.get(page.erp);
+    for (const [erp, url] of pages) {
+      const fetchedAt = known.get(erp);
       if (fetchedAt && now.getTime() - fetchedAt.getTime() < REFRESH_DAYS * DAY) continue;
+      // A page that answered 404 is not asked again for a week, unless the search shows it again.
+      if (goneBefore.has(erp) && !searchable.has(erp)) {
+        gone.add(erp);
+        continue;
+      }
       try {
-        const record = await fetchLidlRecord(page.erp, page.url);
+        const record = await fetchLidlRecord(erp, url);
         if (record) {
           await saveLidlRecord(record, now);
           images += await storeMissingImages(record.erp, record.images);
           fetched++;
-          if (!known.has(page.erp)) added++;
+          if (!known.has(erp)) added++;
           if (fetched % 50 === 0) console.log(`lidl library: ${fetched} pages, ${images} new photos`);
         } else {
-          gone.add(page.erp);
+          gone.add(erp);
+          await rememberGone(erp);
         }
       } catch (error) {
-        console.warn(`${page.url}:`, String(error));
+        console.warn(`${url}:`, String(error));
       }
       await sleep(600);
     }
 
     // Presence: listed pages that still open are on the site; the rest is removed (kept, not deleted).
-    const onSite = pages.map((p) => p.erp).filter((erp) => !gone.has(erp));
-    const removed = await db
-      .update(lib)
-      .set({ removedAt: now })
-      .where(and(isNull(lib.removedAt), notInArray(lib.erp, onSite)))
-      .returning({ erp: lib.erp });
+    // Removal is decided only when both sources answered, so a failed request cannot archive half the library.
+    const onSite = [...pages.keys()].filter((erp) => !gone.has(erp));
+    const removed =
+      sitemap.status === "fulfilled" && search.status === "fulfilled"
+        ? await db
+            .update(lib)
+            .set({ removedAt: now })
+            .where(and(isNull(lib.removedAt), notInArray(lib.erp, onSite)))
+            .returning({ erp: lib.erp })
+        : [];
     for (let i = 0; i < onSite.length; i += 500) {
       await db.update(lib).set({ lastSeenAt: now, removedAt: null }).where(inArray(lib.erp, onSite.slice(i, i + 500)));
     }
@@ -121,17 +168,30 @@ async function main() {
       .where(sql`not exists (select 1 from ${schema.lidlImages} i where i.erp = ${lib}.erp)`);
     for (const entry of withoutPreview) images += await storeMissingImages(entry.erp, entry.imageUrls);
 
+    const listed = { listed: pages.size, inSitemap: fromSitemap.length, inSearch: fromSearch.length, gone: gone.size };
+    if (fetched + migrated + images + removed.length === 0) {
+      console.log("Lidl library: nothing new", listed);
+      return;
+    }
     await applyLidlLibrary();
     await refreshPublished();
     const library = await libraryStats();
-    const stats = { listed: pages.length, fetched, added, removed: removed.length, migrated, newPhotos: images, ...library };
-    await db.update(schema.importRuns).set({ status: "ok", finishedAt: new Date(), stats }).where(eq(schema.importRuns.id, run.id));
+    const stats = {
+      ...listed,
+      fetched,
+      added,
+      removed: removed.length,
+      migrated,
+      newPhotos: images,
+      ...library,
+      ...(sitemap.status === "fulfilled" && sitemap.value.lastModified ? { sitemapBuilt: sitemap.value.lastModified } : {}),
+    };
+    await db.insert(schema.importRuns).values({ kind: "lidl-library", startedAt, finishedAt: new Date(), status: "ok", stats });
     console.log("Lidl library", stats);
   } catch (error) {
     await db
-      .update(schema.importRuns)
-      .set({ status: "failed", finishedAt: new Date(), error: String(error) })
-      .where(eq(schema.importRuns.id, run.id));
+      .insert(schema.importRuns)
+      .values({ kind: "lidl-library", startedAt, finishedAt: new Date(), status: "failed", error: String(error) });
     throw error;
   }
 }

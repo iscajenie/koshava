@@ -3,10 +3,9 @@ import sharp from "sharp";
 import { eq, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { normalizeText } from "@/lib/text";
-import { erpFromUrl, parseLidlPage, sitemapLocations, type LidlRecord } from "./lidl-page";
+import { erpFromUrl, LIDL_BASE as BASE, parseLidlPage, parseSearchPage, sitemapLocations, type LidlRecord } from "./lidl-page";
 import { sleep } from "./fetch";
 
-const BASE = "https://www.lidl.rs";
 const USER_AGENT = "Mozilla/5.0 (compatible; KoshavaBot/0.1; +https://koshava.vercel.app)";
 
 async function get(url: string, attempt = 1): Promise<Response | null> {
@@ -27,15 +26,23 @@ async function get(url: string, attempt = 1): Promise<Response | null> {
   return get(url, attempt + 1);
 }
 
-/** Every product page lidl.rs currently publishes, from its sitemap. */
-export async function listProductPages(): Promise<{ erp: string; url: string }[]> {
+export type LidlPage = { erp: string; url: string };
+
+/**
+ * Product pages listed in the lidl.rs sitemap. Lidl rebuilds the sitemaps of all its countries once a night
+ * (around 23:05 UTC); lastModified tells when the current one was built.
+ */
+export async function listSitemapProducts(): Promise<{ pages: LidlPage[]; lastModified: string | null }> {
   const index = await (await get(`${BASE}/static/sitemap.xml`))?.text();
   if (!index) throw new Error("lidl.rs sitemap index not found");
   const productMaps = sitemapLocations(index).filter((u) => u.includes("/p/export/"));
   const pages = new Map<string, string>();
+  let lastModified: string | null = null;
   for (const mapUrl of productMaps) {
     const res = await get(mapUrl);
     if (!res) continue;
+    const modified = res.headers.get("last-modified");
+    if (modified && (!lastModified || Date.parse(modified) > Date.parse(lastModified))) lastModified = modified;
     const raw = Buffer.from(await res.arrayBuffer());
     // The product sitemap is a .gz file served as-is, not with Content-Encoding.
     const xml = (raw[0] === 0x1f && raw[1] === 0x8b ? gunzipSync(raw) : raw).toString("utf8");
@@ -43,6 +50,22 @@ export async function listProductPages(): Promise<{ erp: string; url: string }[]
       const erp = erpFromUrl(url);
       if (erp) pages.set(erp, url);
     }
+  }
+  return { pages: [...pages].map(([erp, url]) => ({ erp, url })), lastModified };
+}
+
+/** Products the lidl.rs search returns right now, including the ones Lidl published since the last sitemap rebuild. */
+export async function listSearchProducts(): Promise<LidlPage[]> {
+  const pages = new Map<string, string>();
+  // The API returns about 50 products per call whatever fetchsize asks for, so the offset follows what came back.
+  for (let offset = 0, call = 0; call < 100; call++) {
+    const res = await get(`${BASE}/q/api/search?q=*&offset=${offset}&fetchsize=48&locale=sr_RS&assortment=RS&version=2.1.0`);
+    if (!res) break;
+    const { numFound, count, products } = parseSearchPage(await res.json());
+    for (const p of products) pages.set(p.erp, p.url);
+    offset += count;
+    if (count === 0 || offset >= numFound) break;
+    await sleep(500);
   }
   return [...pages].map(([erp, url]) => ({ erp, url }));
 }

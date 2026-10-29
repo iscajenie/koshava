@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { erpFromUrl, htmlToLines, parseLidlPage, sitemapLocations } from "@/lib/import/lidl-page";
+import { erpFromUrl, htmlToLines, parseLidlPage, parseSearchPage, sitemapLocations } from "@/lib/import/lidl-page";
 
 // Shape of a lidl.rs product page: Nuxt payload in devalue format (values referenced by index) plus JSON-LD.
 const payload = [
@@ -74,6 +74,24 @@ describe("sitemap", () => {
     const urls = sitemapLocations(xml);
     expect(urls).toEqual(["https://www.lidl.rs/p/nixe-tuna/p11000015", "https://www.lidl.rs/c/akcije/a10023&x=1"]);
     expect(urls.map(erpFromUrl)).toEqual(["11000015", null]);
+  });
+});
+
+describe("parseSearchPage", () => {
+  it("lists products with absolute page URLs and counts every returned item", () => {
+    const json = {
+      numFound: 473,
+      items: [
+        { type: "product", gridbox: { data: { erpNumber: "11150384", canonicalUrl: "/p/buket-ruza/p11150384" } } },
+        { type: "content", gridbox: {} },
+      ],
+    };
+    expect(parseSearchPage(json)).toEqual({
+      numFound: 473,
+      count: 2,
+      products: [{ erp: "11150384", url: "https://www.lidl.rs/p/buket-ruza/p11150384" }],
+    });
+    expect(parseSearchPage({})).toEqual({ numFound: 0, count: 0, products: [] });
   });
 });
 

@@ -1,10 +1,15 @@
 name: Lidl library
 
-# Daily: stores the preview of every product published on lidl.rs, keeps the ones Lidl removes,
+# Stores the preview of every product published on lidl.rs, keeps the ones Lidl removes,
 # and gives price-list products a Lidl photo when a barcode matches.
+#
+# When lidl.rs changes: Lidl's editors publish products on weekdays during office hours (they show up in the site
+# search right away), and the sitemaps of all Lidl countries are rebuilt once a night at about 23:05 UTC.
+# Runs that find nothing new take about a minute and are not recorded.
 on:
   schedule:
-    - cron: "17 5 * * *" # 06:17 / 07:17 Belgrade time
+    - cron: "17 6-16 * * 1-5" # hourly on weekdays, 07:17–17:17 Belgrade time in winter (08:17–18:17 in summer)
+    - cron: "37 23 * * *" # every night, half an hour after the sitemap rebuild
   workflow_dispatch:
 
 concurrency:
@@ -15,6 +20,9 @@ jobs:
   library:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: write
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
@@ -26,3 +34,8 @@ jobs:
       - run: npm ci
       - run: npm run db:migrate
       - run: npm run import:lidl
+      # GitHub turns schedules off in public repositories after 60 days without commits; re-enabling resets the clock.
+      - if: github.event_name == 'schedule' && github.event.schedule == '37 23 * * *'
+        run: gh workflow enable lidl-library.yml --repo "$GITHUB_REPOSITORY" || true
+        env:
+          GH_TOKEN: ${{ github.token }}

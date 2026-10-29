@@ -1,4 +1,4 @@
-// Parsing of lidl.rs pages and sitemaps; no network or database access, so it is unit-tested.
+// Parsing of lidl.rs pages, sitemaps and search results; no network or database access, so it is unit-tested.
 import type { LidlOffer } from "@/db/schema";
 
 /** Record format of the earlier lidl.rs crawler, still present in content_cache rows (source "lidl"). */
@@ -50,6 +50,22 @@ export function htmlToLines(html: string | undefined | null): string[] {
 /** Every <loc> of a sitemap or sitemap index. */
 export function sitemapLocations(xml: string) {
   return [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => decodeEntities(m[1]));
+}
+
+export const LIDL_BASE = "https://www.lidl.rs";
+
+/**
+ * One page of the lidl.rs search API (/q/api/search?q=*): every product currently on the site,
+ * including ones published today that reach the sitemap only with its nightly rebuild.
+ */
+export function parseSearchPage(json: unknown) {
+  const d = (json ?? {}) as { numFound?: number; items?: { gridbox?: { data?: { erpNumber?: string; canonicalUrl?: string } } }[] };
+  const items = d.items ?? [];
+  const products = items.flatMap((item) => {
+    const g = item.gridbox?.data;
+    return g?.erpNumber && g.canonicalUrl ? [{ erp: String(g.erpNumber), url: new URL(g.canonicalUrl, LIDL_BASE).toString() }] : [];
+  });
+  return { numFound: Number(d.numFound ?? 0), count: items.length, products };
 }
 
 /** "https://www.lidl.rs/p/nixe-tuna/p11000015" -> "11000015". */
