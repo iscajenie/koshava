@@ -1,0 +1,29 @@
+name: Lidl abroad
+
+# Searches the online catalogs of other Lidl countries for the barcodes of price-list products without a photo
+# (see scripts/lidl-abroad.ts). Every country shows its own weekly offers for a week or two, so two runs a week
+# catch most of them. Takes about half an hour.
+on:
+  schedule:
+    - cron: "13 1 * * 2,5" # Tuesday and Friday nights, away from the hourly lidl.rs runs
+  workflow_dispatch:
+
+concurrency:
+  group: import
+  cancel-in-progress: false
+
+jobs:
+  abroad:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:migrate
+      - run: npm run import:lidl-abroad

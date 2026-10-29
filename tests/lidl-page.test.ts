@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { erpFromUrl, htmlToLines, parseLidlPage, parseSearchPage, sitemapLocations } from "@/lib/import/lidl-page";
+import {
+  erpFromUrl,
+  htmlToLines,
+  libraryKey,
+  LIDL_SITES,
+  parseLidlPage,
+  parseSearchPage,
+  searchBatches,
+  sitemapLocations,
+  trustedAbroad,
+} from "@/lib/import/lidl-page";
 
 // Shape of a lidl.rs product page: Nuxt payload in devalue format (values referenced by index) plus JSON-LD.
 const payload = [
@@ -92,6 +102,33 @@ describe("parseSearchPage", () => {
       products: [{ erp: "11150384", url: "https://www.lidl.rs/p/buket-ruza/p11150384" }],
     });
     expect(parseSearchPage({})).toEqual({ numFound: 0, count: 0, products: [] });
+  });
+});
+
+describe("other Lidl countries", () => {
+  it("builds search queries of at most 100 characters", () => {
+    const codes = Array.from({ length: 16 }, (_, i) => String(4056489000000 + i));
+    const batches = searchBatches(codes);
+    expect(batches.map((b) => b.length)).toEqual([7, 7, 2]);
+    expect(batches.flat()).toEqual(codes);
+    expect(Math.max(...batches.map((b) => b.join(" ").length))).toBeLessThanOrEqual(100);
+  });
+
+  it("trusts internal Lidl codes only in neighbouring countries", () => {
+    expect(trustedAbroad("4335619254237", "fr")).toBe(true);
+    expect(trustedAbroad("20364038", "fr")).toBe(false);
+    expect(trustedAbroad("20364038", "hr")).toBe(true);
+    expect(trustedAbroad("2250100000000", "de")).toBe(false);
+    expect(trustedAbroad("2250100000000", "bg")).toBe(true);
+  });
+
+  it("keys foreign products by country and reads search answers of any site", () => {
+    expect(libraryKey("rs", "11000015")).toBe("11000015");
+    expect(libraryKey("hr", "11000015")).toBe("hr:11000015");
+    const de = LIDL_SITES.find((s) => s.country === "de")!;
+    expect(de).toEqual({ country: "de", host: "www.lidl.de", locale: "de_DE", assortment: "DE" });
+    const json = { numFound: 1, items: [{ gridbox: { data: { erpNumber: "100393125", canonicalUrl: "/p/roba/p100393125" } } }] };
+    expect(parseSearchPage(json, "https://www.lidl.de").products).toEqual([{ erp: "100393125", url: "https://www.lidl.de/p/roba/p100393125" }]);
   });
 });
 

@@ -63,7 +63,7 @@ async function main() {
       .leftJoin(schema.categories, eq(schema.categories.id, schema.products.categoryId))
       .where(eq(schema.products.isActive, true));
     const needOff = products.filter(
-      (p) => (p.barcode || p.altBarcodes.length > 0) && p.contentSource !== "lidl" && p.contentSource !== "maxi",
+      (p) => (p.barcode || p.altBarcodes.length > 0) && !["lidl", "lidl-intl", "maxi"].includes(p.contentSource ?? ""),
     );
 
     // Open Food Facts family, one cached lookup per (database, barcode); a few products in flight at once.

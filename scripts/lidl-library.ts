@@ -17,7 +17,7 @@ import {
   listSearchProducts,
   listSitemapProducts,
   saveLidlRecord,
-  storeLidlImage,
+  storePreviews,
 } from "@/lib/import/lidl-library";
 import { libraryStats } from "@/lib/library";
 import type { LidlProduct } from "@/lib/import/lidl-page";
@@ -25,32 +25,7 @@ import { refreshPublished } from "@/lib/import/publish";
 import { sleep } from "@/lib/import/fetch";
 
 const REFRESH_DAYS = 7;
-// Photos stored per product: the card preview by default. The free database tier (500 MB) holds
-// roughly 25 000 previews; raise this to keep gallery photos too.
-const IMAGES_PER_PRODUCT = Number(process.env.LIDL_LIBRARY_IMAGES ?? 1);
 const DAY = 24 * 60 * 60 * 1000;
-
-async function storeMissingImages(erp: string, urls: string[]) {
-  if (urls.length === 0) return 0;
-  const stored = new Set(
-    (
-      await db
-        .select({ url: schema.lidlImages.sourceUrl })
-        .from(schema.lidlImages)
-        .where(and(eq(schema.lidlImages.erp, erp), inArray(schema.lidlImages.sourceUrl, urls)))
-    ).map((r) => r.url),
-  );
-  let added = 0;
-  for (const [position, url] of urls.slice(0, IMAGES_PER_PRODUCT).entries()) {
-    if (stored.has(url)) continue;
-    try {
-      if (await storeLidlImage(erp, url, position)) added++;
-    } catch (error) {
-      console.warn(`image ${url}:`, String(error));
-    }
-  }
-  return added;
-}
 
 /** Pages that answered 404 recently; the sitemap keeps listing expired offers for a while. */
 async function recentlyGone() {
@@ -106,7 +81,7 @@ async function main() {
         const record = await fetchLidlRecord(erp, url);
         if (record) {
           await saveLidlRecord(record, now);
-          images += await storeMissingImages(record.erp, record.images);
+          images += await storePreviews(record.erp, record.images);
           fetched++;
           if (!known.has(erp)) added++;
           if (fetched % 50 === 0) console.log(`lidl library: ${fetched} pages, ${images} new photos`);
@@ -128,7 +103,7 @@ async function main() {
         ? await db
             .update(lib)
             .set({ removedAt: now })
-            .where(and(isNull(lib.removedAt), notInArray(lib.erp, onSite)))
+            .where(and(eq(lib.country, "rs"), isNull(lib.removedAt), notInArray(lib.erp, onSite)))
             .returning({ erp: lib.erp })
         : [];
     for (let i = 0; i < onSite.length; i += 500) {
@@ -157,7 +132,7 @@ async function main() {
         lastSeenAt: onSite.includes(key) ? now : checkedAt,
         removedAt: onSite.includes(key) ? null : now,
       });
-      images += await storeMissingImages(key, old.images ?? []);
+      images += await storePreviews(key, old.images ?? []);
       migrated++;
     }
 
@@ -166,7 +141,7 @@ async function main() {
       .select({ erp: lib.erp, imageUrls: lib.imageUrls })
       .from(lib)
       .where(sql`not exists (select 1 from ${schema.lidlImages} i where i.erp = ${lib}.erp)`);
-    for (const entry of withoutPreview) images += await storeMissingImages(entry.erp, entry.imageUrls);
+    for (const entry of withoutPreview) images += await storePreviews(entry.erp, entry.imageUrls);
 
     const listed = { listed: pages.size, inSitemap: fromSitemap.length, inSearch: fromSearch.length, gone: gone.size };
     if (fetched + migrated + images + removed.length === 0) {

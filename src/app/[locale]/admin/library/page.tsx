@@ -18,17 +18,19 @@ export default async function AdminLibraryPage({ searchParams }: PageProps<"/[lo
   return (
     <div className="space-y-5">
       <p className="max-w-3xl text-sm text-muted">{l.intro}</p>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
         {[
           [l.products, stats.products],
           [l.onSite, stats.onSite],
           [l.archived, stats.archived],
+          [l.abroad, stats.abroad],
           [l.images, `${stats.images} · ${stats.megabytes} MB`],
-          [l.matched, stats.matched],
-        ].map(([label, value]) => (
+          [l.matched, stats.matched, stats.matchedAbroad > 0 ? fmt(l.matchedAbroad, { n: stats.matchedAbroad }) : null],
+        ].map(([label, value, note]) => (
           <div key={String(label)} className="card p-4">
             <div className="text-xs font-medium text-muted">{label}</div>
             <div className="mt-1 text-xl font-extrabold tabular-nums">{value}</div>
+            {note && <div className="mt-0.5 text-xs text-muted">{note}</div>}
           </div>
         ))}
       </div>
@@ -55,9 +57,9 @@ export default async function AdminLibraryPage({ searchParams }: PageProps<"/[lo
               <div key={item.erp} className="card flex flex-col overflow-hidden" data-testid="library-item">
                 <div className="relative aspect-square bg-white p-2">
                   <ProductImage src={item.previewId ? `/api/img/${item.previewId}` : null} alt={item.title} />
-                  {item.removedAt && (
+                  {(item.removedAt || item.country !== "rs") && (
                     <span className="absolute top-2 left-2 rounded-sm bg-ink/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
-                      {l.filters.archived}
+                      {item.country !== "rs" ? item.country.toUpperCase() : l.filters.archived}
                     </span>
                   )}
                 </div>
@@ -69,17 +71,20 @@ export default async function AdminLibraryPage({ searchParams }: PageProps<"/[lo
                       {item.title}
                     </a>
                   )}
-                  {offer?.price != null && (
+                  {/* Prices from other countries are in their currency, so only lidl.rs prices are shown. */}
+                  {item.country === "rs" && offer?.price != null && (
                     <span className="font-semibold tabular-nums">
                       {formatPrice(Math.round(offer.price * 100), locale)}
                       {offer.discountText ? ` · ${offer.discountText}` : ""}
                     </span>
                   )}
-                  {offer?.badge && <span className="text-muted">{offer.badge}</span>}
+                  {item.country === "rs" && offer?.badge && <span className="text-muted">{offer.badge}</span>}
                   <span className="mt-auto pt-1 text-muted">
-                    {item.removedAt
-                      ? fmt(l.archivedSince, { date: formatDate(item.removedAt, locale, true) })
-                      : fmt(l.firstSeen, { date: formatDate(item.firstSeenAt, locale, true) })}
+                    {item.country !== "rs"
+                      ? fmt(l.foundAbroad, { date: formatDate(item.firstSeenAt, locale, true) })
+                      : item.removedAt
+                        ? fmt(l.archivedSince, { date: formatDate(item.removedAt, locale, true) })
+                        : fmt(l.firstSeen, { date: formatDate(item.firstSeenAt, locale, true) })}
                     {" · "}
                     {item.erp}
                   </span>

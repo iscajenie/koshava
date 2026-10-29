@@ -1,0 +1,1 @@
+ALTER TABLE "lidl_library" ADD COLUMN "country" text DEFAULT 'rs' NOT NULL;

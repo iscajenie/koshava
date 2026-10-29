@@ -54,18 +54,90 @@ export function sitemapLocations(xml: string) {
 
 export const LIDL_BASE = "https://www.lidl.rs";
 
+export type LidlSite = { country: string; host: string; assortment: string; locale: string };
+
 /**
- * One page of the lidl.rs search API (/q/api/search?q=*): every product currently on the site,
- * including ones published today that reach the sitemap only with its nightly rebuild.
+ * Lidl online catalogs that answer the same search API, lidl.rs first, then by distance from Serbia:
+ * neighbours often sell the same own-brand products, with the same barcode and similar packaging.
  */
-export function parseSearchPage(json: unknown) {
+export const LIDL_SITES: LidlSite[] = [
+  ["rs", "www.lidl.rs", "sr_RS"],
+  ["hr", "www.lidl.hr", "hr_HR"],
+  ["si", "www.lidl.si", "sl_SI"],
+  ["bg", "www.lidl.bg", "bg_BG"],
+  ["hu", "www.lidl.hu", "hu_HU"],
+  ["ro", "www.lidl.ro", "ro_RO"],
+  ["gr", "www.lidl-hellas.gr", "el_GR"],
+  ["at", "www.lidl.at", "de_AT"],
+  ["sk", "www.lidl.sk", "sk_SK"],
+  ["cz", "www.lidl.cz", "cs_CZ"],
+  ["de", "www.lidl.de", "de_DE"],
+  ["pl", "www.lidl.pl", "pl_PL"],
+  ["it", "www.lidl.it", "it_IT"],
+  ["cy", "www.lidl.com.cy", "el_CY"],
+  ["mt", "www.lidl.com.mt", "en_MT"],
+  ["ch", "www.lidl.ch", "de_CH"],
+  ["nl", "www.lidl.nl", "nl_NL"],
+  ["be", "www.lidl.be", "nl_BE"],
+  ["fr", "www.lidl.fr", "fr_FR"],
+  ["es", "www.lidl.es", "es_ES"],
+  ["pt", "www.lidl.pt", "pt_PT"],
+  ["dk", "www.lidl.dk", "da_DK"],
+  ["se", "www.lidl.se", "sv_SE"],
+  ["fi", "www.lidl.fi", "fi_FI"],
+  ["lt", "www.lidl.lt", "lt_LT"],
+  ["lv", "www.lidl.lv", "lv_LV"],
+  ["ee", "www.lidl.ee", "et_EE"],
+  ["gb", "www.lidl.co.uk", "en_GB"],
+  ["ie", "www.lidl.ie", "en_IE"],
+].map(([country, host, locale]) => ({ country, host, locale, assortment: locale.slice(3) }));
+
+/**
+ * Lidl's internal barcodes (starting with 2: bread baked in the store, loose fruit, some own brands) are assigned by
+ * each country, so abroad the same number can be another product (a Serbian croissant is a pain au chocolat in
+ * France). They are trusted only in the neighbouring countries that share Serbia's assortment; GTINs everywhere.
+ */
+const SHARED_ASSORTMENT = new Set(["rs", "hr", "si", "bg", "ro", "hu", "gr"]);
+export function trustedAbroad(code: string, country: string) {
+  const internal = code.startsWith("2") && (code.length === 8 || code.length === 13);
+  return !internal || SHARED_ASSORTMENT.has(country);
+}
+
+/** Library key: lidl.rs products by their number, products from other countries as "<country>:<number>". */
+export const libraryKey = (country: string, erp: string) => (country === "rs" ? erp : `${country}:${erp}`);
+
+/**
+ * One page of a Lidl search API answer (/q/api/search): products with their page URLs. With q=* it lists every
+ * product currently on the site, including ones published today that reach the sitemap only with its nightly rebuild.
+ */
+export function parseSearchPage(json: unknown, base = LIDL_BASE) {
   const d = (json ?? {}) as { numFound?: number; items?: { gridbox?: { data?: { erpNumber?: string; canonicalUrl?: string } } }[] };
   const items = d.items ?? [];
   const products = items.flatMap((item) => {
     const g = item.gridbox?.data;
-    return g?.erpNumber && g.canonicalUrl ? [{ erp: String(g.erpNumber), url: new URL(g.canonicalUrl, LIDL_BASE).toString() }] : [];
+    return g?.erpNumber && g.canonicalUrl ? [{ erp: String(g.erpNumber), url: new URL(g.canonicalUrl, base).toString() }] : [];
   });
   return { numFound: Number(d.numFound ?? 0), count: items.length, products };
+}
+
+/**
+ * Groups barcodes into search queries. The search finds any of several space-separated barcodes,
+ * but rejects queries longer than 100 characters.
+ */
+export function searchBatches(codes: string[], maxLength = 100): string[][] {
+  const batches: string[][] = [];
+  let length = 0;
+  for (const code of codes) {
+    const last = batches[batches.length - 1];
+    if (last && length + 1 + code.length <= maxLength) {
+      last.push(code);
+      length += 1 + code.length;
+    } else {
+      batches.push([code]);
+      length = code.length;
+    }
+  }
+  return batches;
 }
 
 /** "https://www.lidl.rs/p/nixe-tuna/p11000015" -> "11000015". */

@@ -22,6 +22,13 @@
       "when": 1793285470808,
       "tag": "0002_lidl_library",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793293468256,
+      "tag": "0003_lidl_library_country",
+      "breakpoints": true
     }
   ]
 }

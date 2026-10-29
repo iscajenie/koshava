@@ -1,9 +1,20 @@
 import { gunzipSync } from "node:zlib";
 import sharp from "sharp";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { normalizeText } from "@/lib/text";
-import { erpFromUrl, LIDL_BASE as BASE, parseLidlPage, parseSearchPage, sitemapLocations, type LidlRecord } from "./lidl-page";
+import {
+  erpFromUrl,
+  LIDL_BASE as BASE,
+  LIDL_SITES,
+  libraryKey,
+  trustedAbroad,
+  parseLidlPage,
+  parseSearchPage,
+  sitemapLocations,
+  type LidlRecord,
+  type LidlSite,
+} from "./lidl-page";
 import { sleep } from "./fetch";
 
 const USER_AGENT = "Mozilla/5.0 (compatible; KoshavaBot/0.1; +https://koshava.vercel.app)";
@@ -54,14 +65,23 @@ export async function listSitemapProducts(): Promise<{ pages: LidlPage[]; lastMo
   return { pages: [...pages].map(([erp, url]) => ({ erp, url })), lastModified };
 }
 
-/** Products the lidl.rs search returns right now, including the ones Lidl published since the last sitemap rebuild. */
-export async function listSearchProducts(): Promise<LidlPage[]> {
+/** Everything a Lidl catalog search returns for a query (q=* lists the whole site; barcodes find those products). */
+export async function searchCatalog(site: LidlSite, query: string): Promise<LidlPage[]> {
+  const base = `https://${site.host}`;
   const pages = new Map<string, string>();
   // The API returns about 50 products per call whatever fetchsize asks for, so the offset follows what came back.
   for (let offset = 0, call = 0; call < 100; call++) {
-    const res = await get(`${BASE}/q/api/search?q=*&offset=${offset}&fetchsize=48&locale=sr_RS&assortment=RS&version=2.1.0`);
+    const params = new URLSearchParams({
+      q: query,
+      offset: String(offset),
+      fetchsize: "48",
+      locale: site.locale,
+      assortment: site.assortment,
+      version: "2.1.0",
+    });
+    const res = await get(`${base}/q/api/search?${params}`);
     if (!res) break;
-    const { numFound, count, products } = parseSearchPage(await res.json());
+    const { numFound, count, products } = parseSearchPage(await res.json(), base);
     for (const p of products) pages.set(p.erp, p.url);
     offset += count;
     if (count === 0 || offset >= numFound) break;
@@ -69,6 +89,9 @@ export async function listSearchProducts(): Promise<LidlPage[]> {
   }
   return [...pages].map(([erp, url]) => ({ erp, url }));
 }
+
+/** Products the lidl.rs search returns right now, including the ones Lidl published since the last sitemap rebuild. */
+export const listSearchProducts = () => searchCatalog(LIDL_SITES[0], "*");
 
 /** A product page parsed into the fields the library keeps; null when the page is gone. */
 export async function fetchLidlRecord(erp: string, url: string): Promise<LidlRecord | null> {
@@ -93,13 +116,41 @@ export async function storeLidlImage(erp: string, sourceUrl: string, position: n
   return true;
 }
 
+// Photos stored per product: the card preview by default. The free database tier (500 MB) holds
+// roughly 25 000 previews; raise this to keep gallery photos too.
+const IMAGES_PER_PRODUCT = Number(process.env.LIDL_LIBRARY_IMAGES ?? 1);
+
+/** Stores the first photos of a library entry that are not stored yet; returns how many were added. */
+export async function storePreviews(key: string, urls: string[]) {
+  if (urls.length === 0) return 0;
+  const stored = new Set(
+    (
+      await db
+        .select({ url: schema.lidlImages.sourceUrl })
+        .from(schema.lidlImages)
+        .where(and(eq(schema.lidlImages.erp, key), inArray(schema.lidlImages.sourceUrl, urls)))
+    ).map((r) => r.url),
+  );
+  let added = 0;
+  for (const [position, url] of urls.slice(0, IMAGES_PER_PRODUCT).entries()) {
+    if (stored.has(url)) continue;
+    try {
+      if (await storeLidlImage(key, url, position)) added++;
+    } catch (error) {
+      console.warn(`image ${url}:`, String(error));
+    }
+  }
+  return added;
+}
+
 const sameOffer = (a: LidlRecord["offer"], b: LidlRecord["offer"]) =>
   a.price === b.price && a.discountText === b.discountText && a.startDate === b.startDate && a.endDate === b.endDate;
 
 /** Inserts or refreshes a library entry; the offer history grows only when price or dates change. */
-export async function saveLidlRecord(record: LidlRecord, now: Date) {
+export async function saveLidlRecord(record: LidlRecord, now: Date, country = "rs") {
   const lib = schema.lidlLibrary;
-  const [existing] = await db.select().from(lib).where(eq(lib.erp, record.erp)).limit(1);
+  const key = libraryKey(country, record.erp);
+  const [existing] = await db.select().from(lib).where(eq(lib.erp, key)).limit(1);
   const offers = existing?.offers ?? [];
   const last = offers[offers.length - 1];
   const nextOffers = last && sameOffer(last, record.offer) ? offers : [...offers, { ...record.offer, seenAt: now.toISOString() }];
@@ -116,19 +167,30 @@ export async function saveLidlRecord(record: LidlRecord, now: Date) {
     fetchedAt: now,
     removedAt: null,
   };
-  if (existing) await db.update(lib).set(values).where(eq(lib.erp, record.erp));
-  else await db.insert(lib).values({ erp: record.erp, firstSeenAt: now, ...values });
+  if (existing) await db.update(lib).set(values).where(eq(lib.erp, key));
+  else await db.insert(lib).values({ erp: key, country, firstSeenAt: now, ...values });
+  return key;
 }
 
 /**
  * Gives price-list products the library photo whose GTIN matches their barcode (current or earlier ones),
  * including products Lidl has since removed from lidl.rs. Lidl's own photos win over Maxi and Open Food Facts.
+ * Photos from other Lidl countries only go to products that have no photo at all, nearest country first,
+ * and are shown as reference photos (contentSource "lidl-intl"): the packaging may be in another language.
  */
 export async function applyLidlLibrary() {
   const lib = schema.lidlLibrary;
   // Entries still on lidl.rs and the most recently seen come last, so they win when GTINs repeat.
   const entries = await db
-    .select({ erp: lib.erp, url: lib.url, title: lib.title, gtins: lib.gtins, description: lib.description, removedAt: lib.removedAt })
+    .select({
+      erp: lib.erp,
+      country: lib.country,
+      url: lib.url,
+      title: lib.title,
+      gtins: lib.gtins,
+      description: lib.description,
+      removedAt: lib.removedAt,
+    })
     .from(lib)
     .orderBy(sql`${lib.removedAt} is null`, lib.lastSeenAt);
   const images = await db
@@ -138,22 +200,60 @@ export async function applyLidlLibrary() {
   const imagesByErp = new Map<string, number[]>();
   for (const img of images) imagesByErp.set(img.erp, [...(imagesByErp.get(img.erp) ?? []), img.id]);
 
-  const byGtin = new Map<string, (typeof entries)[number]>();
+  const rank = new Map(LIDL_SITES.map((site, i) => [site.country, i]));
+  const home = new Map<string, (typeof entries)[number]>();
+  const abroad = new Map<string, (typeof entries)[number]>();
   for (const e of entries) {
     if (!imagesByErp.has(e.erp)) continue;
-    for (const g of e.gtins) byGtin.set(g.replace(/^0+/, ""), e);
+    for (const g of e.gtins) {
+      const code = g.replace(/^0+/, "");
+      const current = abroad.get(code);
+      if (e.country === "rs") home.set(code, e);
+      else if (!trustedAbroad(code, e.country)) continue;
+      else if (!current || (rank.get(e.country) ?? 99) <= (rank.get(current.country) ?? 99)) abroad.set(code, e);
+    }
   }
 
   const p = schema.products;
   const products = await db
-    .select({ id: p.id, barcode: p.barcode, altBarcodes: p.altBarcodes, description: p.description })
+    .select({
+      id: p.id,
+      barcode: p.barcode,
+      altBarcodes: p.altBarcodes,
+      description: p.description,
+      imageUrl: p.imageUrl,
+      contentSource: p.contentSource,
+    })
     .from(p)
     .where(eq(p.isActive, true));
   let matched = 0;
   for (const product of products) {
-    const codes = [product.barcode, ...product.altBarcodes].filter((c): c is string => !!c);
-    const entry = codes.map((c) => byGtin.get(c.replace(/^0+/, ""))).find(Boolean);
-    if (!entry) continue;
+    const codes = [product.barcode, ...product.altBarcodes].filter((c): c is string => !!c).map((c) => c.replace(/^0+/, ""));
+    const entry = codes.map((c) => home.get(c)).find(Boolean);
+    if (!entry) {
+      const foreign = codes.map((c) => abroad.get(c)).find(Boolean);
+      if (product.imageUrl && product.contentSource !== "lidl-intl") continue;
+      if (!foreign) {
+        // A photo from abroad that no longer matches (stricter rules) is taken away again.
+        if (product.contentSource === "lidl-intl") {
+          await db.update(p).set({ imageUrl: null, images: [], contentSource: null }).where(eq(p.id, product.id));
+        }
+        continue;
+      }
+      const ids = imagesByErp.get(foreign.erp)!;
+      await db
+        .update(p)
+        .set({
+          imageUrl: `/api/img/${ids[0]}`,
+          images: ids.slice(0, 6).map((id) => `/api/img/${id}`),
+          lidlUrl: null,
+          contentSource: "lidl-intl",
+          enrichedAt: new Date(),
+        })
+        .where(eq(p.id, product.id));
+      matched++;
+      continue;
+    }
     const ids = imagesByErp.get(entry.erp)!;
     // Lidl's title often carries the brand ("HARVEST BASKET Pomfrit"), which helps search; added once.
     const title = normalizeText(entry.title);
