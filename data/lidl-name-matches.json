@@ -1,4 +1,9 @@
 {
+ "n-010df9b92c78": {
+  "product": "Instant kafa Mild RFA 100g",
+  "erp": "everli:516587",
+  "lidl": "Bellarom Caffè Solubile Classic Certificato Utz, confezione 0.200kg"
+ },
  "n-0116ba7f058a": {
   "product": "Pileći karab. sa kož.i kost. 500g",
   "erp": "everli:515181",
@@ -14,6 +19,21 @@
   "erp": "everli:555693",
   "lidl": "Noci di Cocco, pezzo 0.400kg"
  },
+ "n-0564336e3d22": {
+  "product": "Kupka, gel i šampon za bebe 500ml",
+  "erp": "everli:1454408",
+  "lidl": "Lupilu Bio Baby Bagno Testa ai Piedi, confezione 0.500l"
+ },
+ "n-0856bdcb56a5": {
+  "product": "Instant krompir pire 330g",
+  "erp": "everli:668333",
+  "lidl": "Harvest Basket Purè di Patate con Noce Moscata, scatola 0.500kg"
+ },
+ "n-08b1ca2bdbe7": {
+  "product": "Pena za kosu 250ml",
+  "erp": "everli:937568",
+  "lidl": "Cien Schiuma Modellante Volume, bomboletta 0.250l"
+ },
  "n-08cc63ad0563": {
   "product": "Svinjsko mleveno meso light 400g",
   "erp": "everli:517275",
@@ -23,6 +43,11 @@
   "product": "Papir za pečenje 38cmx42cm 30kom.",
   "erp": "11006300",
   "lidl": "Papir za pečenje"
+ },
+ "n-0a174d08a2fb": {
+  "product": "Šampon i gel za tuš.za decu 2u1 500ml",
+  "erp": "everli:1454408",
+  "lidl": "Lupilu Bio Baby Bagno Testa ai Piedi, confezione 0.500l"
  },
  "n-0ac2a758334b": {
   "product": "Kokice za mikrotalasnu-maslac 3x100g",
@@ -59,6 +84,11 @@
   "erp": "11029885",
   "lidl": "Domaća zelena salata"
  },
+ "n-0d61317cb071": {
+  "product": "Kuh. Ubrus Troslojni 2x50 lis. 2x50listic",
+  "erp": "everli:515869",
+  "lidl": "Floralys Asciugatutto Maxi 3 Veli, confezione 3pz"
+ },
  "n-0fb869ff0d8c": {
   "product": "Grčki tip jogurta 0% 150g",
   "erp": "11314876",
@@ -93,6 +123,11 @@
   "product": "Pileći batak 500g",
   "erp": "everli:514275",
   "lidl": "Fusi di Pollo, confezione 0.800kg"
+ },
+ "n-140726f08f2e": {
+  "product": "Kristal šećer 1kg",
+  "erp": "everli:514879",
+  "lidl": "Belbake Zucchero Semolato Classico, confezione 1kg"
  },
  "n-15aac14071ad": {
   "product": "Brokoli, 500g",
@@ -184,6 +219,11 @@
   "erp": "11494155",
   "lidl": "Sveže mleko XXL"
  },
+ "n-1f92de116df7": {
+  "product": "Soda bikarbona 500g",
+  "erp": "everli:514807",
+  "lidl": "Chantesel Bicarbonato di Sodio, confezione 0.500kg"
+ },
  "n-1fc07e82e6da": {
   "product": "Stišnjena šunka 100g",
   "erp": "11492997",
@@ -208,6 +248,11 @@
   "product": "Gel za tuširanje XXL 1000ml",
   "erp": "11102044",
   "lidl": "CIEN Gel za tuširanje XXL"
+ },
+ "n-2404ccc145ae": {
+  "product": "Vlažne maramice za bebe 20kom.",
+  "erp": "everli:4035077",
+  "lidl": "Lupilu Salviettine Baby Igieniche Formato Viaggio, confezione 20pz"
  },
  "n-26128d7f6546": {
   "product": "Voćna kaša jab.kivi,ban. 200g",
@@ -238,6 +283,11 @@
   "product": "Mineralna negazirana voda 6l",
   "erp": "11497358",
   "lidl": "Mineralna negazirana voda"
+ },
+ "n-2b05cfb7aeb0": {
+  "product": "Spumante Bianco Dolce 0,75l",
+  "erp": "everli:514049",
+  "lidl": "Allini Moscato Spumante, Bottiglia 75cl"
  },
  "n-2d93bfe7cd9a": {
   "product": "Kačkavalj 45% 450g",
@@ -273,6 +323,16 @@
   "product": "Indijski orah pečeni slani 500g",
   "erp": "everli:515179",
   "lidl": "Anacardi, confezione 0.200kg"
+ },
+ "n-34d59a5c970c": {
+  "product": "Kefir 2,8%, 500g 0,5kg",
+  "erp": "everli:4791817",
+  "lidl": "Milbona Latte di Kefir, confezione 0.480kg"
+ },
+ "n-34ddb4285f18": {
+  "product": "Petit keks sa 4% maslaca 750g",
+  "erp": "everli:513895",
+  "lidl": "Realforno Biscotti Petit, confezione 0.500kg"
  },
  "n-3699d483f6dc": {
   "product": "Jabuka crvena Gala, domaća 1kg",
@@ -358,6 +418,21 @@
   "product": "Kivi žuti, komad 1kom.",
   "erp": "everli:600563",
   "lidl": "Kiwi Gold, vassoio 0.500kg"
+ },
+ "n-40bd210eb355": {
+  "product": "Sprej za kosu 400ml",
+  "erp": "everli:514963",
+  "lidl": "Cien Lacca per Capelli Classic, bomboletta 0.400l"
+ },
+ "n-411995b7a734": {
+  "product": "Pšenično pivo 0,5l",
+  "erp": "everli:514043",
+  "lidl": "Perlenbacher Birra Weiss 5% Vol., confezione 500ml"
+ },
+ "n-41c992c07b2f": {
+  "product": "Brašno tip 400 1kg",
+  "erp": "everli:514889",
+  "lidl": "Belbake Farina di Grano Tenero Tipo 00, busta 1kg"
  },
  "n-420fb511e995": {
   "product": "Grejpfrut, rinfuz",
@@ -449,6 +524,11 @@
   "erp": "11496013",
   "lidl": "Mineralna gazirana voda"
  },
+ "n-513953628a56": {
+  "product": "Liker sa ukusom kafe 17% Vol. 0.5l",
+  "erp": "everli:514551",
+  "lidl": "Crema Latte Macchiato 17% Vol., Bottiglia 50cl"
+ },
  "n-514d9055b4f3": {
   "product": "Sveže mleko, domaće 2,8% 1l",
   "erp": "11494155",
@@ -479,10 +559,25 @@
   "erp": "everli:529111",
   "lidl": "Uva Bianca senza Semi, vassoio 0.500kg"
  },
+ "n-534e264ac714": {
+  "product": "Putero tost 500g",
+  "erp": "everli:514659",
+  "lidl": "Certossa Pan Carré, confezione 0.330kg"
+ },
+ "n-544d163f5b5f": {
+  "product": "Biljni liker 35% Vol. 0.1l",
+  "erp": "everli:513891",
+  "lidl": "Jagdstolz Liquore alle Erbe 35% Vol., Bottiglia 70cl"
+ },
  "n-55e9af165d2b": {
   "product": "Dugotrajno mleko 3,2% 1l",
   "erp": "11274285",
   "lidl": "PILOS Dugotrajno mleko"
+ },
+ "n-561fda3dd670": {
+  "product": "Bezal.piće sa aromom pomorandže 1.5l",
+  "erp": "everli:515535",
+  "lidl": "Freeway Bevanda Gassata 12% Succo Arancia, bottiglia 1.5l"
  },
  "n-56fa082c3921": {
   "product": "Pileći file ca. 1kg",
@@ -499,6 +594,11 @@
   "erp": "everli:515899",
   "lidl": "Uva Bianca, vassoio 1.0kg"
  },
+ "n-594c80ab279a": {
+  "product": "Hleb tamni rezani 450g",
+  "erp": "everli:937554",
+  "lidl": "Certossa Pan Bauletto Integrale a Fette, confezione 0.400kg"
+ },
  "n-5a7c75708bf8": {
   "product": "Pileće grudi 500g",
   "erp": "everli:517263",
@@ -513,6 +613,11 @@
   "product": "Šljiva, rinfuz",
   "erp": "everli:515897",
   "lidl": "Susine, vassoio 1kg"
+ },
+ "n-5bc2898ff299": {
+  "product": "Kocke za potpalu 48kom.",
+  "erp": "everli:513979",
+  "lidl": "Tavolette Accendifuoco, scatola 48pz"
  },
  "n-5cbbf30243f6": {
   "product": "Kikiriki u opni, pečeni, slani 1kg",
@@ -559,6 +664,11 @@
   "erp": "everli:1063878",
   "lidl": "Scamone di Scottona, 1 pz - circa 300g"
  },
+ "n-6013f09c61c8": {
+  "product": "Morska so 1kg",
+  "erp": "everli:514377",
+  "lidl": "Chantesel Sale Marino Iodato Fino, scatola 1kg"
+ },
  "n-605bd06bc7df": {
   "product": "Iceberg opran i isečen 0.2kg",
   "erp": "everli:514253",
@@ -579,6 +689,11 @@
   "erp": "11497068",
   "lidl": "Mlevena kafa"
  },
+ "n-655922337e4c": {
+  "product": "Tečni det. za pranje posuđa 1l",
+  "erp": "everli:569785",
+  "lidl": "W5 Detersivo Piatti Limone, flacone 1.5l"
+ },
  "n-66a4622ca575": {
   "product": "GTA Grana Padano 16 mes.dozr. 200g",
   "erp": "everli:511795",
@@ -594,6 +709,16 @@
   "erp": "11274285",
   "lidl": "PILOS Dugotrajno mleko"
  },
+ "n-67cfdc670882": {
+  "product": "Jogurt 3,5% 1kg",
+  "erp": "everli:4887761",
+  "lidl": "Milbona Yogurt Bianco Intero 3,5% Grassi, confezione 1kg"
+ },
+ "n-68ee3c91e691": {
+  "product": "Pirinač okruglog zrna 1kg",
+  "erp": "everli:513807",
+  "lidl": "Carosio Riso Originario, sottovuoto 1kg"
+ },
  "n-694af96488e1": {
   "product": "Smrznuta boranija žuta 450g",
   "erp": "11495953",
@@ -604,10 +729,20 @@
   "erp": "11493225",
   "lidl": "Domaća kobasica"
  },
+ "n-6b2f6b2992fc": {
+  "product": "Tiramisu 400g",
+  "erp": "everli:514129",
+  "lidl": "Milbona Tiramisù, confezione 0.500kg"
+ },
  "n-6bb2b51c5338": {
   "product": "Pileći Giros u marinadi 540g",
   "erp": "11493222",
   "lidl": "Pileći giros"
+ },
+ "n-6bdfbdc49419": {
+  "product": "Smrznuti grašak 1kg",
+  "erp": "everli:514611",
+  "lidl": "Freshona Piselli Fini, busta 1kg"
  },
  "n-6dec12f9957d": {
   "product": "Halloween bundeva, rinfuz",
@@ -674,6 +809,16 @@
   "erp": "11494189",
   "lidl": "MISTER CHOC Kakao duo krem XXL"
  },
+ "n-7216f0b12758": {
+  "product": "Hleb beli rezani 500g",
+  "erp": "everli:937552",
+  "lidl": "Certossa Pan Bauletto Bianco a Fette, confezione 0.400kg"
+ },
+ "n-7394232191bd": {
+  "product": "Četkica za zube za decu 2kom.",
+  "erp": "everli:3901761",
+  "lidl": "Dentalux Spazzolino da Denti per Bambini Junior 6+ Anni, confezione 2pz"
+ },
  "n-75f9a1ddfdfb": {
   "product": "Kivi, rinfuz",
   "erp": "everli:515905",
@@ -684,10 +829,20 @@
   "erp": "11253931",
   "lidl": "Aluminijumska folija"
  },
+ "n-78ffaa46e86f": {
+  "product": "Gourmet Gold vlažna hr.za mačke 12x85g",
+  "erp": "everli:5187025",
+  "lidl": "Gourmet Purina  Gold Dadini in Salsa Manzo, Salmone e Pollo, Tacchino e Anatra, Pollo e Fegato 12x85g, Confezione 1020 g"
+ },
  "n-7a7e3fe87255": {
   "product": "Kukuruz šećerac, komad 1kom.",
   "erp": "11496649",
   "lidl": "FRESHONA Kukuruz šećerac"
+ },
+ "n-7ab4cffbc726": {
+  "product": "Jabukovo sirce 4%, prirodno / 1l",
+  "erp": "everli:513869",
+  "lidl": "Acentino Aceto di Mele, bottiglia 0.500l"
  },
  "n-7b99d0d7b9ab": {
   "product": "Pečenica suva komad,4 ca. 400g",
@@ -704,10 +859,20 @@
   "erp": "11497966",
   "lidl": "Higijenski ulošci"
  },
+ "n-7e3ecb755bd3": {
+  "product": "Kese za smeće 150L 10kom.",
+  "erp": "everli:986828",
+  "lidl": "Purio Sacchi per Spazzatura 130l con Laccio di Chiusura, confezione 10pz"
+ },
  "n-7f54714b580c": {
   "product": "Povrće za supu, 500g",
   "erp": "11266385",
   "lidl": "Domaće povrće za supu"
+ },
+ "n-7fbf71aba401": {
+  "product": "Grčki jogurt 700g",
+  "erp": "everli:3756045",
+  "lidl": "Milbona Yogurt Greco Intero 10%, confezione 1kg"
  },
  "n-8034d9c85716": {
   "product": "Zemička 55g",
@@ -754,6 +919,11 @@
   "erp": "everli:img-e0f5d585c8",
   "lidl": "Cornetto al burro 57g (Lidl Italia)"
  },
+ "n-88ed434e2360": {
+  "product": "Tečni deterg. za r. pra. posuđa 1.5l",
+  "erp": "everli:569785",
+  "lidl": "W5 Detersivo Piatti Limone, flacone 1.5l"
+ },
  "n-8974f064579c": {
   "product": "Napolitanke preliv. čokoladom 180g",
   "erp": "11263275",
@@ -778,6 +948,11 @@
   "product": "Aluminij. folija 9µ, 29cmx50m 1kom.",
   "erp": "11253931",
   "lidl": "Aluminijumska folija"
+ },
+ "n-8e370f567a01": {
+  "product": "Pelene,veličina 6 64kom.",
+  "erp": "everli:4077605",
+  "lidl": "Lupilu Pannolini Tg. 6 Xl 13-18 Kg, confezione 64pz"
  },
  "n-8f1adc2f7819": {
   "product": "Hot dog kobas. u lisn. testu 1kg",
@@ -874,6 +1049,11 @@
   "erp": "11497543",
   "lidl": "Kiselo mleko"
  },
+ "n-9b7d65195a86": {
+  "product": "Univerzalno sred.za čišće.podov. 1.5l",
+  "erp": "everli:515051",
+  "lidl": "W5 Detergente Pavimenti Limone, flacone 1.5l"
+ },
  "n-9bb6a6bcc8ff": {
   "product": "Komorač komad 1kom.",
   "erp": "everli:512087",
@@ -888,6 +1068,11 @@
   "product": "Pesak za mačke ultra beli 6l",
   "erp": "11331220",
   "lidl": "MAX & MILA'S WORLD Beli pesak za mačke"
+ },
+ "n-9ea72dd2d288": {
+  "product": "Felix vlažna hrana za mačke 18x85g",
+  "erp": "everli:5225135",
+  "lidl": "Felix Original Selezioni Saporite in Gelatina Pollo, Manzo 12x85g, Confezione 1.02 kg"
  },
  "n-9f88c5595652": {
   "product": "Jaja iz podnog uzgoja M 30/ 1 30kom.",
@@ -914,6 +1099,21 @@
   "erp": "everli:1073032",
   "lidl": "Uva Bianca Bio, Confezione 500g"
  },
+ "n-a471db50bbaa": {
+  "product": "Brašno tip 500 1kg",
+  "erp": "everli:1055590",
+  "lidl": "Belbake Farina 0 Ideale per Pane e Pizza, sacchetto 1kg"
+ },
+ "n-a4d6794ca8ab": {
+  "product": "Tečni deterg. za pranje posuđa 500ml",
+  "erp": "everli:569785",
+  "lidl": "W5 Detersivo Piatti Limone, flacone 1.5l"
+ },
+ "n-a5b455cf93c2": {
+  "product": "Jaja iz sl. uzg. M6/1 6kom.",
+  "erp": "everli:988254",
+  "lidl": "Uova Fresche Grandi Categoria a da Allevamento a Terra, confezione 6pz"
+ },
  "n-a5bc1ad5f97b": {
   "product": "Vojvodj. dugotrajno mleko 2,8% 1l",
   "erp": "11274285",
@@ -923,6 +1123,11 @@
   "product": "Kiselo mleko 2,8% 400g",
   "erp": "11497543",
   "lidl": "Kiselo mleko"
+ },
+ "n-a7216bb11223": {
+  "product": "Brendi 36% Vol. 0,7l",
+  "erp": "everli:513893",
+  "lidl": "Majestät Brandy 36% Vol., Bottiglia 70cl"
  },
  "n-a783e893c9e5": {
   "product": "Pileći file 500g",
@@ -943,6 +1148,11 @@
   "product": "Šampinjoni, rinfuz",
   "erp": "everli:515933",
   "lidl": "Champignon, vassoio 0.500kg"
+ },
+ "n-ab479ad120ec": {
+  "product": "Krema za bebe 200ml",
+  "erp": "everli:4040909",
+  "lidl": "Lupilu Baby Crema Bio Idratante Ed Emolliente, tubetto 0.100l"
  },
  "n-aba8f5512fb5": {
   "product": "Domaći krompir crveni, 5kg",
@@ -969,6 +1179,11 @@
   "erp": "everli:512073",
   "lidl": "Patate Dolci, A peso"
  },
+ "n-ac854fd0c5a2": {
+  "product": "Sladoled kornet sa pavlakom 6x120ml",
+  "erp": "everli:513751",
+  "lidl": "Gelatelli Cono alla Panna con Granella di Nocciole, confezione 0.450kg"
+ },
  "n-ac8778720395": {
   "product": "Luk crni, rinfuz",
   "erp": "everli:555645",
@@ -988,6 +1203,11 @@
   "product": "Grožđe crveno besemeno 1kg PK 1kg",
   "erp": "11150885",
   "lidl": "Crveno grožđe"
+ },
+ "n-adb117a9d2b0": {
+  "product": "Izbeljivač 1l",
+  "erp": "everli:521683",
+  "lidl": "W5 Candeggina, flacone 2l"
  },
  "n-ae1b7715ae24": {
   "product": "Gauda sir,76 ca. 730g",
@@ -1009,6 +1229,11 @@
   "erp": "11007214",
   "lidl": "CIEN Gel za tuširanje XXL"
  },
+ "n-aef9e4288e15": {
+  "product": "MSC Pan. riblji štapići 18 kom 450g",
+  "erp": "everli:514869",
+  "lidl": "Ocean Sea Msc Bastoncini di Merluzzo d'Alaska, confezione 0.450kg"
+ },
  "n-b06a6d434e9f": {
   "product": "Pizza šunka komad 500g",
   "erp": "11315163",
@@ -1028,6 +1253,11 @@
   "product": "Sveži sir 25% 400g",
   "erp": "11496426",
   "lidl": "Sveži sir"
+ },
+ "n-b3af36636d8a": {
+  "product": "Četkica za zube Basic 4kom.",
+  "erp": "everli:514081",
+  "lidl": "Dentalux Spazzolino Classic Setole Medie, confezione 2pz"
  },
  "n-b563d7dcce94": {
   "product": "Bundeva muskat 1kg",
@@ -1059,6 +1289,11 @@
   "erp": "everli:517641",
   "lidl": "Nocciole Sgusciate, Tostate, Pelate, confezione 0.100kg"
  },
+ "n-ba41ae08fe73": {
+  "product": "Salvete, 1-slojne 100kom.",
+  "erp": "everli:514415",
+  "lidl": "Floralys Tovaglioli 1 Velo, confezione 250pz"
+ },
  "n-bab32b3a7902": {
   "product": "Slanina narezana bez kože 500g",
   "erp": "everli:514401",
@@ -1068,6 +1303,11 @@
   "product": "Pileće grudi 500g",
   "erp": "everli:517263",
   "lidl": "Petto di Pollo senza Osso, confezione 0.400kg"
+ },
+ "n-be703afa2458": {
+  "product": "Suvi kvasac 50g",
+  "erp": "everli:515773",
+  "lidl": "Belbake Lievito in Polvere, confezione 0.042kg"
  },
  "n-becc2e29a0b5": {
   "product": "Paprika mix 500g",
@@ -1083,6 +1323,11 @@
   "product": "Celer koren, rinfuz",
   "erp": "11029620",
   "lidl": "Domaći koren celera"
+ },
+ "n-c12e2580ffa4": {
+  "product": "Šećer u prahu 500g",
+  "erp": "everli:514925",
+  "lidl": "Belbake Zucchero a Velo, confezione 0.250kg"
  },
  "n-c1b31afbe231": {
   "product": "Avokado, komad 1 kom",
@@ -1134,6 +1379,11 @@
   "erp": "everli:517269",
   "lidl": "Ali di Pollo Separate, confezione 0.450kg"
  },
+ "n-c9977faaf40d": {
+  "product": "Elektronski upaljač 3kom.",
+  "erp": "everli:514307",
+  "lidl": "Accendini Elettronici, blister 3pz"
+ },
  "n-c9fea26a181b": {
   "product": "Šumadijski zreli sir 500g",
   "erp": "11493234",
@@ -1164,10 +1414,25 @@
   "erp": "11663448",
   "lidl": "Gumene bombone"
  },
+ "n-cccb9f2060bf-2": {
+  "product": "Bio Napitak na bazi ovsa 1l",
+  "erp": "everli:3825703",
+  "lidl": "Vemondo Bio Organic Bevanda a Base di Avena, confezione 1l"
+ },
  "n-ccf523cf9064": {
   "product": "Krastavac, rinfuz",
   "erp": "everli:512077",
   "lidl": "Cetrioli, 1 pz - circa 200g"
+ },
+ "n-cd6a0171a462": {
+  "product": "Rolat 300g",
+  "erp": "everli:514067",
+  "lidl": "Confiserie Firenze Roll Farcito Cacao-vaniglia, confezione 0.400kg"
+ },
+ "n-cdb6187f7b0f": {
+  "product": "Voćni jogurt 2,8% 150g",
+  "erp": "everli:513935",
+  "lidl": "Milbona Yogurt Cremoso Fragola, vasetto 0.150kg"
  },
  "n-cf7e65344735": {
   "product": "Jaja iz podnog uzgoja M 15/ 1 15kom.",
@@ -1178,6 +1443,11 @@
   "product": "Šargarepa, 500g",
   "erp": "11029413",
   "lidl": "Bio šargarepa"
+ },
+ "n-cfa3b02e0832": {
+  "product": "Sred.za čišć.WC šolje L/O/P 1l",
+  "erp": "everli:515819",
+  "lidl": "W5 Gel Wc con Candeggina Pino, flacone 1l"
  },
  "n-d0c04216f59a": {
   "product": "Marinirana svinjska rebra ca. 500g",
@@ -1228,6 +1498,11 @@
   "product": "Kiselo mleko 6% 400g",
   "erp": "11497543",
   "lidl": "Kiselo mleko"
+ },
+ "n-daa1fbc3ebc6": {
+  "product": "Toaletni papir,dvoslojni 10x120MK12 1200listić",
+  "erp": "everli:529071",
+  "lidl": "Floralys Carta Igienica 2 Veli Maxi Rotolo, confezione 4pz"
  },
  "n-dacbd747e3cb": {
   "product": "Limun, rinfuz",
@@ -1319,6 +1594,11 @@
   "erp": "everli:605467",
   "lidl": "Braciole di Suino, confezione 0.700kg"
  },
+ "n-e36ae897a5bc": {
+  "product": "Grčki jogurt, jagoda 150g",
+  "erp": "everli:516335",
+  "lidl": "Milbona Yogurt alla Greca Fragola, secchiello 1kg"
+ },
  "n-e3e6ff326bd5": {
   "product": "Kisela pavlaka 12% 700g",
   "erp": "11493266",
@@ -1374,10 +1654,20 @@
   "erp": "everli:514275",
   "lidl": "Fusi di Pollo, confezione 0.800kg"
  },
+ "n-e92ad5f67efb": {
+  "product": "Smrznuti grašak 450g",
+  "erp": "everli:513757",
+  "lidl": "Freshona Piselli Finissimi, busta 0.450kg"
+ },
  "n-e957f547a649": {
   "product": "Nektar jabuka 50% 2l",
   "erp": "11496828",
   "lidl": "Nektar od jabuke"
+ },
+ "n-ea003529401e": {
+  "product": "Napolitanke sa mlekom i čok. 400g",
+  "erp": "everli:514475",
+  "lidl": "Sondey Wafer con Cioccolato, confezione 0.400kg"
  },
  "n-eb023a3b8038": {
   "product": "Šargarepa, rinfuz",
@@ -1459,6 +1749,16 @@
   "erp": "11497358",
   "lidl": "Mineralna negazirana voda"
  },
+ "n-f8935238ebf6": {
+  "product": "Kese za smeće sa trakom 120l 20kom.",
+  "erp": "everli:514079",
+  "lidl": "Purio Sacchi per Spazzatura 120l con Laccio di Chiusura, confezione 20pz"
+ },
+ "n-f8d734a42062": {
+  "product": "Cola 0,33l",
+  "erp": "everli:515417",
+  "lidl": "Freeway Cola, confezione 33cl"
+ },
  "n-f9657618ecfc": {
   "product": "Meš. 60%svinj.40%jun. usitnj. 850g",
   "erp": "everli:515143",
@@ -1473,6 +1773,26 @@
   "product": "Domaći kupus, rinfuz",
   "erp": "11029746",
   "lidl": "Domaći kupus"
+ },
+ "n-fba15fabeea0": {
+  "product": "Vlažne mara. za čišće. površina 80kom.",
+  "erp": "everli:514393",
+  "lidl": "W5 Salviette Igienizzanti Multisuperficie Limone, confezione 80pz"
+ },
+ "n-fbbacee05139": {
+  "product": "Sladoled keks sendvič 120ml",
+  "erp": "everli:959236",
+  "lidl": "Gelatelli Biscotto alla Vaniglia, confezione 0.400kg"
+ },
+ "n-fbc557ac6b63": {
+  "product": "Amaretto 28% Vol. 0,7l",
+  "erp": "everli:575981",
+  "lidl": "Armilar Amaretto 28% Vol., bottiglia 0.700l"
+ },
+ "n-fbee36b8ba37": {
+  "product": "Kuhinjska so u posipaču 250g",
+  "erp": "everli:605459",
+  "lidl": "Chantesel Sale Marino Iodato Fino, dosatore 0.250kg"
  },
  "n-fc17d7f3d373": {
   "product": "Goveđa čajna kobasica 300g",
