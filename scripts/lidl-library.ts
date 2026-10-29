@@ -144,12 +144,13 @@ async function main() {
     for (const entry of withoutPreview) images += await storePreviews(entry.erp, entry.imageUrls);
 
     const listed = { listed: pages.size, inSitemap: fromSitemap.length, inSearch: fromSearch.length, gone: gone.size };
+    // Matching is cheap and also picks up edits to data/lidl-name-matches.json, so it runs every time.
+    await applyLidlLibrary();
+    await refreshPublished();
     if (fetched + migrated + images + removed.length === 0) {
       console.log("Lidl library: nothing new", listed);
       return;
     }
-    await applyLidlLibrary();
-    await refreshPublished();
     const library = await libraryStats();
     const stats = {
       ...listed,
