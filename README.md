@@ -47,16 +47,28 @@ e2e/, tests/        тесты
 |---|---|---|
 | Цены, акции, категории, штрихкоды | [cene_proizvoda_Lidl.csv](https://www.lidl.rs/explore/assets/webPriceData/rs/cene_proizvoda_Lidl.csv), официальный прайс-лист Lidl Srbija (обязателен по закону, зеркало на [data.gov.rs](https://data.gov.rs/sr/datasets/cenovnici-proizvoda-prema-pravilniku-o-uslovima-sadrzaju-i-nacinu-objavljivanja-cenovnika-lidl/)) | Основа каталога, около 3 100 товаров |
 | Дополнительные штрихкоды | [EAN.csv](https://www.lidl.rs/explore/assets/webPriceData/rs/EAN.csv) | Расширяют поиск фото |
-| Фото и описания | lidl.rs: штрихкод (GTIN) из разметки страницы товара | Точное совпадение по штрихкоду |
+| Фото и описания | Библиотека lidl.rs (см. ниже): превью каждого товара, когда-либо опубликованного на lidl.rs | Точное совпадение по штрихкоду (GTIN), в том числе по прошлым штрихкодам товара |
 | Фото (если нет на lidl.rs) | [maxi.rs](https://www.maxi.rs), затем [Open Food Facts](https://world.openfoodfacts.org) / Open Beauty Facts / Open Products Facts (CC BY-SA) | Точное совпадение по штрихкоду через поиск maxi.rs и выгрузки OFF; на карточке пометка «Фото ознакомительное» |
 
 На сайте весь прайс-лист: товары без фото показываются с заглушкой, фото из Open Food Facts помечены тегом «Фото ознакомительное» (на карточке и странице товара). `PUBLISH_WITHOUT_IMAGE=false` оставляет только товары с фото; настройка применяется при импорте.
 
-Ответы источников кэшируются в таблице `content_cache`: повторный запуск запрашивает только новые товары. Ненайденные штрихкоды перепроверяются раз в 30 дней, страницы lidl.rs — раз в 14 дней.
+Ответы источников кэшируются в таблице `content_cache`: повторный запуск запрашивает только новые товары. Ненайденные штрихкоды перепроверяются раз в 30 дней.
 
 API Open Food Facts на практике отдаёт около 15 ответов в минуту, поэтому первичная загрузка идёт через их ежедневные выгрузки (`import:dumps`), а API используется только для новых товаров.
 
-Lidl Srbija выкладывает на lidl.rs в основном акционные и непродовольственные товары, поэтому основная часть фото приходит из Open Food Facts и maxi.rs. Порядок выбора: lidl.rs → maxi.rs → Open Food Facts.
+Lidl Srbija выкладывает на lidl.rs не весь ассортимент, а около 500 товаров с ограниченным сроком: акции недели, сезонные и непродовольственные товары «U prodavnici od … do …». Поэтому основная часть фото приходит из Open Food Facts и maxi.rs. Порядок выбора: lidl.rs → maxi.rs → Open Food Facts.
+
+### Библиотека lidl.rs
+
+Товары исчезают с lidl.rs вместе с фото, когда заканчивается акция, поэтому Koshava хранит собственную копию (`npm run import:lidl`, workflow **Lidl library** раз в день):
+
+- список товаров — из карты сайта `https://www.lidl.rs/static/sitemap.xml` (раздел `/p/export/`);
+- новые страницы и страницы старше 7 дней перечитываются: название, бренд, штрихкоды, описание, ссылки на все фото, история цен и сроков акции (`lidl_library`);
+- превью (первое фото) сохраняется в базе в WebP до 600 px, около 20 КБ (`lidl_images`), отдаётся через `/api/img/<id>`; `LIDL_LIBRARY_IMAGES=3` сохранит и фото галереи;
+- товары, которых больше нет на lidl.rs, не удаляются, а помечаются `removed_at`; фото остаются и подходят товарам прайс-листа по любому из штрихкодов;
+- просмотр — Админка → «Библиотека Lidl».
+
+500 МБ бесплатной базы Supabase хватает примерно на 15 000 превью (остальное место занимает каталог). Фото принадлежат Lidl; использовать их публично стоит только с согласия правообладателя.
 
 Товар определяется по названию из прайс-листа, а не по штрихкоду: Lidl каждый день подставляет к одному названию штрихкод другого варианта (вкуса, поставщика). Все штрихкоды, которые были у товара, сохраняются и используются для поиска фото. Повторяющиеся названия (например, два вида яблок по разной цене) нумеруются.
 
@@ -72,7 +84,8 @@ npm install
 npm run db:migrate              # создать таблицы
 npm run import:prices           # загрузить прайс-лист (~30 с)
 npm run import:dumps            # фото из выгрузок Open Food Facts (~1,5 ГБ потоком, 10–15 мин)
-npm run import:content          # lidl.rs и точечные запросы к API для оставшихся (~15 мин)
+npm run import:lidl             # библиотека lidl.rs: превью всех товаров с сайта (первый раз ~20 мин)
+npm run import:content          # фото из библиотеки и точечные запросы к API для оставшихся (~15 мин)
 npm run import:maxi             # фото с maxi.rs вместо фото из Open Food Facts (~15 мин)
 npm run dev                     # http://localhost:3000
 ```
@@ -107,9 +120,9 @@ npm run test:e2e                # при запущенном npm run dev; в AD
 Вариант A — через GitHub Actions, пароль никуда не передаётся:
 
 1. Репозиторий → Settings → Secrets and variables → Actions → New repository secret: `DATABASE_URL` = строка **Session pooler**.
-2. Actions → Import Lidl price list → Run workflow. Занимает 20–25 минут: миграции, прайс-лист, фото из выгрузок Open Food Facts и lidl.rs.
+2. Actions → Import Lidl price list → Run workflow (mode: full). Занимает 30–40 минут: миграции, прайс-лист, библиотека lidl.rs, фото из выгрузок Open Food Facts и maxi.rs. Дальше workflow **Lidl library** раз в день сам пополняет библиотеку.
 
-Вариант B — локально с той же строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:dumps && npm run import:content`.
+Вариант B — локально с той же строкой: `DATABASE_URL=... npm run db:migrate && npm run import:prices && npm run import:lidl && npm run import:dumps && npm run import:content`.
 
 ### 3. Vercel (хостинг)
 

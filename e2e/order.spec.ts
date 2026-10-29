@@ -82,6 +82,10 @@ test("guest cart survives sign-up and an order is placed and processed", async (
   await page.getByRole("link", { name: number }).click();
   await page.getByTestId("status-confirmed").click();
   await expect(page.getByTestId("order-status").first()).toHaveText("Подтверждён");
+
+  // The Lidl photo library opens (empty until the first sync).
+  await page.getByRole("link", { name: "Библиотека Lidl" }).click();
+  await expect(page.getByText("Товаров в библиотеке")).toBeVisible();
 });
 
 test("minimum order blocks checkout and language switch keeps the page", async ({ page }) => {

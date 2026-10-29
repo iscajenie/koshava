@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
+  customType,
   date,
   index,
   integer,
@@ -240,6 +241,64 @@ export const contentCache = pgTable(
     checkedAt: timestamp("checked_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [primaryKey({ columns: [t.source, t.key] })],
+);
+
+const bytea = customType<{ data: Buffer; driverData: Buffer }>({
+  dataType: () => "bytea",
+});
+
+export type LidlOffer = {
+  seenAt: string;
+  price: number | null;
+  discountText: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  badge: string | null;
+};
+
+// Every product ever published on lidl.rs, kept after it leaves the site, with its photos stored here.
+export const lidlLibrary = pgTable(
+  "lidl_library",
+  {
+    erp: text("erp").primaryKey(),
+    url: text("url").notNull(),
+    title: text("title").notNull(),
+    brand: text("brand"),
+    category: text("category"),
+    gtins: jsonb("gtins").$type<string[]>().notNull().default([]),
+    description: text("description"),
+    // Every photo URL of the product on lidl.rs; only the first ones are stored in lidl_images.
+    imageUrls: jsonb("image_urls").$type<string[]>().notNull().default([]),
+    // Price and promotion window each time they changed, as seen on lidl.rs.
+    offers: jsonb("offers").$type<LidlOffer[]>().notNull().default([]),
+    firstSeenAt: timestamp("first_seen_at", { withTimezone: true }).notNull().defaultNow(),
+    // Last time the product was listed in the lidl.rs sitemap.
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }).notNull().defaultNow(),
+    fetchedAt: timestamp("fetched_at", { withTimezone: true }),
+    // Set while the product is no longer on lidl.rs; cleared if it comes back.
+    removedAt: timestamp("removed_at", { withTimezone: true }),
+  },
+  (t) => [index("lidl_library_removed_idx").on(t.removedAt)],
+);
+
+export const lidlImages = pgTable(
+  "lidl_images",
+  {
+    id: serial("id").primaryKey(),
+    erp: text("erp")
+      .notNull()
+      .references(() => lidlLibrary.erp),
+    // Variants of one product often share photos, so a photo is stored once per product.
+    sourceUrl: text("source_url").notNull(),
+    position: integer("position").notNull().default(0),
+    contentType: text("content_type").notNull(),
+    data: bytea("data").notNull(),
+    width: integer("width"),
+    height: integer("height"),
+    bytes: integer("bytes").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex("lidl_images_erp_source_idx").on(t.erp, t.sourceUrl)],
 );
 
 export const importRuns = pgTable("import_runs", {
