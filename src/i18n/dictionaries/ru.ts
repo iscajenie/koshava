@@ -78,7 +78,7 @@ export const ru = {
     photoLidl: "Фото и описание: lidl.rs",
     photoOff: "Фото: Open Food Facts, CC BY-SA",
     stockPhoto: "Фото ознакомительное",
-    stockPhotoHint: "Фото взято из открытой базы Open Food Facts по штрихкоду. Упаковка может отличаться.",
+    stockPhotoHint: "Фото найдено по штрихкоду в другом магазине или в открытой базе Open Food Facts. Упаковка может отличаться.",
     stockPhotoHintMaxi: "Фото взято с maxi.rs по штрихкоду. Упаковка может отличаться.",
     photoMaxi: "Фото: maxi.rs",
     favoriteAdd: "Добавить в избранное",
@@ -320,7 +320,7 @@ export const ru = {
     noEmail: "контактный адрес будет указан здесь",
   },
   footer: {
-    disclaimer: "Koshava — независимый сервис доставки и не связан с Lidl Srbija KD. Цены — из официального прайс-листа Lidl Srbija. Фото и описания — с lidl.rs и из Open Food Facts (CC BY-SA).",
+    disclaimer: "Koshava — независимый сервис доставки и не связан с Lidl Srbija KD. Цены — из официального прайс-листа Lidl Srbija. Фото и описания — с сайтов Lidl, maxi.rs, online.idea.rs и из Open Food Facts (CC BY-SA).",
     pilot: "Пилотная версия: заказы принимаются в тестовом режиме.",
   },
   common: {

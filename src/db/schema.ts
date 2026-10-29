@@ -67,7 +67,8 @@ export const products = pgTable(
     images: jsonb("images").$type<string[]>().notNull().default([]),
     // Plain-text lines; rendered as a list on the product page.
     description: text("description"),
-    // Where the photo came from: "lidl" (lidl.rs), "lidl-intl" (another Lidl country), "maxi" (maxi.rs) or "off" (Open Food Facts).
+    // Where the photo came from: "lidl" (lidl.rs), "lidl-intl" (another Lidl country), "maxi" (maxi.rs), "idea" (online.idea.rs)
+    // or "off" (Open Food Facts).
     contentSource: text("content_source"),
     lidlUrl: text("lidl_url"),
     enrichedAt: timestamp("enriched_at", { withTimezone: true }),

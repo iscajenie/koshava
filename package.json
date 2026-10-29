@@ -17,6 +17,7 @@
     "import": "npm run import:prices && npm run import:content",
     "import:dumps": "tsx --env-file-if-exists=.env.local scripts/enrich-dumps.ts",
     "import:maxi": "tsx --env-file-if-exists=.env.local scripts/enrich-maxi.ts",
+    "import:idea": "tsx --env-file-if-exists=.env.local scripts/enrich-idea.ts",
     "import:lidl": "tsx --env-file-if-exists=.env.local scripts/lidl-library.ts",
     "import:lidl-abroad": "tsx --env-file-if-exists=.env.local scripts/lidl-abroad.ts"
   },

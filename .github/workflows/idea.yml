@@ -1,0 +1,29 @@
+name: Idea photos
+
+# Gives photos from online.idea.rs to price-list products without a photo, or with an Open Food Facts one,
+# when Idea sells the same barcode (see scripts/enrich-idea.ts). Idea's catalog changes slowly, so once a week
+# is enough; the import workflow also runs it after every price-list import. Takes about 10 minutes.
+on:
+  schedule:
+    - cron: "43 1 * * 3" # Wednesday night, away from the lidl.rs and abroad runs
+  workflow_dispatch:
+
+concurrency:
+  group: import
+  cancel-in-progress: false
+
+jobs:
+  idea:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:migrate
+      - run: npm run import:idea

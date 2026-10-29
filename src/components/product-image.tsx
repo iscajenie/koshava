@@ -1,6 +1,6 @@
-/** Photos that do not show the Serbian product for sure: Open Food Facts, Maxi or another Lidl country, matched by barcode. */
+/** Photos that do not show the Serbian product for sure: Open Food Facts, Maxi, Idea or another Lidl country, matched by barcode. */
 export function isStockPhoto(contentSource: string | null) {
-  return contentSource === "off" || contentSource === "maxi" || contentSource === "lidl-intl";
+  return contentSource === "off" || contentSource === "maxi" || contentSource === "idea" || contentSource === "lidl-intl";
 }
 
 /** Marks photos that are not Lidl's own. */
@@ -30,7 +30,7 @@ export function ProductImage({ src, alt, className = "" }: { src: string | null;
       </div>
     );
   }
-  // Remote images from lidl.rs and Open Food Facts are shown as-is.
+  // Remote images (Maxi, Idea, Open Food Facts) and our stored Lidl photos are shown as-is.
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={src} alt={alt} loading="lazy" className={`h-full w-full object-contain ${className}`} />;
 }

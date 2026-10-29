@@ -43,3 +43,5 @@ jobs:
       - run: npm run import:content -- --limit=300
       # Maxi photos replace Open Food Facts ones where Maxi carries the barcode.
       - run: npm run import:maxi -- ${{ inputs.maxi_missing && '--include-missing' || '' }}
+      # Idea photos for what is still missing or from Open Food Facts (reads Idea's whole catalog, ~10 min).
+      - run: npm run import:idea

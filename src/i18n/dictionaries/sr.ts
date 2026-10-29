@@ -80,7 +80,7 @@ export const sr: Dictionary = {
     photoLidl: "Slika i opis: lidl.rs",
     photoOff: "Slika: Open Food Facts, CC BY-SA",
     stockPhoto: "Slika je informativna",
-    stockPhotoHint: "Slika je preuzeta iz otvorene baze Open Food Facts po barkodu. Pakovanje može da se razlikuje.",
+    stockPhotoHint: "Slika je pronađena po barkodu u drugoj prodavnici ili u otvorenoj bazi Open Food Facts. Pakovanje može da se razlikuje.",
     stockPhotoHintMaxi: "Slika je preuzeta sa maxi.rs po barkodu. Pakovanje može da se razlikuje.",
     photoMaxi: "Slika: maxi.rs",
     favoriteAdd: "Dodaj u omiljeno",
@@ -322,7 +322,7 @@ export const sr: Dictionary = {
     noEmail: "kontakt adresa biće navedena ovde",
   },
   footer: {
-    disclaimer: "Koshava je nezavisan servis za dostavu i nije povezan sa Lidl Srbija KD. Cene su iz zvaničnog Lidl Srbija cenovnika. Slike i opisi sa lidl.rs i iz Open Food Facts (CC BY-SA).",
+    disclaimer: "Koshava je nezavisan servis za dostavu i nije povezan sa Lidl Srbija KD. Cene su iz zvaničnog Lidl Srbija cenovnika. Slike i opisi sa Lidl sajtova, maxi.rs, online.idea.rs i iz Open Food Facts (CC BY-SA).",
     pilot: "Pilot verzija: porudžbine se primaju u test režimu.",
   },
   common: {
