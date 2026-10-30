@@ -144,6 +144,11 @@
   "erp": "everli:555635",
   "lidl": "Mele Granny Smith, vassoio 1kg"
  },
+ "n-1340b64e7563": {
+  "product": "Voćni jogurt 2,7% 150g",
+  "erp": "cenoteka:vocni-jogurt-pilos-jagoda-150g",
+  "lidl": "Voćni jogurt PILOS jagoda 150g"
+ },
  "n-1342d929d3af": {
   "product": "Gazirano piće sa ukusom limuna 0,33l",
   "erp": "11494196",
@@ -384,6 +389,11 @@
   "erp": "everli:515179",
   "lidl": "Anacardi, confezione 0.200kg"
  },
+ "n-347c2a02c52e": {
+  "product": "Skyr jogurt natur 500g",
+  "erp": "cenoteka:jogurt-pilos-skyr-natur-500g",
+  "lidl": "Jogurt PILOS Skyr natur 500g"
+ },
  "n-34d59a5c970c": {
   "product": "Kefir 2,8%, 500g 0,5kg",
   "erp": "everli:4791817",
@@ -609,6 +619,11 @@
   "erp": "everli:515947",
   "lidl": "Cipolla Bio, confezione 0.500kg"
  },
+ "n-4ea0768d414e": {
+  "product": "Voćni jogurt 2,8% 150g",
+  "erp": "cenoteka:vocni-jogurt-pilos-28mm-150g",
+  "lidl": "Voćni jogurt PILOS 2,8%mm 150g"
+ },
  "n-4f1ef10ffa23": {
   "product": "Filet svežeg lososa ca. 600g,4 ca. 600g",
   "erp": "everli:516373",
@@ -688,6 +703,11 @@
   "product": "Bezal.piće sa aromom pomorandže 1.5l",
   "erp": "everli:515535",
   "lidl": "Freeway Bevanda Gassata 12% Succo Arancia, bottiglia 1.5l"
+ },
+ "n-566a710b24f5": {
+  "product": "Jogurt 2,8% 1,5kg",
+  "erp": "cenoteka:jogurt-pilos-28mm-15kg",
+  "lidl": "Jogurt PILOS 2,8%mm 1,5kg"
  },
  "n-56fa082c3921": {
   "product": "Pileći file ca. 1kg",
@@ -1989,6 +2009,11 @@
   "erp": "11496828",
   "lidl": "Nektar od jabuke"
  },
+ "n-e9907985eac9": {
+  "product": "Trapist sir,76 ca. 730g",
+  "erp": "cenoteka:trapist-sir-pilos-730g",
+  "lidl": "Trapist sir PILOS 730g"
+ },
  "n-ea003529401e": {
   "product": "Napolitanke sa mlekom i čok. 400g",
   "erp": "everli:514475",
@@ -2058,6 +2083,11 @@
   "product": "Maramice, 3-slojne 10x10kom.",
   "erp": "everli:1188968",
   "lidl": "Floralys Fazzoletti 30pz x 10, confezione 30pz"
+ },
+ "n-f21cdaf36dfc": {
+  "product": "Surutka 1kg",
+  "erp": "cenoteka:surutka-pilos-1kg",
+  "lidl": "Surutka PILOS 1kg"
  },
  "n-f32cd882f2b9": {
   "product": "Mineralna negazirana voda 1,5l",

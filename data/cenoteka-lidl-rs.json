@@ -1,4 +1,18 @@
 {
+ "cenoteka:jogurt-pilos-28mm-15kg": {
+  "name": "Jogurt PILOS 2,8%mm 1,5kg",
+  "brand": "Pilos",
+  "category": null,
+  "image": "jogurt-pilos-28mm-15kg.jpg",
+  "url": "https://cenoteka.rs/p/jogurt-pilos-28mm-15kg/"
+ },
+ "cenoteka:jogurt-pilos-skyr-natur-500g": {
+  "name": "Jogurt PILOS Skyr natur 500g",
+  "brand": "Pilos",
+  "category": null,
+  "image": "jogurt-pilos-skyr-natur-500g.png",
+  "url": "https://cenoteka.rs/p/jogurt-pilos-skyr-natur-500g/"
+ },
  "cenoteka:jogurt-s-ljubavlju-domace-sumadijski-28mm-1kg": {
   "name": "Jogurt S LJUBAVLJU DOMAĆE Šumadijski 2,8%mm 1kg",
   "brand": "S ljubavlju, domaće",
@@ -27,11 +41,39 @@
   "image": "kiseli-kupus-s-ljubavlju-domace-list-1kg.png",
   "url": "https://cenoteka.rs/p/kiseli-kupus-s-ljubavlju-domace-list-1kg/"
  },
+ "cenoteka:surutka-pilos-1kg": {
+  "name": "Surutka PILOS 1kg",
+  "brand": "Pilos",
+  "category": null,
+  "image": "surutka-pilos-1kg.png",
+  "url": "https://cenoteka.rs/p/surutka-pilos-1kg/"
+ },
  "cenoteka:sveze-mleko-s-ljubavlju-domace-sumadijsko-4mm-1l": {
   "name": "Sveže mleko S LJUBAVLJU DOMAĆE Šumadijsko 4%mm 1l",
   "brand": "S ljubavlju, domaće",
   "category": null,
   "image": "sveze-mleko-s-ljubavlju-domace-sumadijsko-4mm-1l.png",
   "url": "https://cenoteka.rs/p/sveze-mleko-s-ljubavlju-domace-sumadijsko-4mm-1l/"
+ },
+ "cenoteka:trapist-sir-pilos-730g": {
+  "name": "Trapist sir PILOS 730g",
+  "brand": "Pilos",
+  "category": null,
+  "image": "trapist-sir-pilos-730g.jpg",
+  "url": "https://cenoteka.rs/p/trapist-sir-pilos-730g/"
+ },
+ "cenoteka:vocni-jogurt-pilos-28mm-150g": {
+  "name": "Voćni jogurt PILOS 2,8%mm 150g",
+  "brand": "Pilos",
+  "category": null,
+  "image": "vocni-jogurt-pilos-28mm-150g.png",
+  "url": "https://cenoteka.rs/p/vocni-jogurt-pilos-28mm-150g/"
+ },
+ "cenoteka:vocni-jogurt-pilos-jagoda-150g": {
+  "name": "Voćni jogurt PILOS jagoda 150g",
+  "brand": "Pilos",
+  "category": null,
+  "image": "vocni-jogurt-pilos-jagoda-150g.png",
+  "url": "https://cenoteka.rs/p/vocni-jogurt-pilos-jagoda-150g/"
  }
 }
