@@ -40,17 +40,20 @@ export default async function HomePage({ searchParams }: PageProps<"/[locale]">)
   return (
     <div className="space-y-10">
       <div>
-        {/* At most 90 px high: columns as wide as the banner allows (it narrows with the sidebar), on phones two rows. */}
-        <section className="@container relative overflow-hidden rounded-lg bg-store text-white">
+        {/* 180 px high: title and description in one column, the terms in another; on phones one below the other.
+            Columns follow the banner's own width, which changes with the sidebar. */}
+        <section className="@container relative flex min-h-[180px] overflow-hidden rounded-lg bg-store text-white">
           {/* The logo's colours as decoration, where there is room for them beside the text. */}
-          <div className="absolute -top-12 -right-6 hidden size-28 rounded-full bg-[#fff000] @min-[1040px]:block" aria-hidden />
-          <div className="absolute right-20 -bottom-10 hidden size-16 rounded-full border-[9px] border-[#e60a14] @min-[1040px]:block" aria-hidden />
-          <div className="relative flex flex-col gap-1.5 px-4 py-3 @min-[672px]:flex-row @min-[672px]:items-center @min-[672px]:gap-6 @min-[672px]:px-6 @min-[1040px]:pr-36">
-            <h1 className="font-display text-base leading-5 font-semibold @min-[672px]:max-w-64 @min-[672px]:shrink-0 @min-[672px]:text-lg @min-[672px]:leading-6">{t.home.heroTitle}</h1>
-            <p className="hidden max-w-sm text-sm leading-5 text-white/85 @min-[880px]:block">{t.home.heroText}</p>
-            <div className="flex flex-wrap items-center gap-x-2 text-[13px] leading-5 @min-[672px]:ml-auto @min-[672px]:block @min-[672px]:shrink-0 @min-[672px]:text-sm @min-[1040px]:ml-0">
+          <div className="absolute -top-14 -right-8 hidden size-40 rounded-full bg-[#fff000] @min-[1040px]:block" aria-hidden />
+          <div className="absolute right-28 -bottom-10 hidden size-24 rounded-full border-[12px] border-[#e60a14] @min-[1040px]:block" aria-hidden />
+          <div className="relative flex w-full flex-col justify-center gap-3 px-4 py-4 @min-[672px]:flex-row @min-[672px]:items-center @min-[672px]:justify-between @min-[672px]:gap-8 @min-[672px]:px-6 @min-[880px]:gap-12 @min-[880px]:px-8 @min-[1040px]:pr-56">
+            <div className="@min-[880px]:max-w-[640px]">
+              <h1 className="font-display text-lg leading-6 font-semibold @min-[672px]:text-[22px] @min-[672px]:leading-7 @min-[880px]:text-[28px] @min-[880px]:leading-9">{t.home.heroTitle}</h1>
+              <p className="mt-1 text-sm leading-5 text-white/85 @min-[672px]:mt-1.5 @min-[880px]:mt-2 @min-[880px]:text-base @min-[880px]:leading-6">{t.home.heroText}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-2 text-[13px] leading-5 @max-[300px]:text-xs @min-[672px]:block @min-[672px]:shrink-0 @min-[672px]:text-sm">
               <span className="inline-block bg-accent px-1 font-medium text-ink">{fmt(t.home.perks.delivery, { rate })}</span>
-              <p className="@min-[672px]:mt-0.5">
+              <p className="@min-[672px]:mt-1.5">
                 <span className="@min-[672px]:hidden">{fmt(t.home.minOrderShort, { min })}</span>
                 <span className="hidden @min-[672px]:inline">{fmt(t.home.minOrder, { min })}</span> ·{" "}
                 <Link href={`/${locale}/delivery`} className="underline underline-offset-2 hover:text-white/80">
