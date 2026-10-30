@@ -13,6 +13,20 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2026/9/23/e92f892057947a0dd85452c674228cc014104b25.webp",
   "url": "https://spesa.everli.com/en/products/1/100278?brand=lidl"
  },
+ "everli:1064484": {
+  "name": "Orlando Bocconcini per Cane con Manzo e Verdure, confezione 1.25kg",
+  "brand": "Orlando",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/04/23/c17699f932a6f4d88ccd15d8ef8bad035aa394a6.webp",
+  "url": "https://spesa.everli.com/en/products/17/100199?brand=lidl"
+ },
+ "everli:1064490": {
+  "name": "Orlando Bocconcini per Cane con Pollo e Tacchino, confezione 1.25kg",
+  "brand": "Orlando",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/04/20/200edda0578a73272b9a3832e2fc1287a5a99ab3.webp",
+  "url": "https://spesa.everli.com/en/products/17/100199?brand=lidl"
+ },
  "everli:1072910": {
   "name": "Liquore Crema al Pistacchio 17% Vol, confezione 0.500l",
   "brand": "",
@@ -33,6 +47,41 @@
   "category": "Cura Casa",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/20/3598430f158997cdd2ccd5c736500cb54708bc6a.webp",
   "url": "https://spesa.everli.com/en/products/21/109965?brand=lidl"
+ },
+ "everli:1075532": {
+  "name": "Orlando Bocconcini per Cane con Manzo e Ortaggi, confezione 0.415kg",
+  "brand": "Orlando",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/a8a0f9b7de604ea3e942c5b09f09056ef423669e.webp",
+  "url": "https://spesa.everli.com/en/products/17/100199?brand=lidl"
+ },
+ "everli:1075534": {
+  "name": "Orlando Bocconcini per Cane con Pollo e Tacchino, confezione 0.415kg",
+  "brand": "Orlando",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/5695afd8eb0a35cfc1916117bf5adbaeb2fcc155.webp",
+  "url": "https://spesa.everli.com/en/products/17/100199?brand=lidl"
+ },
+ "everli:1075536": {
+  "name": "Coshida Patè per Gatto con Pollo e Tacchino, confezione 0.405kg",
+  "brand": "Coshida",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/a6108c3d063439c1bfc35b13c9b7ea404fbe4cab.webp",
+  "url": "https://spesa.everli.com/en/products/17/100200?brand=lidl"
+ },
+ "everli:1075546": {
+  "name": "Coshida Bocconcini per Gatto con Manzo e Carote, confezione 0.415kg",
+  "brand": "Coshida",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/6b6ab46fdf25c0c58833d3f2c42e104c5c510253.webp",
+  "url": "https://spesa.everli.com/en/products/17/100200?brand=lidl"
+ },
+ "everli:1075548": {
+  "name": "Coshida Bocconcini per Gatto con Pollo e Tacchino, confezione 0.415kg",
+  "brand": "Coshida",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/800a4fb027ae9164fcb1ab9a16648d5cbcf687fe.webp",
+  "url": "https://spesa.everli.com/en/products/17/100200?brand=lidl"
  },
  "everli:1188860": {
   "name": "Floralys Fazzoletti Box 4 Veli, confezione 100pz",
@@ -1189,6 +1238,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/ac539/12c28/96627/2061107157_img.webp",
   "url": "https://spesa.everli.com/en/products/3/100272?brand=lidl"
  },
+ "everli:937480": {
+  "name": "Kania Pepe Nero Intero con Macinino in Ceramica, vetro 0.035kg",
+  "brand": "Kania",
+  "category": "Sughi, Scatolame e Condimenti",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/2/20/6940a855d7daae6110f92fafd44fe544383bfd1d.webp",
+  "url": "https://spesa.everli.com/en/products/27/100161?brand=lidl"
+ },
  "everli:937552": {
   "name": "Certossa Pan Bauletto Bianco a Fette, confezione 0.400kg",
   "brand": "Certossa",
@@ -1216,6 +1272,13 @@
   "category": "Acqua e Bevande",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/1/23/e294de6ca9d104ec57af33c1fd403f5c3987cb49.webp",
   "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
+ },
+ "everli:952302": {
+  "name": "Coshida Bocconcini per Gatto con Salmone e Trota in Salsa, confezione 0.415kg",
+  "brand": "Coshida",
+  "category": "Amici Animali",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/03/08/32b201feb5a7b4d1c16b537b7aa3aba487378ca1.webp",
+  "url": "https://spesa.everli.com/en/products/17/100200?brand=lidl"
  },
  "everli:959236": {
   "name": "Gelatelli Biscotto alla Vaniglia, confezione 0.400kg",

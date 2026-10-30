@@ -404,6 +404,11 @@
   "erp": "11493234",
   "lidl": "Šumadijski sir XXL"
  },
+ "n-372b72beb9a5": {
+  "product": "Crni biber u zrnu 35g",
+  "erp": "everli:937480",
+  "lidl": "Kania Pepe Nero Intero con Macinino in Ceramica, vetro 0.035kg"
+ },
  "n-38cae0442bd3": {
   "product": "Kiselo mleko 6% 180g",
   "erp": "11497543",
@@ -1004,6 +1009,11 @@
   "erp": "11253931",
   "lidl": "Aluminijumska folija"
  },
+ "n-78e0eea4e850": {
+  "product": "Potpuna hrana za mačke 415g",
+  "erp": "everli:1075546",
+  "lidl": "Coshida Bocconcini per Gatto con Manzo e Carote, confezione 0.415kg"
+ },
  "n-78ffaa46e86f": {
   "product": "Gourmet Gold vlažna hr.za mačke 12x85g",
   "erp": "everli:5187025",
@@ -1018,6 +1028,11 @@
   "product": "Jabukovo sirce 4%, prirodno / 1l",
   "erp": "everli:513869",
   "lidl": "Acentino Aceto di Mele, bottiglia 0.500l"
+ },
+ "n-7af5657a3b83": {
+  "product": "Potp. vl. hrana za pse 415g",
+  "erp": "everli:1075532",
+  "lidl": "Orlando Bocconcini per Cane con Manzo e Ortaggi, confezione 0.415kg"
  },
  "n-7afa05ef4961": {
   "product": "Gaz. piće sa nar. sa zasl 2l",
@@ -1093,6 +1108,11 @@
   "product": "Šljiva tamna, rinfuz",
   "erp": "everli:515897",
   "lidl": "Susine, vassoio 1kg"
+ },
+ "n-8591b3a0b2c2": {
+  "product": "Vlažna hrana za pse Živina 1240g",
+  "erp": "everli:1064490",
+  "lidl": "Orlando Bocconcini per Cane con Pollo e Tacchino, confezione 1.25kg"
  },
  "n-863770416008": {
   "product": "Svetlo pivo 4% Vol 0,5l",
@@ -1184,6 +1204,11 @@
   "erp": "everli:515925",
   "lidl": "Broccoli, pezzo 0.500kg"
  },
+ "n-9296da4c9b74": {
+  "product": "Vlažna hrana za pse Govedina 1240g",
+  "erp": "everli:1064484",
+  "lidl": "Orlando Bocconcini per Cane con Manzo e Verdure, confezione 1.25kg"
+ },
  "n-93673348a079": {
   "product": "Teč. sapun sa pumpicom 0,5l",
   "erp": "everli:515687",
@@ -1218,6 +1243,11 @@
   "product": "Pileća posebna 500g",
   "erp": "11316482",
   "lidl": "Pileća posebna XXL"
+ },
+ "n-9836b5775b21": {
+  "product": "Potpuna hrana za mačke 415g",
+  "erp": "everli:952302",
+  "lidl": "Coshida Bocconcini per Gatto con Salmone e Trota in Salsa, confezione 0.415kg"
  },
  "n-98bacd058e63": {
   "product": "Kiselo mleko 2,8% 180g",
@@ -1979,6 +2009,16 @@
   "erp": "everli:555645",
   "lidl": "Cipolla Dorata, rete 1kg"
  },
+ "n-ee91bc24fd46": {
+  "product": "Pot. vl.hrana i pašte. za mač./ 400g",
+  "erp": "everli:1075536",
+  "lidl": "Coshida Patè per Gatto con Pollo e Tacchino, confezione 0.405kg"
+ },
+ "n-ef0265c7ef17": {
+  "product": "Pot. hrana za mačke 415g",
+  "erp": "everli:1075548",
+  "lidl": "Coshida Bocconcini per Gatto con Pollo e Tacchino, confezione 0.415kg"
+ },
  "n-efc22bd2daee": {
   "product": "Kisela pavlaka 20% 400g",
   "erp": "11493266",
@@ -2028,6 +2068,11 @@
   "product": "Sjaj za ispiranje posuđa 1l",
   "erp": "11003782",
   "lidl": "W5 Sjaj za ispiranje posuđa"
+ },
+ "n-f48a5e0d4484": {
+  "product": "Pot.vl.hra.za od. pse u sosu 415g",
+  "erp": "everli:1075534",
+  "lidl": "Orlando Bocconcini per Cane con Pollo e Tacchino, confezione 0.415kg"
  },
  "n-f581171923fd": {
   "product": "Italijanski rendani sir 100g",
