@@ -67,8 +67,8 @@ export const products = pgTable(
     images: jsonb("images").$type<string[]>().notNull().default([]),
     // Plain-text lines; rendered as a list on the product page.
     description: text("description"),
-    // Where the photo came from: "lidl" (lidl.rs), "lidl-intl" (another Lidl country), "maxi" (maxi.rs), "idea" (online.idea.rs)
-    // or "off" (Open Food Facts).
+    // Where the photo came from: "lidl" (lidl.rs), "lidl-intl" (another Lidl country), "lidl-name" (a reviewed name match),
+    // "maxi" (maxi.rs), "idea" (online.idea.rs), "cenolov" (cenolov.rs) or "off" (Open Food Facts).
     contentSource: text("content_source"),
     lidlUrl: text("lidl_url"),
     enrichedAt: timestamp("enriched_at", { withTimezone: true }),
@@ -264,6 +264,7 @@ export const lidlLibrary = pgTable(
     // Lidl's product number; products from other Lidl countries are keyed "<country>:<erp>".
     erp: text("erp").primaryKey(),
     // "rs" for lidl.rs; other countries (see LIDL_SITES) only add photos of products lidl.rs does not show.
+    // Products of other shops kept for their photos: "it" from Everli, "cenolov" and "cenoteka" (see importReferenceEntries).
     country: text("country").notNull().default("rs"),
     url: text("url").notNull(),
     title: text("title").notNull(),

@@ -137,7 +137,7 @@ async function main() {
       migrated++;
     }
 
-    // Lidl Italia products from Everli that reviewed name matches point to (data/everli-lidl-it.json).
+    // Products of other shops kept for their photos: Everli, cenolov.rs and cenoteka.rs (data/*-lidl-*.json).
     const reference = await importReferenceEntries(now);
 
     // Previews that failed to download (network errors) are retried while Lidl still serves the photo.

@@ -1,6 +1,6 @@
-/** Photos that do not show the Serbian product for sure: Open Food Facts, Maxi, Idea or another Lidl country, matched by barcode. */
+/** Photos that do not show the Serbian product for sure: from other shops, other Lidl countries or a name match. */
 export function isStockPhoto(contentSource: string | null) {
-  return contentSource === "off" || contentSource === "maxi" || contentSource === "idea" || contentSource === "lidl-intl" || contentSource === "lidl-name";
+  return ["off", "maxi", "idea", "cenolov", "lidl-intl", "lidl-name"].includes(contentSource ?? "");
 }
 
 /** Names the site a reference photo came from ("Фото: everli"), or shows `label` when unknown; position it with className. */

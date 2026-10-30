@@ -1,10 +1,13 @@
-import { and, desc, eq, isNotNull, isNull, like, ne, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNotNull, isNull, like, ne, notInArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 
-export const libraryFilters = ["all", "onSite", "archived", "abroad"] as const;
+export const libraryFilters = ["all", "onSite", "archived", "abroad", "shops"] as const;
 export type LibraryFilter = (typeof libraryFilters)[number];
 
 const PAGE_SIZE = 96;
+
+// Library "countries" that are Serbian price comparison sites, kept for their photos (see importReferenceEntries).
+const SHOPS = ["cenolov", "cenoteka"];
 
 /** Size of the Lidl photo library, kept by scripts/lidl-library.ts. */
 export async function libraryStats() {
@@ -14,7 +17,8 @@ export async function libraryStats() {
       products: sql<number>`count(*)::int`,
       onSite: sql<number>`count(*) filter (where ${lib.country} = 'rs' and ${lib.removedAt} is null)::int`,
       archived: sql<number>`count(*) filter (where ${lib.country} = 'rs' and ${lib.removedAt} is not null)::int`,
-      abroad: sql<number>`count(*) filter (where ${lib.country} <> 'rs')::int`,
+      abroad: sql<number>`count(*) filter (where ${lib.country} <> 'rs' and ${notInArray(lib.country, SHOPS)})::int`,
+      shops: sql<number>`count(*) filter (where ${inArray(lib.country, SHOPS)})::int`,
     })
     .from(lib);
   const [img] = await db
@@ -24,6 +28,7 @@ export async function libraryStats() {
     .select({
       count: sql<number>`count(*)::int`,
       abroad: sql<number>`count(*) filter (where ${schema.products.contentSource} = 'lidl-intl')::int`,
+      cenolov: sql<number>`count(*) filter (where ${schema.products.contentSource} = 'cenolov')::int`,
     })
     .from(schema.products)
     .where(and(eq(schema.products.isActive, true), like(schema.products.imageUrl, "/api/img/%")));
@@ -33,6 +38,7 @@ export async function libraryStats() {
     megabytes: Math.round(Number(img.bytes) / 1024 / 102.4) / 10,
     matched: matched.count,
     matchedAbroad: matched.abroad,
+    matchedCenolov: matched.cenolov,
   };
 }
 
@@ -45,8 +51,10 @@ export async function listLibrary(filter: LibraryFilter, page: number) {
       : filter === "archived"
         ? and(eq(lib.country, "rs"), isNotNull(lib.removedAt))
         : filter === "abroad"
-          ? ne(lib.country, "rs")
-          : undefined;
+          ? and(ne(lib.country, "rs"), notInArray(lib.country, SHOPS))
+          : filter === "shops"
+            ? inArray(lib.country, SHOPS)
+            : undefined;
   // Columns are written out with table names: Drizzle leaves them unqualified here, which would match every image.
   const preview = sql<number | null>`(select min(i.id) from ${schema.lidlImages} i where i.erp = ${lib}.erp and i.position = 0)`;
   const rows = await db

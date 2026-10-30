@@ -1,18 +1,18 @@
 /**
- * Looks for photos of price-list products that have none, or only an Open Food Facts one, on the online catalogs
- * of other Lidl countries.
+ * Looks for photos of price-list products that have none, or only an Open Food Facts or cenolov.rs one, on the
+ * online catalogs of other Lidl countries.
  * Lidl sells its own brands with the same barcode across Europe, and every country puts different products
  * online (weekly offers, online shop), so a product lidl.rs does not show can turn up in Croatia or Germany.
  *  - The barcodes of these products are searched on every site in LIDL_SITES, about seven per query
  *    (the search finds any of several space-separated barcodes but accepts at most 100 characters).
  *  - A hit counts only when the product page lists one of the barcodes searched.
  *  - Found products join the library with their country; the price-list product gets the photo with the
- *    "reference photo" tag, nearest country first, in place of an Open Food Facts one (see applyLidlLibrary).
+ *    "reference photo" tag, nearest country first, in place of an Open Food Facts or cenolov one (see applyLidlLibrary).
  *
  *   npm run import:lidl-abroad
  *   npm run import:lidl-abroad -- --countries=hr,si,de
  */
-import { and, eq, isNull, or } from "drizzle-orm";
+import { and, eq, inArray, isNull, or } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { applyLidlLibrary, fetchLidlRecord, probeSite, saveLidlRecord, searchCatalog, storePreviews } from "@/lib/import/lidl-library";
 import { LIDL_SITES, searchBatches, trustedAbroad, type LidlSite } from "@/lib/import/lidl-page";
@@ -43,15 +43,17 @@ async function main() {
     }
     console.log(`${sites.length} Lidl catalogs online; not online: ${[...offline].join(", ") || "none"}`);
 
-    // Every barcode products without a photo, or with an Open Food Facts one, ever had (Lidl swaps barcodes
-    // between variants). A photo from Lidl abroad shows the same product better than a shopper's snapshot.
+    // Every barcode products without a photo, or with an Open Food Facts or cenolov one, ever had (Lidl swaps
+    // barcodes between variants). A photo from Lidl abroad shows the same product better than a shopper's snapshot,
+    // and comes from Lidl itself, unlike the one a price comparison site picked.
     const p = schema.products;
     const missing = await db
-      .select({ barcode: p.barcode, altBarcodes: p.altBarcodes, imageUrl: p.imageUrl })
+      .select({ barcode: p.barcode, altBarcodes: p.altBarcodes, imageUrl: p.imageUrl, contentSource: p.contentSource })
       .from(p)
-      .where(and(eq(p.isActive, true), or(isNull(p.imageUrl), eq(p.contentSource, "off"))));
+      .where(and(eq(p.isActive, true), or(isNull(p.imageUrl), inArray(p.contentSource, ["off", "cenolov"]))));
     const withoutPhoto = missing.filter((m) => !m.imageUrl).length;
-    const withOff = missing.length - withoutPhoto;
+    const withOff = missing.filter((m) => m.imageUrl && m.contentSource === "off").length;
+    const withCenolov = missing.filter((m) => m.imageUrl && m.contentSource === "cenolov").length;
     const codes = [
       ...new Set(
         missing
@@ -135,9 +137,11 @@ async function main() {
     await refreshPublished();
     const stillMissing = await db.$count(p, and(eq(p.isActive, true), isNull(p.imageUrl)));
     const stillOff = await db.$count(p, and(eq(p.isActive, true), eq(p.contentSource, "off")));
+    const stillCenolov = await db.$count(p, and(eq(p.isActive, true), eq(p.contentSource, "cenolov")));
     const stats = {
       withoutPhoto,
       openFoodFacts: withOff,
+      cenolov: withCenolov,
       barcodes: codes.length,
       queries,
       candidates: candidates.size,
@@ -145,6 +149,7 @@ async function main() {
       newPhotos,
       filled: withoutPhoto - stillMissing,
       replacedOff: withOff - stillOff,
+      replacedCenolov: withCenolov - stillCenolov,
       catalogs: sites.length,
       byCountry: Object.entries(byCountry)
         .map(([country, n]) => `${country} ${n}`)

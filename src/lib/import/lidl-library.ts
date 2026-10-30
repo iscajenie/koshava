@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { gunzipSync } from "node:zlib";
 import sharp from "sharp";
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, like, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { normalizeText } from "@/lib/text";
 import {
@@ -113,11 +113,8 @@ export async function fetchLidlRecord(erp: string, url: string): Promise<LidlRec
   return res ? parseLidlPage(erp, url, await res.text()) : null;
 }
 
-/** Downloads a photo and stores it as WebP, at most 600 px (15 KB on average), so it stays available after Lidl removes it. */
-export async function storeLidlImage(erp: string, sourceUrl: string, position: number) {
-  const res = await get(sourceUrl);
-  if (!res) return false;
-  const input = Buffer.from(await res.arrayBuffer());
+/** Stores a photo as WebP, at most 600 px (15 KB on average). */
+async function saveImage(erp: string, sourceUrl: string, position: number, input: Buffer) {
   const { data, info } = await sharp(input)
     .resize({ width: 600, height: 600, fit: "inside", withoutEnlargement: true })
     .webp({ quality: 76 })
@@ -126,6 +123,13 @@ export async function storeLidlImage(erp: string, sourceUrl: string, position: n
     .insert(schema.lidlImages)
     .values({ erp, sourceUrl, position, contentType: "image/webp", data, width: info.width, height: info.height, bytes: data.length })
     .onConflictDoNothing();
+}
+
+/** Downloads and stores a photo, so it stays available after Lidl removes it. */
+export async function storeLidlImage(erp: string, sourceUrl: string, position: number) {
+  const res = await get(sourceUrl);
+  if (!res) return false;
+  await saveImage(erp, sourceUrl, position, Buffer.from(await res.arrayBuffer()));
   await sleep(150);
   return true;
 }
@@ -186,45 +190,78 @@ export async function saveLidlRecord(record: LidlRecord, now: Date, country = "r
   return key;
 }
 
+type ReferenceEntry = { name: string; brand: string | null; category: string | null; image: string; url: string; barcode?: string };
+
 /**
- * Lidl Italia products from its Everli store (data/everli-lidl-it.json), kept in the library so that reviewed name
- * matches can use their photos. Everli lists no barcodes, so these entries only serve data/lidl-name-matches.json.
+ * Products of other shops kept in the library for their photos, from files in data/ (country is the library's):
+ *  - everli-lidl-it.json: Lidl Italia from its Everli store, for reviewed name matches (Everli lists no barcodes);
+ *  - cenolov-lidl-rs.json: Lidl Srbija on the price comparison site cenolov.rs, matched by barcode;
+ *  - cenoteka-lidl-rs.json: Lidl Srbija on cenoteka.rs, for reviewed name matches.
+ * The Serbian sites turn away automated requests, so their photos come from saved page captures in data/photos.
  */
+const REFERENCE_SOURCES: { file: string; country: string; photos?: string }[] = [
+  { file: "data/everli-lidl-it.json", country: "it" },
+  { file: "data/cenolov-lidl-rs.json", country: "cenolov", photos: "data/photos/cenolov" },
+  { file: "data/cenoteka-lidl-rs.json", country: "cenoteka", photos: "data/photos/cenoteka" },
+];
+
+/** Adds new reference entries and stores their photos; returns how many entries were added. */
 export async function importReferenceEntries(now: Date) {
-  const file = path.join(process.cwd(), "data/everli-lidl-it.json");
-  if (!fs.existsSync(file)) return 0;
-  const data = JSON.parse(fs.readFileSync(file, "utf8")) as Record<
-    string,
-    { name: string; brand: string | null; category: string | null; image: string; url: string }
-  >;
   const lib = schema.lidlLibrary;
-  const known = new Map(
-    (await db.select({ erp: lib.erp, title: lib.title, url: lib.url }).from(lib).where(eq(lib.country, "it"))).map((r) => [r.erp, r]),
-  );
   let added = 0;
-  for (const [key, entry] of Object.entries(data)) {
-    const current = known.get(key);
-    if (current) {
-      // Names can be corrected in the file (e.g. once the product's real name is known).
-      if (current.title !== entry.name || current.url !== entry.url) {
-        await db.update(lib).set({ title: entry.name, url: entry.url, brand: entry.brand, category: entry.category }).where(eq(lib.erp, key));
+  for (const source of REFERENCE_SOURCES) {
+    const file = path.join(process.cwd(), source.file);
+    if (!fs.existsSync(file)) continue;
+    const data = JSON.parse(fs.readFileSync(file, "utf8")) as Record<string, ReferenceEntry>;
+    const known = new Map(
+      (await db.select({ erp: lib.erp, title: lib.title, url: lib.url }).from(lib).where(eq(lib.country, source.country))).map((r) => [r.erp, r]),
+    );
+    // Photos from captures: the file each entry's photo was stored from (they are kept by file, not by URL).
+    const stored = new Map(
+      source.photos
+        ? (
+            await db
+              .select({ erp: schema.lidlImages.erp, sourceUrl: schema.lidlImages.sourceUrl })
+              .from(schema.lidlImages)
+              .where(like(schema.lidlImages.erp, `${source.country}:%`))
+          ).map((r) => [r.erp, r.sourceUrl])
+        : [],
+    );
+    for (const [key, entry] of Object.entries(data)) {
+      const current = known.get(key);
+      const gtins = entry.barcode ? [entry.barcode] : [];
+      if (current) {
+        // Names can be corrected in the file (e.g. once the product's real name is known).
+        if (current.title !== entry.name || current.url !== entry.url) {
+          await db.update(lib).set({ title: entry.name, url: entry.url, brand: entry.brand, category: entry.category, gtins }).where(eq(lib.erp, key));
+        }
+      } else {
+        await db.insert(lib).values({
+          erp: key,
+          country: source.country,
+          url: entry.url,
+          title: entry.name,
+          brand: entry.brand,
+          category: entry.category,
+          gtins,
+          // Only downloadable photos are listed here: the retry of failed downloads must not ask the Serbian sites.
+          imageUrls: source.photos ? [] : [entry.image],
+          firstSeenAt: now,
+          lastSeenAt: now,
+          fetchedAt: now,
+        });
+        added++;
       }
-      continue;
+      if (!source.photos) {
+        if (!current) await storePreviews(key, [entry.image]);
+        continue;
+      }
+      // A new capture can bring another photo of the entry; it replaces the stored one.
+      const photo = `${source.photos}/${entry.image}`;
+      if (stored.get(key) === photo) continue;
+      if (stored.has(key)) await db.delete(schema.lidlImages).where(eq(schema.lidlImages.erp, key));
+      await saveImage(key, photo, 0, fs.readFileSync(path.join(process.cwd(), photo)));
     }
-    await db.insert(lib).values({
-      erp: key,
-      country: "it",
-      url: entry.url,
-      title: entry.name,
-      brand: entry.brand,
-      category: entry.category,
-      imageUrls: [entry.image],
-      firstSeenAt: now,
-      lastSeenAt: now,
-      fetchedAt: now,
-    });
-    await storePreviews(key, [entry.image]);
-    added++;
   }
   return added;
 }
@@ -240,10 +277,13 @@ function nameMatches() {
 /**
  * Gives price-list products the library photo whose GTIN matches their barcode (current or earlier ones),
  * including products Lidl has since removed from lidl.rs. Lidl's own photos win over every other source.
- * Photos from other Lidl countries, nearest country first, go to products without a photo and replace Open Food
- * Facts ones (the same barcode, photographed by Lidl), but not Maxi or Idea ones. They are shown as reference
- * photos (contentSource "lidl-intl"): the packaging may be in another language. Reviewed name matches only fill
- * products that have no photo from a barcode.
+ * Maxi and Idea photos stay. Products without a photo or with an Open Food Facts one get, in this order:
+ *  - a photo from another Lidl country (contentSource "lidl-intl"), nearest country first: the same barcode
+ *    photographed by Lidl, though the packaging may be in another language;
+ *  - a reviewed name match to a Serbian product: lidl.rs under another barcode, or cenoteka.rs ("lidl-name");
+ *  - the cenolov.rs photo for the barcode ("cenolov"): Serbian packaging, but chosen by a third party;
+ *  - a reviewed name match to Lidl Italia from Everli ("lidl-name"), only for products without any photo.
+ * All of them are shown as reference photos.
  */
 export async function applyLidlLibrary() {
   const lib = schema.lidlLibrary;
@@ -268,14 +308,17 @@ export async function applyLidlLibrary() {
   for (const img of images) imagesByErp.set(img.erp, [...(imagesByErp.get(img.erp) ?? []), img.id]);
 
   const rank = new Map(LIDL_SITES.map((site, i) => [site.country, i]));
+  const countryOf = new Map(entries.map((e) => [e.erp, e.country]));
   const home = new Map<string, (typeof entries)[number]>();
   const abroad = new Map<string, (typeof entries)[number]>();
+  const cenolov = new Map<string, (typeof entries)[number]>();
   for (const e of entries) {
     if (!imagesByErp.has(e.erp)) continue;
     for (const g of e.gtins) {
       const code = g.replace(/^0+/, "");
       const current = abroad.get(code);
       if (e.country === "rs") home.set(code, e);
+      else if (e.country === "cenolov") cenolov.set(code, e);
       else if (!trustedAbroad(code, e.country)) continue;
       else if (!current || (rank.get(e.country) ?? 99) <= (rank.get(current.country) ?? 99)) abroad.set(code, e);
     }
@@ -290,6 +333,7 @@ export async function applyLidlLibrary() {
       description: p.description,
       sourceKey: p.sourceKey,
       imageUrl: p.imageUrl,
+      images: p.images,
       contentSource: p.contentSource,
     })
     .from(p)
@@ -300,40 +344,33 @@ export async function applyLidlLibrary() {
     const codes = [product.barcode, ...product.altBarcodes].filter((c): c is string => !!c).map((c) => c.replace(/^0+/, ""));
     const entry = codes.map((c) => home.get(c)).find(Boolean);
     if (!entry) {
-      const foreign = codes.map((c) => abroad.get(c)).find(Boolean);
-      const ours = product.contentSource === "lidl-intl" || product.contentSource === "lidl-name";
-      if (product.imageUrl && !ours && !(foreign && product.contentSource === "off")) continue;
+      const ours = product.contentSource === "lidl-intl" || product.contentSource === "lidl-name" || product.contentSource === "cenolov";
+      if (product.imageUrl && !ours && product.contentSource !== "off") continue;
       // Reviewed name matches (data/lidl-name-matches.json): the same product on lidl.rs under another barcode,
-      // or a Lidl Italia product from Everli. A barcode match from abroad still comes first.
+      // on cenoteka.rs, or a Lidl Italia product from Everli.
       const named = byName.get(product.sourceKey);
-      const namedIds = named && imagesByErp.get(named);
-      if (!foreign && namedIds) {
-        await db
-          .update(p)
-          .set({ imageUrl: `/api/img/${namedIds[0]}`, images: [`/api/img/${namedIds[0]}`], lidlUrl: null, contentSource: "lidl-name", enrichedAt: new Date() })
-          .where(eq(p.id, product.id));
-        matched++;
+      const namedIds = named ? imagesByErp.get(named) : undefined;
+      const foreign = codes.map((c) => abroad.get(c)).find(Boolean);
+      const retail = codes.map((c) => cenolov.get(c)).find(Boolean);
+      const choice: [string, number[]] | null = foreign
+        ? ["lidl-intl", imagesByErp.get(foreign.erp)!]
+        : namedIds && countryOf.get(named!) !== "it"
+          ? ["lidl-name", namedIds]
+          : retail
+            ? ["cenolov", imagesByErp.get(retail.erp)!]
+            : namedIds && product.contentSource !== "off"
+              ? ["lidl-name", namedIds]
+              : null;
+      if (!choice) {
+        // A photo from a match that no longer holds (stricter rules, pair removed) is taken away again.
+        if (ours) await db.update(p).set({ imageUrl: null, images: [], contentSource: null }).where(eq(p.id, product.id));
         continue;
       }
-      if (!foreign) {
-        // A photo from abroad or a name pair that no longer holds (stricter rules, pair removed) is taken away again.
-        if (product.contentSource === "lidl-intl" || product.contentSource === "lidl-name") {
-          await db.update(p).set({ imageUrl: null, images: [], contentSource: null }).where(eq(p.id, product.id));
-        }
-        continue;
-      }
-      const ids = imagesByErp.get(foreign.erp)!;
-      await db
-        .update(p)
-        .set({
-          imageUrl: `/api/img/${ids[0]}`,
-          images: ids.slice(0, 6).map((id) => `/api/img/${id}`),
-          lidlUrl: null,
-          contentSource: "lidl-intl",
-          enrichedAt: new Date(),
-        })
-        .where(eq(p.id, product.id));
       matched++;
+      const [source, ids] = choice;
+      const images = ids.slice(0, 6).map((id) => `/api/img/${id}`);
+      if (product.contentSource === source && product.images.join() === images.join()) continue;
+      await db.update(p).set({ imageUrl: images[0], images, lidlUrl: null, contentSource: source, enrichedAt: new Date() }).where(eq(p.id, product.id));
       continue;
     }
     const ids = imagesByErp.get(entry.erp)!;

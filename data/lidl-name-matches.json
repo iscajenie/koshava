@@ -594,6 +594,11 @@
   "erp": "everli:2492598",
   "lidl": "Doussy Ammorbidente Ricarica Freshness, confezione 2.25l"
  },
+ "n-4de92cdf8035": {
+  "product": "Jogurt domaći 2,8% 1kg",
+  "erp": "cenoteka:jogurt-s-ljubavlju-domace-sumadijski-28mm-1kg",
+  "lidl": "Jogurt S LJUBAVLJU DOMAĆE Šumadijski 2,8%mm 1kg"
+ },
  "n-4e372b47445a": {
   "product": "Bio domaći luk crni, 500g",
   "erp": "everli:515947",
@@ -643,6 +648,11 @@
   "product": "Domaća bundeva sečena, rinfuz",
   "erp": "11029676",
   "lidl": "Domaća bundeva"
+ },
+ "n-51d05e7af73a": {
+  "product": "Jogurt domaći 4% 1kg",
+  "erp": "cenoteka:jogurt-s-ljubavlju-domace-sumadijski-4mm-1kg",
+  "lidl": "Jogurt S LJUBAVLJU DOMAĆE Šumadijski 4%mm 1kg"
  },
  "n-51d4dc5e076d": {
   "product": "Domaći krompir crveni, rinfuz",
@@ -1189,6 +1199,11 @@
   "erp": "everli:2384858",
   "lidl": "Cien Deodorante Spray Uomo Extra Dry, bomboletta 0.200l"
  },
+ "n-950214141dc1": {
+  "product": "Kiseli kupus, list ca. 1kg",
+  "erp": "cenoteka:kiseli-kupus-s-ljubavlju-domace-list-1kg",
+  "lidl": "Kiseli kupus S LJUBAVLJU DOMAĆE list 1kg"
+ },
  "n-974b2a267ab5": {
   "product": "Suve urme 200g",
   "erp": "everli:513781",
@@ -1664,6 +1679,11 @@
   "erp": "everli:511775",
   "lidl": "Fettine di Vitello, confezione 0.300kg"
  },
+ "n-cbf54012fd46": {
+  "product": "Sveže mleko domaće 4% 1l",
+  "erp": "cenoteka:sveze-mleko-s-ljubavlju-domace-sumadijsko-4mm-1l",
+  "lidl": "Sveže mleko S LJUBAVLJU DOMAĆE Šumadijsko 4%mm 1l"
+ },
  "n-cc38b4a3b30b": {
   "product": "Gumene bombone, ukus jagoda 300g",
   "erp": "11663448",
@@ -1808,6 +1828,11 @@
   "product": "Smrznuti mix za rusku salatu/ 1kg",
   "erp": "11493264",
   "lidl": "Miks za rusku salatu"
+ },
+ "n-dedd0d86f16d": {
+  "product": "Kiseli kupus glavica cca 1,5kg ca. 1,5kg",
+  "erp": "cenoteka:kiseli-kupus-s-ljubavlju-domace-15kg",
+  "lidl": "Kiseli kupus S LJUBAVLJU DOMAĆE 1,5kg"
  },
  "n-dfb05c3a0432": {
   "product": "Pašteta sa šunkom 75g",

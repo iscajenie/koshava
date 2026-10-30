@@ -18,14 +18,24 @@ export default async function AdminLibraryPage({ searchParams }: PageProps<"/[lo
   return (
     <div className="space-y-5">
       <p className="max-w-3xl text-sm text-muted">{l.intro}</p>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-7">
         {[
           [l.products, stats.products],
           [l.onSite, stats.onSite],
           [l.archived, stats.archived],
           [l.abroad, stats.abroad],
+          [l.shops, stats.shops],
           [l.images, `${stats.images} · ${stats.megabytes} MB`],
-          [l.matched, stats.matched, stats.matchedAbroad > 0 ? fmt(l.matchedAbroad, { n: stats.matchedAbroad }) : null],
+          [
+            l.matched,
+            stats.matched,
+            [
+              stats.matchedAbroad > 0 && fmt(l.matchedAbroad, { n: stats.matchedAbroad }),
+              stats.matchedCenolov > 0 && fmt(l.matchedCenolov, { n: stats.matchedCenolov }),
+            ]
+              .filter(Boolean)
+              .join(", "),
+          ],
         ].map(([label, value, note]) => (
           <div key={String(label)} className="card p-4">
             <div className="text-xs font-medium text-muted">{label}</div>

@@ -13,7 +13,7 @@ const p = schema.products;
 // Drizzle leaves single-table columns unqualified, which would bind them to the subquery.
 const photoSource = sql<string | null>`case
   when "products"."content_source" in ('lidl-intl', 'lidl-name') then (
-    select case when l.erp like 'everli:%' then 'everli' else regexp_replace(split_part(l.url, '/', 3), '^www[.]', '') end
+    select case when l.erp like 'everli:%' then 'everli' when l.erp like 'cenoteka:%' then 'cenoteka' else regexp_replace(split_part(l.url, '/', 3), '^www[.]', '') end
     from lidl_images i join lidl_library l on l.erp = i.erp
     where i.id = substring("products"."image_url" from '^/api/img/([0-9]+)')::int)
   when "products"."content_source" = 'off' then 'Open Food Facts'
