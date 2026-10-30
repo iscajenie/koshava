@@ -8,7 +8,7 @@ import { getDictionary } from "@/i18n";
 
 const p = schema.products;
 
-// Temporary: where a reference photo came from, shown in the stock-photo tag ("фото: everli"). Photos from the Lidl
+// Where a reference photo came from, shown in its tag ("Фото: everli"). Photos from the Lidl
 // library (/api/img/<id>) are named after the site of their library entry. Table names are spelled out because
 // Drizzle leaves single-table columns unqualified, which would bind them to the subquery.
 const photoSource = sql<string | null>`case

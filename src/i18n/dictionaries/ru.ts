@@ -81,7 +81,7 @@ export const ru = {
     stockPhotoHint: "Фото найдено по штрихкоду в другом магазине или в открытой базе Open Food Facts. Упаковка может отличаться.",
     stockPhotoHintMaxi: "Фото взято с maxi.rs по штрихкоду. Упаковка может отличаться.",
     photoMaxi: "Фото: maxi.rs",
-    photoFrom: "фото: {source}",
+    photoFrom: "Фото: {source}",
     favoriteAdd: "Добавить в избранное",
     favoriteRemove: "Убрать из избранного",
     notFound: "Товар не найден",
