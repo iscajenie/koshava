@@ -18,6 +18,12 @@ export const ru = {
     searchPlaceholder: "Искать товары",
     search: "Найти",
     language: "Язык",
+    menu: "Меню",
+    close: "Закрыть",
+  },
+  shell: {
+    minOrder: "Заказ от {min}",
+    info: "Подробнее",
   },
   home: {
     heroTitle: "Продукты из Lidl с доставкой по Белграду",
@@ -58,10 +64,12 @@ export const ru = {
     next: "Дальше",
     page: "Страница {page} из {pages}",
     filters: "Фильтры",
+    all: "Все товары",
   },
   product: {
     addToCart: "В корзину",
     inCart: "В корзине",
+    add: "Добавить",
     perUnit: "за {unit}",
     unitPrice: "{price} / {unit}",
     regularPrice: "Обычная цена",

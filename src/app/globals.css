@@ -1,19 +1,33 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
+@import "@fontsource/fira-sans/400.css";
+@import "@fontsource/fira-sans/500.css";
+@import "@fontsource/fira-sans/600.css";
+@import "@fontsource/fira-sans/700.css";
+@import "@fontsource-variable/montserrat/wght.css";
 
+/*
+ * Design tokens after Everli's grocery store: Fira Sans text, a geometric display face for headings and prices
+ * (Everli's Poppins has no Cyrillic, so Montserrat stands in), pill-shaped controls on a light grey surface,
+ * green actions and a yellow highlight for discounted prices.
+ */
 @theme {
-  --color-brand: #0050aa;
-  --color-brand-dark: #003a7d;
-  --color-brand-light: #e6eef8;
-  --color-accent: #fff000;
-  --color-sale: #e60a14;
-  --color-ink: #1a1a1a;
-  --color-muted: #616161;
-  --color-line: #dedede;
-  --color-surface: #f4f4f4;
-  --color-success: #0d7a3e;
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --radius-card: 6px;
+  --color-ink: #1b1b1b;
+  --color-subtle: #5e5e5e;
+  --color-muted: #868686;
+  --color-faint: #bbbbbb;
+  --color-line: #e8e8e8;
+  --color-surface: #f3f3f3;
+  --color-surface-strong: #e8e8e8;
+  --color-brand: #3ca000;
+  --color-brand-dark: #328600;
+  --color-brand-light: #f5faf2;
+  --color-accent: #ffdc23;
+  --color-sale: #b71e49;
+  --color-store: #0050aa;
+  --color-success: #3ca000;
+  --font-sans: "Fira Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Montserrat Variable", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 16px;
 }
 
 html {
@@ -21,9 +35,14 @@ html {
 }
 
 body {
-  background: var(--color-surface);
+  background: #fff;
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+
+/* The page behind an open product card or cart panel does not scroll. */
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 .scrollbar-none {
@@ -33,28 +52,45 @@ body {
   display: none;
 }
 
-/* Lidl-style price: bold, tight, slightly condensed numerals. */
+/* Prices: display face, semibold, even-width digits. */
 .price-figure {
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
 }
 
-.field {
-  @apply w-full rounded border border-line bg-white px-3 py-2.5 text-[15px] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20;
+/*
+ * Shared controls as Tailwind utilities, so single-purpose utilities next to them (hidden, w-full, h-9, bg-…)
+ * still win: Tailwind orders utilities that set more properties first.
+ */
+@utility field {
+  @apply w-full rounded-lg border border-transparent bg-surface px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-muted focus:border-ink focus:bg-white;
+  &[aria-invalid="true"] {
+    @apply border-sale bg-white;
+  }
 }
-.field[aria-invalid="true"] {
-  @apply border-sale ring-2 ring-sale/15;
+@utility label {
+  @apply mb-1.5 block text-sm font-medium text-subtle;
 }
-.label {
-  @apply mb-1 block text-sm font-medium text-ink;
+@utility btn-primary {
+  @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand px-6 font-display text-base font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:bg-brand/40;
 }
-.btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded bg-brand px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50;
+@utility btn-secondary {
+  @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-surface px-6 text-[15px] font-medium text-ink transition-colors hover:bg-surface-strong;
 }
-.btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 rounded border border-brand bg-white px-5 py-3 text-[15px] font-semibold text-brand transition hover:bg-brand-light;
+@utility btn-dark {
+  @apply inline-flex h-10 items-center justify-center gap-2 rounded-full bg-ink px-4 text-[15px] font-medium text-white transition-colors hover:bg-black;
 }
-.card {
+@utility icon-btn {
+  @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface text-ink transition-colors hover:bg-surface-strong disabled:cursor-default disabled:text-faint disabled:hover:bg-surface;
+}
+@utility chip {
+  @apply inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-surface px-3 text-sm font-medium whitespace-nowrap text-ink transition-colors hover:bg-surface-strong;
+}
+@utility chip-active {
+  @apply bg-ink text-white hover:bg-ink;
+}
+@utility card {
   @apply rounded-[var(--radius-card)] border border-line bg-white;
 }

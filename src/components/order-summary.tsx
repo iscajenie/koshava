@@ -10,6 +10,7 @@ export function OrderSummary({
   subtotalMinor,
   deliveryFeeMinor,
   totalMinor,
+  className = "card p-5",
   children,
 }: {
   locale: Locale;
@@ -17,11 +18,13 @@ export function OrderSummary({
   subtotalMinor: number;
   deliveryFeeMinor: number;
   totalMinor: number;
+  /** The frame; the cart panel passes "" to show the summary without one. */
+  className?: string;
   children?: React.ReactNode;
 }) {
   const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
   return (
-    <div className="card space-y-3 p-5">
+    <div className={`space-y-3 ${className}`}>
       <div className="flex justify-between text-[15px]">
         <span>{t.cart.subtotal}</span>
         <span className="font-semibold tabular-nums" data-testid="subtotal">
@@ -34,7 +37,7 @@ export function OrderSummary({
           {formatPrice(deliveryFeeMinor, locale)}
         </span>
       </div>
-      <div className="flex justify-between border-t border-line pt-3 text-lg font-extrabold">
+      <div className="flex justify-between border-t border-line pt-3 font-display text-lg font-semibold">
         <span>{t.cart.total}</span>
         <span className="tabular-nums" data-testid="total">
           {formatPrice(totalMinor, locale)}
@@ -50,7 +53,7 @@ export function MinOrderProgress({ locale, t, subtotalMinor }: { locale: Locale;
   const pct = Math.min(100, Math.round((subtotalMinor / shop.minOrderMinor) * 100));
   if (missing === 0) return null;
   return (
-    <div className="space-y-2 rounded bg-brand-light p-3 text-sm" data-testid="min-order">
+    <div className="space-y-2 rounded-xl bg-brand-light p-3 text-sm" data-testid="min-order">
       <div className="font-semibold text-brand-dark">{fmt(t.cart.toMinOrder, { amount: formatPrice(missing, locale) })}</div>
       <div className="h-2 overflow-hidden rounded-full bg-white">
         <div className="h-full rounded-full bg-brand transition-all" style={{ width: `${pct}%` }} />

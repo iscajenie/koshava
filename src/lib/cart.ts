@@ -127,6 +127,15 @@ export async function getCartQuantities(): Promise<Record<number, number>> {
   return Object.fromEntries(rows.map((r) => [r.productId, r.qty]));
 }
 
+/** Quantities and current prices of the cart's products, for the header's running total. */
+export async function getCartState(): Promise<{ quantities: Record<number, number>; prices: Record<number, number> }> {
+  const lines = await getCartLines();
+  return {
+    quantities: Object.fromEntries(lines.map((l) => [l.productId, l.qty])),
+    prices: Object.fromEntries(lines.filter((l) => l.available).map((l) => [l.productId, l.priceMinor])),
+  };
+}
+
 export function cartTotals(lines: CartLine[]) {
   const subtotalMinor = lines.reduce((sum, l) => sum + l.lineTotalMinor, 0);
   const deliveryFeeMinor = deliveryFeeFor(subtotalMinor);

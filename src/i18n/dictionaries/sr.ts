@@ -20,6 +20,12 @@ export const sr: Dictionary = {
     searchPlaceholder: "Pretraži proizvode",
     search: "Traži",
     language: "Jezik",
+    menu: "Meni",
+    close: "Zatvori",
+  },
+  shell: {
+    minOrder: "Porudžbina od {min}",
+    info: "Detaljnije",
   },
   home: {
     heroTitle: "Lidl proizvodi sa dostavom po Beogradu",
@@ -60,10 +66,12 @@ export const sr: Dictionary = {
     next: "Dalje",
     page: "Strana {page} od {pages}",
     filters: "Filteri",
+    all: "Svi proizvodi",
   },
   product: {
     addToCart: "U korpu",
     inCart: "U korpi",
+    add: "Dodaj",
     perUnit: "po {unit}",
     unitPrice: "{price} / {unit}",
     regularPrice: "Redovna cena",

@@ -5,16 +5,16 @@ import { Logo } from "./logo";
 
 export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
-    <footer className="mt-12 bg-brand-dark pb-20 text-white/80 md:pb-0">
-      <div className="grid gap-6 px-4 py-8 text-sm md:grid-cols-[auto_1fr_auto] md:items-start lg:px-6 2xl:px-8">
-        <div className="text-white">
+    <footer className="border-t border-line pb-20 text-subtle md:pb-0">
+      <div className="grid gap-6 px-4 py-8 text-sm md:grid-cols-[auto_1fr_auto] md:items-start lg:px-8">
+        <div className="text-ink">
           <Logo />
         </div>
         <div className="space-y-2">
           <p>{t.footer.disclaimer}</p>
-          <p className="text-white/60">{t.footer.pilot}</p>
+          <p className="text-muted">{t.footer.pilot}</p>
         </div>
-        <ul className="flex flex-wrap gap-x-4 gap-y-2 font-medium text-white md:flex-col">
+        <ul className="flex flex-wrap gap-x-4 gap-y-2 font-medium text-ink md:flex-col">
           <li>
             <Link href={`/${locale}/delivery`} className="hover:underline">
               {t.nav.delivery}

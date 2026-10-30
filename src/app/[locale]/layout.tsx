@@ -4,13 +4,14 @@ import "../globals.css";
 import { getDictionary } from "@/i18n";
 import { isLocale } from "@/i18n/config";
 import { getCurrentUser } from "@/lib/auth/session";
-import { getCartQuantities } from "@/lib/cart";
+import { getCartState } from "@/lib/cart";
 import { getFavoriteIds } from "@/lib/favorites";
 import { listCategories } from "@/lib/catalog";
 import { ShopProvider } from "@/components/shop-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { MobileNav } from "@/components/mobile-nav";
+import { Shell } from "@/components/shell";
 
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
@@ -23,26 +24,22 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   };
 }
 
-export const viewport: Viewport = { themeColor: "#0050aa", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#ffffff", width: "device-width", initialScale: 1 };
 
-export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
+export default async function LocaleLayout({ children, modal, params }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
-  const [user, categories, quantities, favorites] = await Promise.all([
-    getCurrentUser(),
-    listCategories(locale),
-    getCartQuantities(),
-    getFavoriteIds(),
-  ]);
+  const [user, categories, cart, favorites] = await Promise.all([getCurrentUser(), listCategories(locale), getCartState(), getFavoriteIds()]);
 
   return (
     <html lang={locale === "sr" ? "sr-Latn" : "ru"}>
-      <body className="flex min-h-dvh flex-col antialiased">
-        <ShopProvider locale={locale} dictionary={t} initialQuantities={quantities} initialFavorites={favorites}>
-          <Header locale={locale} t={t} user={user} categories={categories} />
-          <main className="w-full flex-1 px-4 py-5 md:py-8 lg:px-6 2xl:px-8">{children}</main>
-          <Footer locale={locale} t={t} />
+      <body className="min-h-dvh antialiased">
+        <ShopProvider locale={locale} dictionary={t} initialQuantities={cart.quantities} initialPrices={cart.prices} initialFavorites={favorites}>
+          <Shell header={<Header locale={locale} t={t} user={user} />} footer={<Footer locale={locale} t={t} />} categories={categories}>
+            {children}
+          </Shell>
+          {modal}
           <MobileNav signedIn={!!user} />
         </ShopProvider>
       </body>

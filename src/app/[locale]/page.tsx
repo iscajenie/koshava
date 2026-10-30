@@ -1,94 +1,56 @@
 import Link from "next/link";
 import { getI18n } from "@/i18n/server";
-import { fmt } from "@/i18n";
-import { shop } from "@/config/shop";
-import { formatPrice } from "@/lib/money";
-import { getFeaturedProducts, getSaleProducts, listCategories, SALE_CATEGORY_SLUG } from "@/lib/catalog";
+import { getCategoryRows, getSaleProducts, listCategories, SALE_CATEGORY_SLUG } from "@/lib/catalog";
 import { ProductRow } from "@/components/product-row";
-import { SectionHeader } from "@/components/section-header";
-import { TagIcon, TruckIcon, WalletIcon } from "@/components/icons";
 
+/** The store's front page after Everli: a banner, then a sideways row of products for the sale and every category. */
 export default async function HomePage() {
   const { locale, t } = await getI18n();
-  const [categories, sale, featured] = await Promise.all([
-    listCategories(locale),
-    getSaleProducts(20),
-    getFeaturedProducts(20),
-  ]);
-  const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
-  const min = formatPrice(shop.minOrderMinor, locale);
-  const max = formatPrice(shop.maxOrderMinor, locale);
+  const [categories, sale, rows] = await Promise.all([listCategories(locale), getSaleProducts(20), getCategoryRows(12)]);
 
   return (
     <div className="space-y-10">
-      <section className="relative overflow-hidden rounded-lg bg-brand px-6 py-8 text-white md:px-10 md:py-12">
-        <div className="absolute -top-16 -right-16 h-64 w-64 rounded-full bg-accent/90" aria-hidden />
-        <div className="absolute -right-6 -bottom-20 h-40 w-40 rounded-full border-[14px] border-sale" aria-hidden />
+      <section className="relative overflow-hidden rounded-lg bg-store px-6 py-7 text-white md:px-10 md:py-9">
+        <div className="absolute -top-20 -right-10 h-64 w-64 rounded-full bg-[#fff000]" aria-hidden />
+        <div className="absolute -right-4 -bottom-24 h-44 w-44 rounded-full border-[16px] border-[#e60a14]" aria-hidden />
         <div className="relative max-w-xl">
-          <h1 className="text-3xl leading-tight font-extrabold tracking-tight md:text-4xl">{t.home.heroTitle}</h1>
-          <p className="mt-3 text-white/85 md:text-lg">{t.home.heroText}</p>
-          <Link href={`/${locale}/catalog`} className="mt-6 inline-flex rounded bg-accent px-6 py-3 font-bold text-ink hover:brightness-95">
+          <h1 className="font-display text-2xl leading-tight font-semibold md:text-[32px] md:leading-10">{t.home.heroTitle}</h1>
+          <p className="mt-2 text-white/85">{t.home.heroText}</p>
+          <Link href={`/${locale}/catalog`} className="mt-5 inline-flex h-11 items-center rounded-full bg-white px-5 font-display font-semibold text-ink transition-colors hover:bg-white/90">
             {t.home.heroCta}
           </Link>
         </div>
       </section>
 
-      <section className="grid gap-3 sm:grid-cols-3">
-        {[
-          { icon: TagIcon, title: t.home.perks.prices, text: t.home.perks.pricesText },
-          { icon: TruckIcon, title: fmt(t.home.perks.delivery, { rate }), text: fmt(t.home.perks.deliveryText, { min, max }) },
-          { icon: WalletIcon, title: t.home.perks.payment, text: t.home.perks.paymentText },
-        ].map(({ icon: Icon, title, text }) => (
-          <div key={title} className="card flex items-start gap-3 p-4">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
-              <Icon size={22} />
-            </span>
-            <div>
-              <div className="font-bold">{title}</div>
-              <div className="text-sm text-muted">{text}</div>
-            </div>
-          </div>
-        ))}
-      </section>
-
+      {/* Phones have no sidebar: the categories are a row of tiles here. */}
       {categories.length > 0 && (
-        <section>
-          <SectionHeader title={t.home.categories} />
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
+        <nav aria-label={t.nav.catalog} className="lg:hidden">
+          <ul className="scrollbar-none -mx-4 flex gap-3 overflow-x-auto px-4">
             {categories.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={`/${locale}/catalog/${c.slug}`}
-                  className={`card flex h-full flex-col items-center gap-2 p-3 text-center hover:border-brand ${c.isSale ? "border-sale/40" : ""}`}
-                >
-                  <div className="aspect-square w-full max-w-28">
+              <li key={c.slug} className="w-20 shrink-0">
+                <Link href={`/${locale}/catalog/${c.slug}`} className="flex flex-col items-center gap-1.5 text-center">
+                  <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-surface p-2">
                     {c.image && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={c.image} alt="" loading="lazy" className="h-full w-full object-contain" />
                     )}
-                  </div>
-                  <span className={`text-sm leading-tight font-semibold ${c.isSale ? "text-sale" : ""}`}>{c.name}</span>
-                  <span className="text-xs text-muted">{c.count}</span>
+                  </span>
+                  <span className={`text-xs leading-tight font-medium ${c.isSale ? "text-sale" : ""}`}>{c.name}</span>
                 </Link>
               </li>
             ))}
           </ul>
-        </section>
+        </nav>
       )}
 
       {sale.length > 0 && (
-        <section>
-          <SectionHeader title={t.home.onSale} href={`/${locale}/catalog/${SALE_CATEGORY_SLUG}`} linkLabel={t.home.allOnSale} />
-          <ProductRow products={sale} />
-        </section>
+        <ProductRow title={t.home.onSale} href={`/${locale}/catalog/${SALE_CATEGORY_SLUG}`} linkLabel={t.home.showAll} products={sale} />
       )}
-
-      {featured.length > 0 && (
-        <section>
-          <SectionHeader title={t.home.popular} href={`/${locale}/catalog`} linkLabel={t.home.showAll} />
-          <ProductRow products={featured} />
-        </section>
-      )}
+      {categories
+        .filter((c) => !c.isSale && rows.get(c.id)?.length)
+        .map((c) => (
+          <ProductRow key={c.slug} title={c.name} href={`/${locale}/catalog/${c.slug}`} linkLabel={t.home.showAll} products={rows.get(c.id)!} />
+        ))}
     </div>
   );
 }

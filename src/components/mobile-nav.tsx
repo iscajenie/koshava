@@ -22,11 +22,12 @@ export function MobileNav({ signedIn }: { signedIn: boolean }) {
           const active = exact ? pathname === href : pathname.startsWith(href);
           return (
             <li key={href}>
-              <Link href={href} className={`flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${active ? "text-brand" : "text-muted"}`}>
+              <Link href={href} className={`flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${active ? "text-brand" : "text-muted"}`}
+                scroll={href.endsWith("/cart") ? false : undefined}>
                 <span className="relative">
                   <Icon size={22} />
                   {!!count && (
-                    <span className="absolute -top-1.5 -right-2 min-w-4 rounded-full bg-sale px-1 text-center text-[10px] leading-4 font-bold text-white">
+                    <span className="absolute -top-1.5 -right-2 min-w-4 rounded-full bg-brand px-1 text-center text-[10px] leading-4 font-semibold text-white">
                       {count}
                     </span>
                   )}

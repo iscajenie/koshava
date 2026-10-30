@@ -1,5 +1,5 @@
 import "server-only";
-import { and, asc, desc, eq, ilike, inArray, isNotNull, lt, or, sql, type SQL } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, inArray, isNotNull, lt, lte, or, sql, type SQL } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { searchTerms } from "@/lib/text";
 import type { SortOption } from "@/lib/sort-options";
@@ -202,15 +202,38 @@ export async function getSaleProducts(limit: number) {
     .limit(limit);
 }
 
-/** A stable-per-day shuffle so the home page does not always show the same products. */
-export async function getFeaturedProducts(limit: number) {
+/**
+ * Up to `perCategory` products of every category for the home page rows, products with a photo first and the rest
+ * shuffled once a day. Returns category id -> products in that order.
+ */
+export async function getCategoryRows(perCategory: number) {
   const day = new Date().toISOString().slice(0, 10);
-  return db
-    .select(productCardFields)
-    .from(p)
-    .where(and(visible, isNotNull(p.imageUrl)))
-    .orderBy(sql`md5(${p.id}::text || ${day})`)
-    .limit(limit);
+  const ranked = db.$with("ranked").as(
+    db
+      .select({
+        id: p.id,
+        categoryId: p.categoryId,
+        rank: sql<number>`row_number() over (partition by ${p.categoryId} order by ${p.imageUrl} is null, md5(${p.id}::text || ${day}))`.as("rank"),
+      })
+      .from(p)
+      .where(visible),
+  );
+  const top = await db
+    .with(ranked)
+    .select({ id: ranked.id, categoryId: ranked.categoryId })
+    .from(ranked)
+    .where(lte(ranked.rank, perCategory))
+    .orderBy(ranked.categoryId, ranked.rank);
+  const rows = new Map<number, ProductCardData[]>();
+  if (top.length === 0) return rows;
+  const cards = new Map(
+    (await db.select(productCardFields).from(p).where(inArray(p.id, top.map((r) => r.id)))).map((card) => [card.id, card]),
+  );
+  for (const { id, categoryId } of top) {
+    const card = cards.get(id);
+    if (card && categoryId != null) rows.set(categoryId, [...(rows.get(categoryId) ?? []), card]);
+  }
+  return rows;
 }
 
 export async function getRelatedProducts(categoryId: number | null, excludeId: number, limit: number) {

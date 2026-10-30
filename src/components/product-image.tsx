@@ -3,14 +3,10 @@ export function isStockPhoto(contentSource: string | null) {
   return contentSource === "off" || contentSource === "maxi" || contentSource === "idea" || contentSource === "lidl-intl" || contentSource === "lidl-name";
 }
 
-/** Marks photos that are not Lidl's own with the site they came from ("Фото: everli"), or with `label` when unknown. */
+/** Names the site a reference photo came from ("Фото: everli"), or shows `label` when unknown; position it with className. */
 export function StockPhotoTag({ label, hint, source, className = "" }: { label: string; hint: string; source?: string; className?: string }) {
   return (
-    <span
-      title={hint}
-      className={`absolute bottom-2 left-2 rounded-sm bg-ink/70 px-1.5 py-0.5 text-[10px] leading-tight font-medium text-white ${className}`}
-      data-testid="stock-photo-tag"
-    >
+    <span title={hint} className={`rounded bg-surface px-1 py-0.5 text-xs leading-[18px] font-medium text-muted ${className}`} data-testid="stock-photo-tag">
       {source ?? label}
     </span>
   );

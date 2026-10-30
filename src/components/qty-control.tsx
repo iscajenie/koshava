@@ -3,57 +3,35 @@
 import { shop } from "@/config/shop";
 import { formatQty } from "@/lib/format";
 import { useShop } from "./shop-provider";
-import { CartIcon, MinusIcon, PlusIcon } from "./icons";
+import { MinusIcon, PlusIcon, TrashIcon } from "./icons";
 
+/** Quantity stepper of a cart line: a grey pill "− quantity +", the minus turning into "remove" at the last step. */
 export function QtyControl({
   productId,
+  priceMinor,
   soldByWeight,
   unit,
-  size = "md",
 }: {
   productId: number;
+  priceMinor?: number;
   soldByWeight: boolean;
   unit: string | null;
-  size?: "md" | "lg";
 }) {
-  const { quantities, setQty, changeQty, t, locale } = useShop();
+  const { quantities, changeQty, t, locale } = useShop();
   const qty = quantities[productId] ?? 0;
   const step = soldByWeight ? shop.weightStepKg : 1;
-  const height = size === "lg" ? "h-12" : "h-10";
-
-  if (qty === 0) {
-    return (
-      <button
-        type="button"
-        onClick={() => setQty(productId, step)}
-        className={`btn-primary w-full ${height} px-3 py-0`}
-        data-testid="add-to-cart"
-      >
-        <CartIcon size={18} />
-        {t.product.addToCart}
-      </button>
-    );
-  }
+  const last = qty <= step;
+  const button = "flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-surface-strong";
 
   return (
-    <div className={`flex w-full items-center justify-between rounded bg-brand text-white ${height}`} data-testid="qty-control">
-      <button
-        type="button"
-        onClick={() => changeQty(productId, -step)}
-        className="flex h-full w-11 items-center justify-center rounded-l hover:bg-brand-dark"
-        aria-label={t.product.decrease}
-      >
-        <MinusIcon size={18} />
+    <div className="flex h-10 w-full items-center justify-between rounded-full bg-surface" data-testid="qty-control">
+      <button type="button" onClick={() => changeQty(productId, -step, priceMinor)} className={button} aria-label={last ? t.cart.remove : t.product.decrease}>
+        {last ? <TrashIcon size={18} /> : <MinusIcon size={18} />}
       </button>
-      <span className="text-[15px] font-semibold tabular-nums" data-testid="qty-value">
+      <span className="text-[15px] font-medium whitespace-nowrap tabular-nums" data-testid="qty-value">
         {formatQty(qty, unit, locale)}
       </span>
-      <button
-        type="button"
-        onClick={() => changeQty(productId, step)}
-        className="flex h-full w-11 items-center justify-center rounded-r hover:bg-brand-dark"
-        aria-label={t.product.increase}
-      >
+      <button type="button" onClick={() => changeQty(productId, step, priceMinor)} className={button} aria-label={t.product.increase}>
         <PlusIcon size={18} />
       </button>
     </div>
