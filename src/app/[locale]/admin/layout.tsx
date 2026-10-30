@@ -25,6 +25,9 @@ export default async function AdminLayout({ children }: LayoutProps<"/[locale]/a
         <Link href={`/${locale}/admin/library`} className="btn-secondary px-3 py-1.5 text-sm">
           {t.admin.library.title}
         </Link>
+        <Link href={`/${locale}/admin/telegram`} className="btn-secondary px-3 py-1.5 text-sm">
+          {t.admin.telegram.title}
+        </Link>
       </div>
       {children}
     </div>

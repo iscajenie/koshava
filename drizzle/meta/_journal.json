@@ -29,6 +29,13 @@
       "when": 1793293468256,
       "tag": "0003_lidl_library_country",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793359363483,
+      "tag": "0004_settings",
+      "breakpoints": true
     }
   ]
 }

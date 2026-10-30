@@ -315,3 +315,10 @@ export const importRuns = pgTable("import_runs", {
   stats: jsonb("stats").$type<Record<string, number | string>>(),
   error: text("error"),
 });
+
+// Shop settings changed in the admin, one JSON value per key (e.g. "telegram": the bot and the chats it notifies).
+export const settings = pgTable("settings", {
+  key: text("key").primaryKey(),
+  value: jsonb("value").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});

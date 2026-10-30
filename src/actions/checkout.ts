@@ -3,12 +3,15 @@
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { after } from "next/server";
 import { z } from "zod";
 import { db, schema } from "@/db";
 import type { AddressFields } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth/session";
 import { cartTotals, getCartLines } from "@/lib/cart";
 import { isValidSlot } from "@/lib/delivery";
+import { notifyNewOrder } from "@/lib/order-notifications";
 import { municipalityValues, shop } from "@/config/shop";
 import { defaultLocale, isLocale } from "@/i18n/config";
 
@@ -81,7 +84,7 @@ export async function placeOrder(_: CheckoutState, form: FormData): Promise<Chec
   if (!totals.meetsMinimum) return { error: "minOrder" };
   if (totals.exceedsMaximum) return { error: "maxOrder" };
 
-  const number = await db.transaction(async (tx) => {
+  const order = await db.transaction(async (tx) => {
     const [order] = await tx
       .insert(schema.orders)
       .values({
@@ -131,9 +134,14 @@ export async function placeOrder(_: CheckoutState, form: FormData): Promise<Chec
         .where(eq(schema.addresses.userId, user.id));
       await tx.insert(schema.addresses).values({ userId: user.id, fields: address, isDefault: existing.length === 0 });
     }
-    return orderNumber;
+    return { id: order.id, number: orderNumber };
   });
 
+  // The shop learns about the order in Telegram once the customer already sees the confirmation.
+  const h = await headers();
+  const origin = `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
+  after(() => notifyNewOrder(order.id, origin));
+
   revalidatePath("/", "layout");
-  redirect(`/${locale}/orders/${number}?placed=1`);
+  redirect(`/${locale}/orders/${order.number}?placed=1`);
 }
