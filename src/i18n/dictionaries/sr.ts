@@ -37,6 +37,7 @@ export const sr: Dictionary = {
     },
     categories: "Kategorije",
     minOrder: "Porudžbina od {min}",
+    minOrderShort: "od {min}",
     more: "Detaljnije",
     onSale: "Rasprodaja",
     allOnSale: "Cela rasprodaja",

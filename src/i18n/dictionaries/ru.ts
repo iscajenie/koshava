@@ -35,6 +35,7 @@ export const ru = {
     },
     categories: "Категории",
     minOrder: "Заказ от {min}",
+    minOrderShort: "от {min}",
     more: "Подробнее",
     onSale: "Распродажа",
     allOnSale: "Вся распродажа",

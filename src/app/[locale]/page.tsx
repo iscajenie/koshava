@@ -35,25 +35,30 @@ export default async function HomePage({ searchParams }: PageProps<"/[locale]">)
   const [categories, sale, rows] = await Promise.all([listCategories(locale), getSaleProducts(20), getCategoryRows(12)]);
   const total = categories.filter((c) => !c.isSale).reduce((sum, c) => sum + c.count, 0);
   const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
+  const min = formatPrice(shop.minOrderMinor, locale);
 
   return (
     <div className="space-y-10">
       <div>
-        <section className="relative overflow-hidden rounded-lg bg-store px-6 py-7 text-white md:px-10 md:py-9">
-          {/* The logo's colours as decoration; phones are too narrow for it next to the text. */}
-          <div className="absolute -top-20 -right-10 hidden h-64 w-64 rounded-full bg-[#fff000] sm:block" aria-hidden />
-          <div className="absolute -right-4 -bottom-24 hidden h-44 w-44 rounded-full border-[16px] border-[#e60a14] sm:block" aria-hidden />
-          <div className="relative max-w-xl">
-            <h1 className="font-display text-2xl leading-tight font-semibold md:text-[32px] md:leading-10">{t.home.heroTitle}</h1>
-            <p className="mt-2 text-white/85">{t.home.heroText}</p>
-            <span className="mt-5 inline-block bg-accent px-1 py-0.5 text-sm leading-5 font-medium text-ink">{fmt(t.home.perks.delivery, { rate })}</span>
-            <p className="mt-2 text-sm">
-              {fmt(t.home.minOrder, { min: formatPrice(shop.minOrderMinor, locale) })} ·{" "}
-              <Link href={`/${locale}/delivery`} className="underline underline-offset-2 hover:text-white/80">
-                {t.home.more}
-              </Link>
-            </p>
-            <p className="text-sm text-white/70">{t.home.perks.payment}</p>
+        {/* At most 90 px high: columns as wide as the banner allows (it narrows with the sidebar), on phones two rows. */}
+        <section className="@container relative overflow-hidden rounded-lg bg-store text-white">
+          {/* The logo's colours as decoration, where there is room for them beside the text. */}
+          <div className="absolute -top-12 -right-6 hidden size-28 rounded-full bg-[#fff000] @min-[1040px]:block" aria-hidden />
+          <div className="absolute right-20 -bottom-10 hidden size-16 rounded-full border-[9px] border-[#e60a14] @min-[1040px]:block" aria-hidden />
+          <div className="relative flex flex-col gap-1.5 px-4 py-3 @min-[672px]:flex-row @min-[672px]:items-center @min-[672px]:gap-6 @min-[672px]:px-6 @min-[1040px]:pr-36">
+            <h1 className="font-display text-base leading-5 font-semibold @min-[672px]:max-w-64 @min-[672px]:shrink-0 @min-[672px]:text-lg @min-[672px]:leading-6">{t.home.heroTitle}</h1>
+            <p className="hidden max-w-sm text-sm leading-5 text-white/85 @min-[880px]:block">{t.home.heroText}</p>
+            <div className="flex flex-wrap items-center gap-x-2 text-[13px] leading-5 @min-[672px]:ml-auto @min-[672px]:block @min-[672px]:shrink-0 @min-[672px]:text-sm @min-[1040px]:ml-0">
+              <span className="inline-block bg-accent px-1 font-medium text-ink">{fmt(t.home.perks.delivery, { rate })}</span>
+              <p className="@min-[672px]:mt-0.5">
+                <span className="@min-[672px]:hidden">{fmt(t.home.minOrderShort, { min })}</span>
+                <span className="hidden @min-[672px]:inline">{fmt(t.home.minOrder, { min })}</span> ·{" "}
+                <Link href={`/${locale}/delivery`} className="underline underline-offset-2 hover:text-white/80">
+                  {t.home.more}
+                </Link>
+              </p>
+              <p className="hidden text-white/70 @min-[672px]:block">{t.home.perks.payment}</p>
+            </div>
           </div>
         </section>
         <Suspense>
