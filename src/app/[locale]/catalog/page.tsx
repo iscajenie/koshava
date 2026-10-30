@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
-import { getI18n } from "@/i18n/server";
-import { CatalogView } from "@/components/catalog-view";
+import { permanentRedirect } from "next/navigation";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { t } = await getI18n();
-  return { title: t.catalog.title };
-}
-
-export default async function CatalogPage({ searchParams }: PageProps<"/[locale]/catalog">) {
-  const { locale, t } = await getI18n();
-  return <CatalogView locale={locale} t={t} searchParams={await searchParams} />;
+/** The catalog is the front page now: old links and bookmarks land there with their sort, filter or search. */
+export default async function CatalogPage({ params, searchParams }: PageProps<"/[locale]/catalog">) {
+  const { locale } = await params;
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(await searchParams)) for (const one of [value].flat()) if (one != null) query.append(key, one);
+  const qs = query.toString();
+  permanentRedirect(`/${locale}${qs ? `?${qs}` : ""}`);
 }

@@ -21,11 +21,6 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             </Link>
           </li>
           <li>
-            <Link href={`/${locale}/catalog`} className="hover:underline">
-              {t.nav.catalog}
-            </Link>
-          </li>
-          <li>
             <Link href={`/${locale}/privacy`} className="hover:underline">
               {t.nav.privacy}
             </Link>

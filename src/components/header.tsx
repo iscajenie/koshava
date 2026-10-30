@@ -18,7 +18,7 @@ export function Header({ locale, t, user }: { locale: Locale; t: Dictionary; use
         <Link href={`/${locale}`} className="shrink-0 lg:w-[236px]" aria-label="Koshava">
           <Logo compact />
         </Link>
-        <form action={`/${locale}/catalog`} className="hidden max-w-[640px] flex-1 md:block" role="search">
+        <form action={`/${locale}`} className="hidden max-w-[640px] flex-1 md:block" role="search">
           <SearchField t={t} />
         </form>
         <div className="ml-auto flex items-center gap-2">
@@ -28,7 +28,7 @@ export function Header({ locale, t, user }: { locale: Locale; t: Dictionary; use
           <HeaderActions user={user ? { name: user.name, isAdmin: user.role === "admin" } : null} />
         </div>
       </div>
-      <form action={`/${locale}/catalog`} className="px-4 pb-3 md:hidden" role="search">
+      <form action={`/${locale}`} className="px-4 pb-3 md:hidden" role="search">
         <SearchField t={t} />
       </form>
     </header>

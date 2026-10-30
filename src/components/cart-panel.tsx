@@ -19,7 +19,7 @@ export async function CartPanel() {
         </span>
         <h2 className="font-display text-xl font-semibold">{t.cart.empty}</h2>
         <p className="text-sm text-muted">{t.cart.emptyText}</p>
-        <Link href={`/${locale}/catalog`} className="btn-primary mt-2">
+        <Link href={`/${locale}`} className="btn-primary mt-2">
           {t.cart.goCatalog}
         </Link>
       </div>

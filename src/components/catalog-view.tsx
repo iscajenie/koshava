@@ -14,7 +14,7 @@ function one(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
-/** A category, the sale, search results or the whole catalog: title, filter chips, the product grid and pages. */
+/** A category, the sale, search results or all products sorted: title, filter chips, the product grid and pages. */
 export async function CatalogView({
   locale,
   t,
@@ -35,14 +35,14 @@ export async function CatalogView({
     listCategories(locale),
   ]);
 
-  const title = q ? fmt(t.catalog.searchTitle, { q }) : category ? category.name : onlySale ? t.catalog.saleTitle : t.catalog.title;
+  const title = q ? fmt(t.catalog.searchTitle, { q }) : category ? category.name : onlySale ? t.catalog.saleTitle : t.catalog.all;
 
   function pageHref(n: number) {
     const params = new URLSearchParams();
     for (const [k, v] of Object.entries(searchParams)) if (typeof v === "string" && k !== "page") params.set(k, v);
     if (n > 1) params.set("page", String(n));
     const qs = params.toString();
-    return `/${locale}/catalog${category ? `/${category.slug}` : ""}${qs ? `?${qs}` : ""}`;
+    return `${category ? `/${locale}/catalog/${category.slug}` : `/${locale}`}${qs ? `?${qs}` : ""}`;
   }
 
   return (
@@ -52,7 +52,7 @@ export async function CatalogView({
       {/* Phones have no sidebar: categories scroll as chips under the title. */}
       <ul className="scrollbar-none -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 lg:hidden">
         <li>
-          <Link href={`/${locale}/catalog`} className={`chip ${!category ? "chip-active" : ""}`}>
+          <Link href={`/${locale}`} className={`chip ${!category ? "chip-active" : ""}`}>
             {t.catalog.allCategories}
           </Link>
         </li>

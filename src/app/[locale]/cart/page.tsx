@@ -22,7 +22,7 @@ export default async function CartPage() {
       <div className="mx-auto max-w-lg rounded-3xl border border-line p-10 text-center">
         <h1 className="font-display text-2xl font-semibold">{t.cart.empty}</h1>
         <p className="mt-2 text-muted">{t.cart.emptyText}</p>
-        <Link href={`/${locale}/catalog`} className="btn-primary mt-6">
+        <Link href={`/${locale}`} className="btn-primary mt-6">
           {t.cart.goCatalog}
         </Link>
       </div>

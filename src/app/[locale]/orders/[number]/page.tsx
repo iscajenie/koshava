@@ -40,7 +40,7 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/[l
         <Link href={`/${locale}/account#orders`} className="btn-secondary">
           {t.order.toAccount}
         </Link>
-        <Link href={`/${locale}/catalog`} className="btn-primary">
+        <Link href={`/${locale}`} className="btn-primary">
           {t.order.continueShopping}
         </Link>
       </div>
