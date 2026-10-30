@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import type { Dictionary } from "@/i18n";
+import { fmt, type Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
+import { shop } from "@/config/shop";
 import type { CurrentUser } from "@/lib/auth/session";
+import { formatPrice } from "@/lib/money";
 import { Logo } from "./logo";
 import { SearchIcon } from "./icons";
 import { HeaderActions } from "./header-actions";
@@ -21,6 +23,15 @@ export function Header({ locale, t, user }: { locale: Locale; t: Dictionary; use
         <form action={`/${locale}`} className="hidden max-w-[640px] flex-1 md:block" role="search">
           <SearchField t={t} />
         </form>
+        {/* The order terms, where the header has room for them; on narrower screens the front-page banner has them. */}
+        <p className="hidden shrink-0 text-[13px] leading-[18px] text-muted xl:block" data-testid="header-terms">
+          <span className="text-ink">{fmt(t.home.minOrder, { min: formatPrice(shop.minOrderMinor, locale) })}</span> ·{" "}
+          <Link href={`/${locale}/delivery`} className="text-ink underline underline-offset-2 hover:text-brand">
+            {t.home.more}
+          </Link>
+          <br />
+          {t.home.perks.payment}
+        </p>
         <div className="ml-auto flex items-center gap-2">
           <Suspense>
             <LanguageSwitch />

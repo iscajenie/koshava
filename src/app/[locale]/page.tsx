@@ -40,28 +40,27 @@ export default async function HomePage({ searchParams }: PageProps<"/[locale]">)
   return (
     <div className="space-y-10">
       <div>
-        {/* 180 px high: title and description in one column, the terms in another; on phones one below the other.
-            Columns follow the banner's own width, which changes with the sidebar. */}
+        {/* 180 px high: the delivery fee, the title and the description in one column. The order terms sit next to
+            the fee until the header has room for them (xl). Sizes follow the banner's own width, which changes with
+            the sidebar. */}
         <section className="@container relative flex min-h-[180px] overflow-hidden rounded-lg bg-store text-white">
           {/* The logo's colours as decoration, where there is room for them beside the text. */}
           <div className="absolute -top-14 -right-8 hidden size-40 rounded-full bg-[#fff000] @min-[1040px]:block" aria-hidden />
           <div className="absolute right-28 -bottom-10 hidden size-24 rounded-full border-[12px] border-[#e60a14] @min-[1040px]:block" aria-hidden />
-          <div className="relative flex w-full flex-col justify-center gap-3 px-4 py-4 @min-[672px]:flex-row @min-[672px]:items-center @min-[672px]:justify-between @min-[672px]:gap-8 @min-[672px]:px-6 @min-[880px]:gap-12 @min-[880px]:px-8 @min-[1040px]:pr-56">
-            <div className="@min-[880px]:max-w-[640px]">
-              <h1 className="font-display text-lg leading-6 font-semibold @min-[672px]:text-[22px] @min-[672px]:leading-7 @min-[880px]:text-[28px] @min-[880px]:leading-9">{t.home.heroTitle}</h1>
-              <p className="mt-1 text-sm leading-5 text-white/85 @min-[672px]:mt-1.5 @min-[880px]:mt-2 @min-[880px]:text-base @min-[880px]:leading-6">{t.home.heroText}</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-2 text-[13px] leading-5 @max-[300px]:text-xs @min-[672px]:block @min-[672px]:shrink-0 @min-[672px]:text-sm">
-              <span className="inline-block bg-accent px-1 font-medium text-ink">{fmt(t.home.perks.delivery, { rate })}</span>
-              <p className="@min-[672px]:mt-1.5">
-                <span className="@min-[672px]:hidden">{fmt(t.home.minOrderShort, { min })}</span>
-                <span className="hidden @min-[672px]:inline">{fmt(t.home.minOrder, { min })}</span> ·{" "}
+          <div className="relative flex w-full flex-col justify-center px-4 py-4 @min-[640px]:px-6 @min-[640px]:py-5 @min-[880px]:px-8 @min-[1040px]:pr-56">
+            <div className="flex flex-wrap items-center gap-x-2 text-[13px] leading-5 @max-[300px]:text-xs @min-[640px]:text-sm">
+              <span className="bg-accent px-1 font-medium text-ink">{fmt(t.home.perks.delivery, { rate })}</span>
+              <span className="xl:hidden">
+                <span className="@min-[640px]:hidden">{fmt(t.home.minOrderShort, { min })}</span>
+                <span className="hidden @min-[640px]:inline">{fmt(t.home.minOrder, { min })}</span> ·{" "}
                 <Link href={`/${locale}/delivery`} className="underline underline-offset-2 hover:text-white/80">
                   {t.home.more}
                 </Link>
-              </p>
-              <p className="hidden text-white/70 @min-[672px]:block">{t.home.perks.payment}</p>
+                <span className="hidden text-white/70 @min-[640px]:inline"> · {t.home.perks.payment}</span>
+              </span>
             </div>
+            <h1 className="mt-1.5 font-display text-lg leading-6 font-semibold @min-[640px]:mt-2 @min-[640px]:text-[22px] @min-[640px]:leading-7 @min-[880px]:mt-2.5 @min-[880px]:text-[28px] @min-[880px]:leading-9">{t.home.heroTitle}</h1>
+            <p className="mt-1 max-w-[720px] text-sm leading-5 text-white/85 @min-[640px]:mt-1.5 @min-[880px]:mt-2 @min-[880px]:text-base @min-[880px]:leading-6">{t.home.heroText}</p>
           </div>
         </section>
         <Suspense>
