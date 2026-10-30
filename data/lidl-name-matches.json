@@ -439,6 +439,11 @@
   "erp": "11214563",
   "lidl": "Domaća crvena jabuka"
  },
+ "n-3ab400f2c211": {
+  "product": "Alpska kobasica 350g",
+  "erp": "cenoteka:kobasica-baroni-alpska-350g",
+  "lidl": "Kobasica BARONI alpska 350g"
+ },
  "n-3b03ea71f0a3": {
   "product": "Kisela pavlaka 20% 180g",
   "erp": "11493266",
@@ -1288,6 +1293,11 @@
   "product": "Pileća posebna mini 500g",
   "erp": "11316482",
   "lidl": "Pileća posebna XXL"
+ },
+ "n-99fba0b519d7": {
+  "product": "Svinjska kolenica ca. 800g",
+  "erp": "cenoteka:svinjska-kolenica-baroni-800g",
+  "lidl": "Svinjska kolenica BARONI 800g"
  },
  "n-9a037f45b9c2": {
   "product": "Baltički hleb sa semenkama 400g",
