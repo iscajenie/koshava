@@ -13,12 +13,26 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2026/9/23/e92f892057947a0dd85452c674228cc014104b25.webp",
   "url": "https://spesa.everli.com/en/products/1/100278?brand=lidl"
  },
+ "everli:1072910": {
+  "name": "Liquore Crema al Pistacchio 17% Vol, confezione 0.500l",
+  "brand": "",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/12/14/de7d9a652f416f61c5a2b1fbcdd8596b93ab5ad8.webp",
+  "url": "https://spesa.everli.com/en/products/16/101466?brand=lidl"
+ },
  "everli:1073032": {
   "name": "Uva Bianca Bio, Confezione 500g",
   "brand": null,
   "category": "Frutta e Verdura",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2020/16/1765e8aa1db270f68450092028ee87634ac6b0c2.jpeg",
   "url": "https://spesa.everli.com/en/products/3/100112?brand=lidl"
+ },
+ "everli:1073392": {
+  "name": "Purio Sacchi Spazzatura Trasparenti 25l, confezione 50pz",
+  "brand": "Purio",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/20/3598430f158997cdd2ccd5c736500cb54708bc6a.webp",
+  "url": "https://spesa.everli.com/en/products/21/109965?brand=lidl"
  },
  "everli:1188860": {
   "name": "Floralys Fazzoletti Box 4 Veli, confezione 100pz",
@@ -40,6 +54,20 @@
   "category": "Carne e Pesce",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/43/2517fb65f7805db31b6db75803fbb1e7a5cd9519.webp",
   "url": "https://spesa.everli.com/en/products/1/100284?brand=lidl"
+ },
+ "everli:1308272": {
+  "name": "Solevita Succo di Mela 100%, Bottiglia 1l",
+  "brand": "Solevita",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/1/23/2e113f81d8660f38566e04543b84d0e6a130586c.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100187?brand=lidl"
+ },
+ "everli:1413578": {
+  "name": "Allini Prosecco Treviso Doc Frizzante, bottiglia 0.750l",
+  "brand": "Allini",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2020/40/ec40ce4efdd0c846b75e988aae6fa5824ab82068.webp",
+  "url": "https://spesa.everli.com/en/products/16/100193?brand=lidl"
  },
  "everli:1439200": {
   "name": "Mix Frutta Secca e Uva Sultanina Student Mix, confezione 0.125kg",
@@ -76,12 +104,33 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/04/28/bdf13b18fbe4bc6d71da1b0e57983401366ab92c.webp",
   "url": "https://spesa.everli.com/en/products/19/100219?brand=lidl"
  },
+ "everli:1951378": {
+  "name": "Purio Sacchetti per Bagno Profumati alla Rosa, confezione 40pz",
+  "brand": "Purio",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/8/27/85bea5de04e312d6556223e8e78c3d6471ba2f16.webp",
+  "url": "https://spesa.everli.com/en/products/21/109965?brand=lidl"
+ },
  "everli:2018238": {
   "name": "Cien Sapone Ricarica Antibatterico Aloe Vera, confezione 1l",
   "brand": "Cien",
   "category": "Cura Persona",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/ita/2021/07/30/7fd4b2edda0b018de436d76060484d6466303655.webp",
   "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
+ "everli:2043270": {
+  "name": "Freeway Aranciata Zero senza Zucchero, Bottiglia 1.5l",
+  "brand": "Freeway",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/1/23/bd8b693570875ed98a6743eb911fa36553382c4e.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
+ },
+ "everli:2108588": {
+  "name": "Freeway Cola Zero senza Zucchero, Bottiglia 1.5l",
+  "brand": "Freeway",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2026/10/9/ed49b220e3b72de034ef8282f798be9d87a8a1e3.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
  },
  "everli:2157120": {
   "name": "Entrecote di Scottona, confezione 0.200kg",
@@ -90,12 +139,33 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/7/12/29e644bc9ac6487d852acb15ff7e4ac2788c71d8.webp",
   "url": "https://spesa.everli.com/en/products/1/100278?brand=lidl"
  },
+ "everli:2225108": {
+  "name": "W5 Gel Disgorgante, flacone 1l",
+  "brand": "W5",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/e398fb8a1c94973adb1e5189b0a1c18ec46537f9.webp",
+  "url": "https://spesa.everli.com/en/products/21/100233?brand=lidl"
+ },
+ "everli:2363746": {
+  "name": "W5 Detersivo Piatti Ricarica Lime, confezione 2.5l",
+  "brand": "W5",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/6c4a651b908e10a632fe0b50bc8e037e41876083.webp",
+  "url": "https://spesa.everli.com/en/products/21/100232?brand=lidl"
+ },
  "everli:2384858": {
   "name": "Cien Deodorante Spray Uomo Extra Dry, bomboletta 0.200l",
   "brand": "Cien",
   "category": "Cura Persona",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/27/8a3220277a4623309b85cc522df5691517b65600.webp",
   "url": "https://spesa.everli.com/en/products/19/100219?brand=lidl"
+ },
+ "everli:2492598": {
+  "name": "Doussy Ammorbidente Ricarica Freshness, confezione 2.25l",
+  "brand": "Doussy",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/7299b17d214d73cc9c66d13f0e8f2af727cdbdfa.webp",
+  "url": "https://spesa.everli.com/en/products/21/100228?brand=lidl"
  },
  "everli:2869080": {
   "name": "Cien Shampoo Tutti i Giorni, flacone 1l",
@@ -110,6 +180,13 @@
   "category": "Cura Persona",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/39/0ad5b1ca9b287aaad7ec41f572485a07ac53d57f.webp",
   "url": "https://spesa.everli.com/en/products/19/100215?brand=lidl"
+ },
+ "everli:2903546": {
+  "name": "Solevita Succo d'Arancia 100%, confezione 1l",
+  "brand": "Solevita",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/1/bd1dd236b81ad799b5167bde7736a65f59c3ff61.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100187?brand=lidl"
  },
  "everli:2918678": {
   "name": "Cien Nature Balsamo Bio per Capelli Secchi Avena Camomilla, flacone 0.250l",
@@ -132,6 +209,27 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/7/abce374cfaba9fcb1ec83a34af573851a433903c.webp",
   "url": "https://spesa.everli.com/en/products/19/100216?brand=lidl"
  },
+ "everli:3084512": {
+  "name": "W5 Panni Multiuso, confezione 10pz",
+  "brand": "W5",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/2/17/d7459d5db14150956ea84df42751a304de5cecc0.webp",
+  "url": "https://spesa.everli.com/en/products/21/100236?brand=lidl"
+ },
+ "everli:3327360": {
+  "name": "Freeway Cola Zero Zuccheri, lattina 0.330l",
+  "brand": "Freeway",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2026/10/9/879ca3662177840c3b6a48d65bc70f3c9cb21e6c.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
+ },
+ "everli:3522360": {
+  "name": "Ocean Sea Cuori di Nasello Sudafricano, confezione 0.400kg",
+  "brand": "Ocean Sea",
+  "category": "Surgelati e Gelati",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/10/18/557702af01f756ab4db517c2f42152e95ac37ef9.webp",
+  "url": "https://spesa.everli.com/en/products/15/100183?brand=lidl"
+ },
  "everli:3529420": {
   "name": "Floralys Carta Igienica Soft 3 Veli 200 Strappi, confezione 12pz",
   "brand": "Floralys",
@@ -145,6 +243,13 @@
   "category": "Carne e Pesce",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/5/b7a2799ae1a37d81536b39abbae27a339114ac07.jpeg",
   "url": "https://spesa.everli.com/en/products/1/100288?brand=lidl"
+ },
+ "everli:3713509": {
+  "name": "Comte De Senneval Champagne Aop Brut, bottiglia 0.750l",
+  "brand": "Comte De Senneval",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/5/4f30fe08ac209bcea728a4b282ba049f5c1002e5.jpeg",
+  "url": "https://spesa.everli.com/en/products/16/100193?brand=lidl"
  },
  "everli:3756045": {
   "name": "Milbona Yogurt Greco Intero 10%, confezione 1kg",
@@ -174,12 +279,26 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/10/18/e9a2e62c4944a6f3ed4eb1a737cafde14c3519fe.webp",
   "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
  },
+ "everli:3855759": {
+  "name": "Freeway Limonata, lattina 0.330l",
+  "brand": "Freeway",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/12/5/f711517b5b711787e1c01d02842ee6185cdb5aab.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
+ },
  "everli:3890013": {
   "name": "Cien Salviettine Struccanti, confezione 50pz",
   "brand": "Cien",
   "category": "Cura Persona",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/17/db8aa1dd478909fd187f646196d58154526b23fe.webp",
   "url": "https://spesa.everli.com/en/products/19/100214?brand=lidl"
+ },
+ "everli:3900701": {
+  "name": "Formil Detersivo Liquido Delicato Lana e Capi Delicati, confezione 2.2l",
+  "brand": "Formil",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/42/6a637ae57b5b2ee28ba05e1e144b83505e3c2d38.webp",
+  "url": "https://spesa.everli.com/en/products/21/100228?brand=lidl"
  },
  "everli:3901761": {
   "name": "Dentalux Spazzolino da Denti per Bambini Junior 6+ Anni, confezione 2pz",
@@ -195,12 +314,26 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/4/11/c415efbc7d8874e9fb03a8db073e7b61b1273e30.webp",
   "url": "https://spesa.everli.com/en/products/3/100113?brand=lidl"
  },
+ "everli:3942237": {
+  "name": "Sondey Strudel di Mele, confezione 0.600kg",
+  "brand": "Sondey",
+  "category": "Surgelati e Gelati",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/12/12/bfd4102e5004db81ede5321f66ebdc70f183ddd3.webp",
+  "url": "https://spesa.everli.com/en/products/15/100186?brand=lidl"
+ },
  "everli:3968461": {
   "name": "Floralys Carta Igienica Riciclata 2 Veli 4x300 Strappi, confezione 4pz",
   "brand": "Floralys",
   "category": "Cura Persona",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/25/f7bb5a6e9c2d918aba174571208efac3e705ca03.webp",
   "url": "https://spesa.everli.com/en/products/19/100240?brand=lidl"
+ },
+ "everli:4022373": {
+  "name": "Doussy Ammorbidente Vaniglia e Sandalo, flacone 2l",
+  "brand": "Doussy",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/25/b139badd5245af3c660f5d1e0a944dacf8136764.webp",
+  "url": "https://spesa.everli.com/en/products/21/100228?brand=lidl"
  },
  "everli:4035077": {
   "name": "Lupilu Salviettine Baby Igieniche Formato Viaggio, confezione 20pz",
@@ -222,6 +355,13 @@
   "category": "Bimbi",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/7/25/0ccaa8e1b167402d7dcc7614dbebc4a1062f042d.webp",
   "url": "https://spesa.everli.com/en/products/18/100209?brand=lidl"
+ },
+ "everli:4170447": {
+  "name": "W5 Tavolette Detergenti per Wc Ocean Fresh, confezione 0.144kg",
+  "brand": "W5",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/11/28/461dad4f6eeacc3454f0b7e9a2eaf6d32afb6f77.webp",
+  "url": "https://spesa.everli.com/en/products/21/100233?brand=lidl"
  },
  "everli:4791817": {
   "name": "Milbona Latte di Kefir, confezione 0.480kg",
@@ -489,6 +629,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/ad4c3/7337d/45c87/609364458_img.webp",
   "url": "https://spesa.everli.com/en/products/16/101466?brand=lidl"
  },
+ "everli:514585": {
+  "name": "Romanetti Vermouth Bianco 15% Vol., bottiglia 1l",
+  "brand": "Romanetti",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/00d41/c238d/fcdbf/378407535_img.webp",
+  "url": "https://spesa.everli.com/en/products/16/100194?brand=lidl"
+ },
  "everli:514611": {
   "name": "Freshona Piselli Fini, busta 1kg",
   "brand": "Freshona",
@@ -580,6 +727,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2024/10/29/b8ed309cea9a950cf237e959d1119312631e0a91.webp",
   "url": "https://spesa.everli.com/en/products/1/100102?brand=lidl"
  },
+ "everli:515187": {
+  "name": "Castelgy Dry Gin 37,5% Vol., Bottiglia 70cl",
+  "brand": "Castelgy",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/a2e58/3255b/72dac/300504337_img.webp",
+  "url": "https://spesa.everli.com/en/products/16/100195?brand=lidl"
+ },
  "everli:515281": {
   "name": "Edam a Fette, confezione 0.200kg",
   "brand": "Milbona",
@@ -621,6 +775,13 @@
   "category": "Farine e Preparati",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2023/51/5de2ee69c56a9bc25f665230d211e45b7d9ee138.webp",
   "url": "https://spesa.everli.com/en/products/28/100324?brand=lidl"
+ },
+ "everli:515791": {
+  "name": "Bitterol Aperitivo 11% Vol., Bottiglia 70cl",
+  "brand": "Bitterol",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/2/18/707da93f5fc6d680a054156e11c0d40c036f6dac.webp",
+  "url": "https://spesa.everli.com/en/products/16/100194?brand=lidl"
  },
  "everli:515819": {
   "name": "W5 Gel Wc con Candeggina Pino, flacone 1l",
@@ -685,6 +846,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/d074f/56713/92757/880185186_img.jpg",
   "url": "https://spesa.everli.com/en/products/3/100113?brand=lidl"
  },
+ "everli:515977": {
+  "name": "Liquore Limone 30% Vol., Bottiglia 50cl",
+  "brand": "",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/d40a8/1ae42/2231d/1555742175_img.webp",
+  "url": "https://spesa.everli.com/en/products/16/101466?brand=lidl"
+ },
  "everli:516055": {
   "name": "Controfiletti di Pollo, confezione 0.400kg",
   "brand": null,
@@ -712,6 +880,13 @@
   "category": "Carne e Pesce",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2022/10/7/8195ce239ba02ebcb913704c91adb30826516393.webp",
   "url": "https://spesa.everli.com/en/products/1/100284?brand=lidl"
+ },
+ "everli:516579": {
+  "name": "Queen Margot Blended Scotch Whisky 3 Anni, Bottiglia 70cl",
+  "brand": "Queen Margot",
+  "category": "Birreria ed Enoteca",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/ce92b/81205/b5018/635704896_img.webp",
+  "url": "https://spesa.everli.com/en/products/16/101466?brand=lidl"
  },
  "everli:516587": {
   "name": "Bellarom Caffè Solubile Classic Certificato Utz, confezione 0.200kg",
@@ -775,6 +950,13 @@
   "category": "Carne e Pesce",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/3/19/11d32225db5fe7b4bc8f701aa34480c13176984c.webp",
   "url": "https://spesa.everli.com/en/products/1/100102?brand=lidl"
+ },
+ "everli:517499": {
+  "name": "W5 Sale Lavastoviglie, confezione 1kg",
+  "brand": "W5",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/8/27/68877fae5b10a4b2adbd376aae7a5eda2d9596ec.webp",
+  "url": "https://spesa.everli.com/en/products/21/100232?brand=lidl"
  },
  "everli:517641": {
   "name": "Nocciole Sgusciate, Tostate, Pelate, confezione 0.100kg",
@@ -859,6 +1041,13 @@
   "category": "Frutta e Verdura",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/7c707/3f83a/47307/2139886686_img.webp",
   "url": "https://spesa.everli.com/en/products/3/100112?brand=lidl"
+ },
+ "everli:542357": {
+  "name": "Ocean Sea Filetti di Tonno Pinne Gialle, confezione 0.250kg",
+  "brand": "Ocean Sea",
+  "category": "Surgelati e Gelati",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/2/3/2a37ef08d20df307ae23864a1b1563cb965ea41e.webp",
+  "url": "https://spesa.everli.com/en/products/15/100183?brand=lidl"
  },
  "everli:545109": {
   "name": "Dentalux Filo Interdentale, confezione 1pz",
@@ -1021,6 +1210,13 @@
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/9/11/6b7cc53d75f6375daeb456a9a635801006b97e8d.webp",
   "url": "https://spesa.everli.com/en/products/19/100213?brand=lidl"
  },
+ "everli:937658": {
+  "name": "Freeway Tè al Limone con Infuso, bottiglia 1.5l",
+  "brand": "Freeway",
+  "category": "Acqua e Bevande",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/1/23/e294de6ca9d104ec57af33c1fd403f5c3987cb49.webp",
+  "url": "https://spesa.everli.com/en/products/101366/100188?brand=lidl"
+ },
  "everli:959236": {
   "name": "Gelatelli Biscotto alla Vaniglia, confezione 0.400kg",
   "brand": "Gelatelli",
@@ -1041,6 +1237,20 @@
   "category": "Formaggi, Salumi e Gastronomia",
   "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/c7ffa/01d5a/74034/165593227_img.webp",
   "url": "https://spesa.everli.com/en/products/4/100314?brand=lidl"
+ },
+ "everli:986814": {
+  "name": "Floralys Maxi Rotolo 2 Veli, confezione 2pz",
+  "brand": "Floralys",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/ita/2025/1/23/e0dada59e304820e02a743ae0d318da3825886fa.webp",
+  "url": "https://spesa.everli.com/en/products/21/100245?brand=lidl"
+ },
+ "everli:986816": {
+  "name": "Floralys Bobina 2 Veli, confezione 1pz",
+  "brand": "Floralys",
+  "category": "Cura Casa",
+  "image": "https://d2f5fuie6vdmie.cloudfront.net/asset/imported/smhd/2cd60/5f669/b7115/1502050185_img.webp",
+  "url": "https://spesa.everli.com/en/products/21/100245?brand=lidl"
  },
  "everli:986828": {
   "name": "Purio Sacchi per Spazzatura 130l con Laccio di Chiusura, confezione 10pz",
