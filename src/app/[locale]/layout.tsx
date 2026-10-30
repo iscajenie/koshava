@@ -10,7 +10,6 @@ import { listCategories } from "@/lib/catalog";
 import { ShopProvider } from "@/components/shop-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { MobileNav } from "@/components/mobile-nav";
 import { Shell } from "@/components/shell";
 
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
@@ -36,11 +35,15 @@ export default async function LocaleLayout({ children, modal, params }: LayoutPr
     <html lang={locale === "sr" ? "sr-Latn" : "ru"}>
       <body className="min-h-dvh antialiased">
         <ShopProvider locale={locale} dictionary={t} initialQuantities={cart.quantities} initialPrices={cart.prices} initialFavorites={favorites}>
-          <Shell header={<Header locale={locale} t={t} user={user} />} footer={<Footer locale={locale} t={t} />} categories={categories}>
+          <Shell
+            header={<Header locale={locale} t={t} user={user} />}
+            footer={<Footer locale={locale} t={t} />}
+            categories={categories}
+            user={user ? { name: user.name, isAdmin: user.role === "admin" } : null}
+          >
             {children}
           </Shell>
           {modal}
-          <MobileNav signedIn={!!user} />
         </ShopProvider>
       </body>
     </html>

@@ -5,7 +5,7 @@ import { Logo } from "./logo";
 
 export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
-    <footer className="border-t border-line pb-20 text-subtle md:pb-0">
+    <footer className="border-t border-line text-subtle">
       <div className="grid gap-6 px-4 py-8 text-sm md:grid-cols-[auto_1fr_auto] md:items-start lg:px-8">
         <div className="text-ink">
           <Logo />

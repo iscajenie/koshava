@@ -17,15 +17,19 @@ const FULL_WIDTH = new Set(["checkout", "admin"]);
  * The page frame after Everli's store: header, the sidebar with sections and categories fixed on the left
  * (a drawer on phones), then the page and the footer.
  */
+export type ShellUser = { name: string | null; isAdmin: boolean } | null;
+
 export function Shell({
   header,
   footer,
   categories,
+  user,
   children,
 }: {
   header: ReactNode;
   footer: ReactNode;
   categories: CategoryData[];
+  user: ShellUser;
   children: ReactNode;
 }) {
   const segment = useSelectedLayoutSegment();
@@ -42,7 +46,7 @@ export function Shell({
   return (
     <MenuContext value={{ open, setOpen }}>
       {header}
-      <Sidebar categories={categories} desktop={sidebar} />
+      <Sidebar categories={categories} user={user} desktop={sidebar} />
       <div className={sidebar ? "lg:pl-[300px]" : ""}>
         <main className="px-4 py-6 lg:px-8 lg:py-8">{children}</main>
         {footer}
@@ -61,8 +65,8 @@ export function MenuButton() {
   );
 }
 
-function Sidebar({ categories, desktop }: { categories: CategoryData[]; desktop: boolean }) {
-  const { locale, t } = useShop();
+function Sidebar({ categories, user, desktop }: { categories: CategoryData[]; user: ShellUser; desktop: boolean }) {
+  const { locale, t, favorites } = useShop();
   const menu = use(MenuContext)!;
   const pathname = usePathname();
   const sale = categories.find((c) => c.isSale);
@@ -72,7 +76,7 @@ function Sidebar({ categories, desktop }: { categories: CategoryData[]; desktop:
     ...(sale
       ? [{ href: `/${locale}/catalog/${sale.slug}`, label: t.nav.sale, icon: TagIcon, active: pathname === `/${locale}/catalog/${sale.slug}` }]
       : []),
-    { href: `/${locale}/favorites`, label: t.nav.favorites, icon: HeartIcon, active: pathname === `/${locale}/favorites` },
+    { href: `/${locale}/favorites`, label: t.nav.favorites, icon: HeartIcon, active: pathname === `/${locale}/favorites`, count: favorites.size },
   ];
   const link = "flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium transition-colors";
   const state = (active: boolean) => (active ? "bg-brand-light text-brand" : "text-ink hover:bg-surface");
@@ -85,19 +89,31 @@ function Sidebar({ categories, desktop }: { categories: CategoryData[]; desktop:
           menu.open ? "visible translate-x-0" : "invisible -translate-x-full"
         } ${desktop ? "lg:visible lg:translate-x-0" : "lg:hidden"}`}
       >
+        {/* Phones: the header has no room for the account, so it sits at the top of the menu, as on Everli. */}
         <div className="flex h-[68px] items-center justify-between px-4 lg:hidden">
           <Logo />
           <button type="button" onClick={() => menu.setOpen(false)} className="icon-btn" aria-label={t.nav.close}>
             <CloseIcon size={20} />
           </button>
         </div>
+        <div className="flex flex-wrap gap-2 px-4 pb-3 lg:hidden">
+          <Link href={user ? `/${locale}/account` : `/${locale}/login`} className="btn-dark max-w-full flex-1">
+            <span className="truncate">{user ? user.name || t.nav.account : t.nav.login}</span>
+          </Link>
+          {user?.isAdmin && (
+            <Link href={`/${locale}/admin`} className="btn-secondary h-10 px-4">
+              {t.nav.admin}
+            </Link>
+          )}
+        </div>
         <nav aria-label={t.nav.catalog} className="px-3 pt-2 pb-24 lg:pt-6 lg:pr-3 lg:pl-5">
           <ul className="space-y-0.5">
-            {items.map(({ href, label, icon: Icon, active }) => (
+            {items.map(({ href, label, icon: Icon, active, count }) => (
               <li key={href}>
                 <Link href={href} className={`${link} ${state(active)}`} aria-current={active ? "page" : undefined}>
                   <Icon size={18} />
                   {label}
+                  {!!count && <span className="ml-auto text-xs text-muted tabular-nums">{count}</span>}
                 </Link>
               </li>
             ))}
