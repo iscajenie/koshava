@@ -1,17 +1,18 @@
 /**
- * Looks for photos of price-list products that have none on the online catalogs of other Lidl countries.
+ * Looks for photos of price-list products that have none, or only an Open Food Facts one, on the online catalogs
+ * of other Lidl countries.
  * Lidl sells its own brands with the same barcode across Europe, and every country puts different products
  * online (weekly offers, online shop), so a product lidl.rs does not show can turn up in Croatia or Germany.
- *  - The barcodes of products without a photo are searched on every site in LIDL_SITES, about seven per query
+ *  - The barcodes of these products are searched on every site in LIDL_SITES, about seven per query
  *    (the search finds any of several space-separated barcodes but accepts at most 100 characters).
  *  - A hit counts only when the product page lists one of the barcodes searched.
  *  - Found products join the library with their country; the price-list product gets the photo with the
- *    "reference photo" tag, nearest country first (see applyLidlLibrary).
+ *    "reference photo" tag, nearest country first, in place of an Open Food Facts one (see applyLidlLibrary).
  *
  *   npm run import:lidl-abroad
  *   npm run import:lidl-abroad -- --countries=hr,si,de
  */
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNull, or } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { applyLidlLibrary, fetchLidlRecord, probeSite, saveLidlRecord, searchCatalog, storePreviews } from "@/lib/import/lidl-library";
 import { LIDL_SITES, searchBatches, trustedAbroad, type LidlSite } from "@/lib/import/lidl-page";
@@ -42,12 +43,15 @@ async function main() {
     }
     console.log(`${sites.length} Lidl catalogs online; not online: ${[...offline].join(", ") || "none"}`);
 
-    // Every barcode products without a photo ever had (Lidl swaps barcodes between variants).
+    // Every barcode products without a photo, or with an Open Food Facts one, ever had (Lidl swaps barcodes
+    // between variants). A photo from Lidl abroad shows the same product better than a shopper's snapshot.
     const p = schema.products;
     const missing = await db
-      .select({ barcode: p.barcode, altBarcodes: p.altBarcodes })
+      .select({ barcode: p.barcode, altBarcodes: p.altBarcodes, imageUrl: p.imageUrl })
       .from(p)
-      .where(and(eq(p.isActive, true), isNull(p.imageUrl)));
+      .where(and(eq(p.isActive, true), or(isNull(p.imageUrl), eq(p.contentSource, "off"))));
+    const withoutPhoto = missing.filter((m) => !m.imageUrl).length;
+    const withOff = missing.length - withoutPhoto;
     const codes = [
       ...new Set(
         missing
@@ -58,7 +62,7 @@ async function main() {
     ];
     // Internal Lidl codes are only worth searching where they mean the same product (see trustedAbroad).
     const batchesFor = (site: LidlSite) => searchBatches(codes.filter((code) => trustedAbroad(code, site.country)));
-    console.log(`${missing.length} products without a photo, ${codes.length} barcodes`);
+    console.log(`${withoutPhoto} products without a photo, ${withOff} with an Open Food Facts one, ${codes.length} barcodes`);
 
     const candidates = new Map<string, Candidate>();
     const failed: string[] = [];
@@ -127,18 +131,20 @@ async function main() {
       }
     }
 
-    const before = missing.length;
     await applyLidlLibrary();
     await refreshPublished();
     const stillMissing = await db.$count(p, and(eq(p.isActive, true), isNull(p.imageUrl)));
+    const stillOff = await db.$count(p, and(eq(p.isActive, true), eq(p.contentSource, "off")));
     const stats = {
-      withoutPhoto: before,
+      withoutPhoto,
+      openFoodFacts: withOff,
       barcodes: codes.length,
       queries,
       candidates: candidates.size,
       confirmed,
       newPhotos,
-      filled: before - stillMissing,
+      filled: withoutPhoto - stillMissing,
+      replacedOff: withOff - stillOff,
       catalogs: sites.length,
       byCountry: Object.entries(byCountry)
         .map(([country, n]) => `${country} ${n}`)

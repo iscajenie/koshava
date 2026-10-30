@@ -1,8 +1,8 @@
 name: Lidl abroad
 
-# Searches the online catalogs of other Lidl countries for the barcodes of price-list products without a photo
-# (see scripts/lidl-abroad.ts). Every country shows its own weekly offers for a week or two, so two runs a week
-# catch most of them. Takes about half an hour.
+# Searches the online catalogs of other Lidl countries for the barcodes of price-list products without a photo or
+# with an Open Food Facts one (see scripts/lidl-abroad.ts). Every country shows its own weekly offers for a week or
+# two, so two runs a week catch most of them. Takes about 45 minutes.
 on:
   schedule:
     - cron: "13 1 * * 2,5" # Tuesday and Friday nights, away from the hourly lidl.rs runs

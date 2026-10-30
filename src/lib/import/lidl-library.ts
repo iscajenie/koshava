@@ -187,12 +187,6 @@ export async function saveLidlRecord(record: LidlRecord, now: Date, country = "r
 }
 
 /**
- * Gives price-list products the library photo whose GTIN matches their barcode (current or earlier ones),
- * including products Lidl has since removed from lidl.rs. Lidl's own photos win over Maxi and Open Food Facts.
- * Photos from other Lidl countries only go to products that have no photo at all, nearest country first,
- * and are shown as reference photos (contentSource "lidl-intl"): the packaging may be in another language.
- */
-/**
  * Lidl Italia products from its Everli store (data/everli-lidl-it.json), kept in the library so that reviewed name
  * matches can use their photos. Everli lists no barcodes, so these entries only serve data/lidl-name-matches.json.
  */
@@ -243,6 +237,14 @@ function nameMatches() {
   return new Map(Object.entries(data).map(([key, m]) => [key, m.erp]));
 }
 
+/**
+ * Gives price-list products the library photo whose GTIN matches their barcode (current or earlier ones),
+ * including products Lidl has since removed from lidl.rs. Lidl's own photos win over every other source.
+ * Photos from other Lidl countries, nearest country first, go to products without a photo and replace Open Food
+ * Facts ones (the same barcode, photographed by Lidl), but not Maxi or Idea ones. They are shown as reference
+ * photos (contentSource "lidl-intl"): the packaging may be in another language. Reviewed name matches only fill
+ * products that have no photo from a barcode.
+ */
 export async function applyLidlLibrary() {
   const lib = schema.lidlLibrary;
   // Entries still on lidl.rs and the most recently seen come last, so they win when GTINs repeat.
@@ -299,7 +301,8 @@ export async function applyLidlLibrary() {
     const entry = codes.map((c) => home.get(c)).find(Boolean);
     if (!entry) {
       const foreign = codes.map((c) => abroad.get(c)).find(Boolean);
-      if (product.imageUrl && product.contentSource !== "lidl-intl" && product.contentSource !== "lidl-name") continue;
+      const ours = product.contentSource === "lidl-intl" || product.contentSource === "lidl-name";
+      if (product.imageUrl && !ours && !(foreign && product.contentSource === "off")) continue;
       // Reviewed name matches (data/lidl-name-matches.json): the same product on lidl.rs under another barcode,
       // or a Lidl Italia product from Everli. A barcode match from abroad still comes first.
       const named = byName.get(product.sourceKey);
