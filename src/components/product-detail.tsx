@@ -38,7 +38,7 @@ export async function ProductDetail({ slug, variant }: { slug: string; variant: 
     <div className={variant === "dialog" ? "space-y-8 px-4 pt-16 pb-6 md:px-6 md:pt-6" : "space-y-10"}>
       <nav className="flex flex-wrap items-center gap-1.5 text-sm text-subtle md:pr-14" aria-label="breadcrumbs">
         <Link href={`/${locale}`} className="hover:text-ink hover:underline">
-          {t.nav.home}
+          {t.nav.catalog}
         </Link>
         {category && (
           <>

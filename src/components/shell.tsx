@@ -6,7 +6,7 @@ import { usePathname, useSelectedLayoutSegment } from "next/navigation";
 import type { CategoryData } from "@/lib/catalog";
 import { useShop } from "./shop-provider";
 import { Logo } from "./logo";
-import { CloseIcon, HeartIcon, HomeIcon, MenuIcon, TagIcon } from "./icons";
+import { CloseIcon, GridIcon, HeartIcon, MenuIcon, TagIcon } from "./icons";
 
 const MenuContext = createContext<{ open: boolean; setOpen: (open: boolean) => void } | null>(null);
 
@@ -71,7 +71,7 @@ function Sidebar({ categories, user, desktop }: { categories: CategoryData[]; us
   const pathname = usePathname();
   const sale = categories.find((c) => c.isSale);
   const items = [
-    { href: `/${locale}`, label: t.nav.home, icon: HomeIcon, active: pathname === `/${locale}` },
+    { href: `/${locale}`, label: t.nav.catalog, icon: GridIcon, active: pathname === `/${locale}` },
     ...(sale
       ? [{ href: `/${locale}/catalog/${sale.slug}`, label: t.nav.sale, icon: TagIcon, active: pathname === `/${locale}/catalog/${sale.slug}` }]
       : []),

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getI18n } from "@/i18n/server";
 import { fmt, plural } from "@/i18n";
+import { shop } from "@/config/shop";
+import { formatPrice } from "@/lib/money";
 import { getCategoryRows, getSaleProducts, listCategories, SALE_CATEGORY_SLUG } from "@/lib/catalog";
 import { ProductRow } from "@/components/product-row";
 import { CatalogView } from "@/components/catalog-view";
@@ -32,16 +34,26 @@ export default async function HomePage({ searchParams }: PageProps<"/[locale]">)
 
   const [categories, sale, rows] = await Promise.all([listCategories(locale), getSaleProducts(20), getCategoryRows(12)]);
   const total = categories.filter((c) => !c.isSale).reduce((sum, c) => sum + c.count, 0);
+  const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
 
   return (
     <div className="space-y-10">
       <div>
         <section className="relative overflow-hidden rounded-lg bg-store px-6 py-7 text-white md:px-10 md:py-9">
-          <div className="absolute -top-20 -right-10 h-64 w-64 rounded-full bg-[#fff000]" aria-hidden />
-          <div className="absolute -right-4 -bottom-24 h-44 w-44 rounded-full border-[16px] border-[#e60a14]" aria-hidden />
+          {/* The logo's colours as decoration; phones are too narrow for it next to the text. */}
+          <div className="absolute -top-20 -right-10 hidden h-64 w-64 rounded-full bg-[#fff000] sm:block" aria-hidden />
+          <div className="absolute -right-4 -bottom-24 hidden h-44 w-44 rounded-full border-[16px] border-[#e60a14] sm:block" aria-hidden />
           <div className="relative max-w-xl">
             <h1 className="font-display text-2xl leading-tight font-semibold md:text-[32px] md:leading-10">{t.home.heroTitle}</h1>
             <p className="mt-2 text-white/85">{t.home.heroText}</p>
+            <span className="mt-5 inline-block bg-accent px-1 py-0.5 text-sm leading-5 font-medium text-ink">{fmt(t.home.perks.delivery, { rate })}</span>
+            <p className="mt-2 text-sm">
+              {fmt(t.home.minOrder, { min: formatPrice(shop.minOrderMinor, locale) })} ·{" "}
+              <Link href={`/${locale}/delivery`} className="underline underline-offset-2 hover:text-white/80">
+                {t.home.more}
+              </Link>
+            </p>
+            <p className="text-sm text-white/70">{t.home.perks.payment}</p>
           </div>
         </section>
         <Suspense>

@@ -36,6 +36,8 @@ export const sr: Dictionary = {
       paymentText: "Gotovinom kuriru",
     },
     categories: "Kategorije",
+    minOrder: "Porudžbina od {min}",
+    more: "Detaljnije",
     onSale: "Rasprodaja",
     allOnSale: "Cela rasprodaja",
     popular: "Izdvajamo",

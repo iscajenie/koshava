@@ -34,6 +34,8 @@ export const ru = {
       paymentText: "Наличными курьеру",
     },
     categories: "Категории",
+    minOrder: "Заказ от {min}",
+    more: "Подробнее",
     onSale: "Распродажа",
     allOnSale: "Вся распродажа",
     popular: "Подборка",
