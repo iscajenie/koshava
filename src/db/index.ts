@@ -11,6 +11,9 @@ const client =
   globalForDb.pg ??
   postgres(url, {
     max: Number(process.env.DATABASE_POOL_SIZE ?? 5),
+    // Idle connections are closed after 20 s, so functions of a replaced deploy do not keep Supabase pooler
+    // connections the new deploy needs.
+    idle_timeout: 20,
     // Supabase's transaction pooler (port 6543) does not support prepared statements.
     prepare: !url.includes(":6543"),
     // Hosted databases (Supabase, Neon) expect TLS; a local server usually has none.
