@@ -8,6 +8,17 @@ import { getDictionary } from "@/i18n";
 
 const p = schema.products;
 
+// Temporary: where a reference photo came from, shown in the stock-photo tag ("фото: everli"). Photos from the Lidl
+// library (/api/img/<id>) are named after the site of their library entry. Table names are spelled out because
+// Drizzle leaves single-table columns unqualified, which would bind them to the subquery.
+const photoSource = sql<string | null>`case
+  when "products"."content_source" in ('lidl-intl', 'lidl-name') then (
+    select case when l.erp like 'everli:%' then 'everli' else regexp_replace(split_part(l.url, '/', 3), '^www[.]', '') end
+    from lidl_images i join lidl_library l on l.erp = i.erp
+    where i.id = substring("products"."image_url" from '^/api/img/([0-9]+)')::int)
+  when "products"."content_source" = 'off' then 'Open Food Facts'
+  else "products"."content_source" end`;
+
 export const productCardFields = {
   id: p.id,
   slug: p.slug,
@@ -22,6 +33,7 @@ export const productCardFields = {
   unitPriceLabel: p.unitPriceLabel,
   saleTo: p.saleTo,
   contentSource: p.contentSource,
+  photoSource,
 };
 
 export type ProductCardData = {
@@ -38,6 +50,7 @@ export type ProductCardData = {
   unitPriceLabel: string | null;
   saleTo: string | null;
   contentSource: string | null;
+  photoSource: string | null;
 };
 
 export type CategoryData = { id: number; slug: string; name: string; count: number; image: string | null; isSale?: boolean };

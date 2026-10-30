@@ -3,8 +3,8 @@ export function isStockPhoto(contentSource: string | null) {
   return contentSource === "off" || contentSource === "maxi" || contentSource === "idea" || contentSource === "lidl-intl" || contentSource === "lidl-name";
 }
 
-/** Marks photos that are not Lidl's own. */
-export function StockPhotoTag({ label, hint, className = "" }: { label: string; hint: string; className?: string }) {
+/** Marks photos that are not Lidl's own; `source` (temporary) names the site the photo came from on a second line. */
+export function StockPhotoTag({ label, hint, source, className = "" }: { label: string; hint: string; source?: string; className?: string }) {
   return (
     <span
       title={hint}
@@ -12,6 +12,7 @@ export function StockPhotoTag({ label, hint, className = "" }: { label: string; 
       data-testid="stock-photo-tag"
     >
       {label}
+      {source && <span className="block font-normal opacity-80">{source}</span>}
     </span>
   );
 }

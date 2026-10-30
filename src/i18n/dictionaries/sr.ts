@@ -83,6 +83,7 @@ export const sr: Dictionary = {
     stockPhotoHint: "Slika je pronađena po barkodu u drugoj prodavnici ili u otvorenoj bazi Open Food Facts. Pakovanje može da se razlikuje.",
     stockPhotoHintMaxi: "Slika je preuzeta sa maxi.rs po barkodu. Pakovanje može da se razlikuje.",
     photoMaxi: "Slika: maxi.rs",
+    photoFrom: "slika: {source}",
     favoriteAdd: "Dodaj u omiljeno",
     favoriteRemove: "Ukloni iz omiljenog",
     notFound: "Proizvod nije pronađen",

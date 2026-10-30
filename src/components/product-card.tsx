@@ -25,6 +25,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           <StockPhotoTag
             label={t.product.stockPhoto}
             hint={product.contentSource === "maxi" ? t.product.stockPhotoHintMaxi : t.product.stockPhotoHint}
+            source={product.photoSource ? fmt(t.product.photoFrom, { source: product.photoSource }) : undefined}
           />
         )}
       </Link>

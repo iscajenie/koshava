@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ProductImage, StockPhotoTag } from "./product-image";
 
-export function ProductGallery({ images, alt, stockPhoto }: { images: string[]; alt: string; stockPhoto?: { label: string; hint: string } }) {
+export function ProductGallery({ images, alt, stockPhoto }: { images: string[]; alt: string; stockPhoto?: { label: string; hint: string; source?: string } }) {
   const [active, setActive] = useState(0);
   if (images.length === 0) {
     return (
