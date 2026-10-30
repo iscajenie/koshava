@@ -32,7 +32,7 @@ export default async function CheckoutPage() {
     .orderBy(desc(schema.addresses.isDefault), desc(schema.addresses.createdAt));
 
   return (
-    <div>
+    <div className="mx-auto max-w-7xl">
       <h1 className="mb-5 text-2xl font-extrabold tracking-tight md:text-3xl">{t.checkout.title}</h1>
       <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
         <CheckoutForm defaults={{ name: user.name ?? "", phone: user.phone ?? "" }} addresses={addresses} days={deliveryOptions()} />

@@ -13,7 +13,7 @@ import { QtyControl } from "@/components/qty-control";
 import { FavoriteButton } from "@/components/favorite-button";
 import { ProductGallery } from "@/components/product-gallery";
 import { isStockPhoto } from "@/components/product-image";
-import { ProductGrid } from "@/components/product-card";
+import { ProductRow } from "@/components/product-row";
 import { SectionHeader } from "@/components/section-header";
 import { ChevronRight } from "@/components/icons";
 
@@ -36,13 +36,13 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/p/[sl
     ? await db.select().from(schema.categories).where(eq(schema.categories.id, product.categoryId)).limit(1)
     : [];
   const categoryName = category ? ((locale === "ru" ? category.nameRu : null) ?? category.nameSr) : null;
-  const related = await getRelatedProducts(product.categoryId, product.id, 5);
+  const related = await getRelatedProducts(product.categoryId, product.id, 12);
   const images = product.images.length > 0 ? product.images : product.imageUrl ? [product.imageUrl] : [];
   const onSale = product.priceMinor < product.regularPriceMinor;
   const lines = (product.description ?? "").split("\n").map((l) => l.trim()).filter(Boolean);
 
   return (
-    <div className="space-y-10">
+    <div className="mx-auto max-w-7xl space-y-10">
       <nav className="flex flex-wrap items-center gap-1 text-sm text-muted" aria-label="breadcrumbs">
         <Link href={`/${locale}/catalog`} className="hover:text-brand">
           {t.nav.catalog}
@@ -149,7 +149,7 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/p/[sl
       {related.length > 0 && (
         <section>
           <SectionHeader title={t.product.similar} href={category ? `/${locale}/catalog/${category.slug}` : undefined} linkLabel={t.home.showAll} />
-          <ProductGrid products={related} />
+          <ProductRow products={related} mobileLimit={6} />
         </section>
       )}
     </div>

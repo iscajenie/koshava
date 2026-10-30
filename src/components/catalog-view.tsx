@@ -45,7 +45,7 @@ export async function CatalogView({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[230px_1fr]">
+    <div className="grid gap-6 lg:grid-cols-[230px_1fr] 2xl:grid-cols-[260px_1fr]">
       <aside className="hidden lg:block">
         <CategoryList locale={locale} t={t} categories={categories} activeSlug={category?.slug} />
       </aside>

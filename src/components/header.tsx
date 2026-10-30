@@ -23,14 +23,14 @@ export function Header({
   return (
     <header className="sticky top-0 z-40 bg-white shadow-[0_1px_0_var(--color-line)]">
       <div className="bg-brand text-white">
-        <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2.5 lg:gap-6">
+        <div className="flex items-center gap-3 px-4 py-2.5 lg:gap-6 lg:px-6 2xl:px-8">
           <Link href={`/${locale}`} className="shrink-0" aria-label="Koshava">
             <Logo />
           </Link>
-          <form action={`/${locale}/catalog`} className="hidden flex-1 md:block" role="search">
+          <form action={`/${locale}/catalog`} className="hidden max-w-4xl flex-1 md:block" role="search">
             <SearchField t={t} />
           </form>
-          <div className="ml-auto flex items-center gap-1 md:ml-0">
+          <div className="ml-auto flex items-center gap-1">
             <Suspense>
               <LanguageSwitch className="mr-2" />
             </Suspense>
@@ -41,7 +41,7 @@ export function Header({
           <SearchField t={t} />
         </form>
       </div>
-      <nav className="mx-auto max-w-7xl px-4" aria-label={t.nav.catalog}>
+      <nav className="px-4 lg:px-6 2xl:px-8" aria-label={t.nav.catalog}>
         <ul className="scrollbar-none -mx-1 flex gap-1 overflow-x-auto py-2 text-sm font-medium whitespace-nowrap">
           {categories.map((c) => (
             <li key={c.slug}>

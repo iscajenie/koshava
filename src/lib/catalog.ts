@@ -143,7 +143,7 @@ function relevanceOrder(q: string): SQL[] {
 }
 
 export async function listProducts(query: ProductQuery) {
-  const pageSize = query.pageSize ?? 24;
+  const pageSize = query.pageSize ?? 48;
   const page = Math.max(1, query.page ?? 1);
   const where = and(
     visible,

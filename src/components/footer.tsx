@@ -6,7 +6,7 @@ import { Logo } from "./logo";
 export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <footer className="mt-12 bg-brand-dark pb-20 text-white/80 md:pb-0">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 text-sm md:grid-cols-[auto_1fr_auto] md:items-start">
+      <div className="grid gap-6 px-4 py-8 text-sm md:grid-cols-[auto_1fr_auto] md:items-start lg:px-6 2xl:px-8">
         <div className="text-white">
           <Logo />
         </div>

@@ -34,7 +34,7 @@ export default async function CartPage() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+    <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1fr_360px]">
       <section>
         <div className="mb-4 flex items-end justify-between">
           <h1 className="text-2xl font-extrabold tracking-tight md:text-3xl">{t.cart.title}</h1>

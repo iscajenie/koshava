@@ -4,7 +4,7 @@ import { fmt } from "@/i18n";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/money";
 import { getFeaturedProducts, getSaleProducts, listCategories, SALE_CATEGORY_SLUG } from "@/lib/catalog";
-import { ProductGrid } from "@/components/product-card";
+import { ProductRow } from "@/components/product-row";
 import { SectionHeader } from "@/components/section-header";
 import { TagIcon, TruckIcon, WalletIcon } from "@/components/icons";
 
@@ -12,8 +12,8 @@ export default async function HomePage() {
   const { locale, t } = await getI18n();
   const [categories, sale, featured] = await Promise.all([
     listCategories(locale),
-    getSaleProducts(10),
-    getFeaturedProducts(10),
+    getSaleProducts(20),
+    getFeaturedProducts(20),
   ]);
   const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
   const min = formatPrice(shop.minOrderMinor, locale);
@@ -54,7 +54,7 @@ export default async function HomePage() {
       {categories.length > 0 && (
         <section>
           <SectionHeader title={t.home.categories} />
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link
@@ -79,14 +79,14 @@ export default async function HomePage() {
       {sale.length > 0 && (
         <section>
           <SectionHeader title={t.home.onSale} href={`/${locale}/catalog/${SALE_CATEGORY_SLUG}`} linkLabel={t.home.allOnSale} />
-          <ProductGrid products={sale} />
+          <ProductRow products={sale} />
         </section>
       )}
 
       {featured.length > 0 && (
         <section>
           <SectionHeader title={t.home.popular} href={`/${locale}/catalog`} linkLabel={t.home.showAll} />
-          <ProductGrid products={featured} />
+          <ProductRow products={featured} />
         </section>
       )}
     </div>

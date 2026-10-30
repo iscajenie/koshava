@@ -41,7 +41,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
       <body className="flex min-h-dvh flex-col antialiased">
         <ShopProvider locale={locale} dictionary={t} initialQuantities={quantities} initialFavorites={favorites}>
           <Header locale={locale} t={t} user={user} categories={categories} />
-          <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-5 md:py-8">{children}</main>
+          <main className="w-full flex-1 px-4 py-5 md:py-8 lg:px-6 2xl:px-8">{children}</main>
           <Footer locale={locale} t={t} />
           <MobileNav signedIn={!!user} />
         </ShopProvider>

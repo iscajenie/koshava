@@ -21,7 +21,7 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/[l
   const fresh = (await searchParams).placed === "1";
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-7xl space-y-6">
       {fresh ? (
         <div className="card flex items-start gap-4 border-success/40 p-5" data-testid="order-thanks">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-success text-white">
