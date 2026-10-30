@@ -3,12 +3,9 @@
 import Link from "next/link";
 import { createContext, use, useState, type ReactNode } from "react";
 import { usePathname, useSelectedLayoutSegment } from "next/navigation";
-import { shop } from "@/config/shop";
-import { fmt } from "@/i18n";
 import type { CategoryData } from "@/lib/catalog";
-import { formatPrice } from "@/lib/money";
 import { useShop } from "./shop-provider";
-import { Logo, LogoMark } from "./logo";
+import { Logo } from "./logo";
 import { CloseIcon, GridIcon, HeartIcon, HomeIcon, MenuIcon, TagIcon } from "./icons";
 
 const MenuContext = createContext<{ open: boolean; setOpen: (open: boolean) => void } | null>(null);
@@ -17,8 +14,8 @@ const MenuContext = createContext<{ open: boolean; setOpen: (open: boolean) => v
 const FULL_WIDTH = new Set(["checkout", "admin"]);
 
 /**
- * The page frame after Everli's store: header, the store sidebar fixed on the left (a drawer on phones),
- * then the page and the footer.
+ * The page frame after Everli's store: header, the sidebar with sections and categories fixed on the left
+ * (a drawer on phones), then the page and the footer.
  */
 export function Shell({
   header,
@@ -94,8 +91,7 @@ function Sidebar({ categories, desktop }: { categories: CategoryData[]; desktop:
             <CloseIcon size={20} />
           </button>
         </div>
-        <StoreCard />
-        <nav aria-label={t.nav.catalog} className="px-3 pt-3 pb-24 lg:pr-3 lg:pl-5">
+        <nav aria-label={t.nav.catalog} className="px-3 pt-2 pb-24 lg:pt-6 lg:pr-3 lg:pl-5">
           <ul className="space-y-0.5">
             {items.map(({ href, label, icon: Icon, active }) => (
               <li key={href}>
@@ -124,32 +120,5 @@ function Sidebar({ categories, desktop }: { categories: CategoryData[]; desktop:
         </nav>
       </aside>
     </>
-  );
-}
-
-/** The store's card at the top of the sidebar, like a shop's page on Everli: name, delivery terms, payment. */
-function StoreCard() {
-  const { locale, t } = useShop();
-  const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
-  return (
-    <div className="border-b border-line pb-5">
-      <div className="h-16 bg-store" />
-      <div className="-mt-8 px-5">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full border border-line bg-white">
-          <LogoMark size={36} />
-        </span>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <span className="font-display text-xl font-semibold">Koshava</span>
-          <span className="bg-accent px-1 py-0.5 text-sm leading-5 font-medium">{fmt(t.home.perks.delivery, { rate })}</span>
-        </div>
-        <p className="mt-1 text-sm">
-          {fmt(t.shell.minOrder, { min: formatPrice(shop.minOrderMinor, locale) })} ·{" "}
-          <Link href={`/${locale}/delivery`} className="text-store underline">
-            {t.shell.info}
-          </Link>
-        </p>
-        <p className="text-sm text-muted">{t.home.perks.payment}</p>
-      </div>
-    </div>
   );
 }

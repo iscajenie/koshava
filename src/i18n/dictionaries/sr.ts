@@ -23,10 +23,6 @@ export const sr: Dictionary = {
     menu: "Meni",
     close: "Zatvori",
   },
-  shell: {
-    minOrder: "Porudžbina od {min}",
-    info: "Detaljnije",
-  },
   home: {
     heroTitle: "Lidl proizvodi sa dostavom po Beogradu",
     heroText: "Cene po zvaničnom cenovniku Lidl Srbija. Napunite korpu danas — kurir je donosi sutra.",

@@ -1,5 +1,5 @@
 /** The Koshava mark: three gusts of the košava wind on a yellow tile. */
-export function LogoMark({ size = 34 }: { size?: number }) {
+function LogoMark({ size = 34 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 34 34" aria-hidden>
       <rect width="34" height="34" rx="7" fill="#fff000" />
