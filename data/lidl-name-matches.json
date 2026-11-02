@@ -31,8 +31,8 @@
  },
  "n-0564336e3d22": {
   "product": "Kupka, gel i šampon za bebe 500ml",
-  "erp": "everli:1454408",
-  "lidl": "Lupilu Bio Baby Bagno Testa ai Piedi, confezione 0.500l"
+  "erp": "11004653",
+  "lidl": "Kupka, gel ili šampon za bebe"
  },
  "n-06a0b0f85654": {
   "product": "Tuna steak 250g",
@@ -171,8 +171,8 @@
  },
  "n-15aac14071ad": {
   "product": "Brokoli, 500g",
-  "erp": "everli:515925",
-  "lidl": "Broccoli, pezzo 0.500kg"
+  "erp": "11151157",
+  "lidl": "Brokoli"
  },
  "n-15dbc69262e4": {
   "product": "Svinj. kare bez koske narezan 400g",
@@ -299,6 +299,11 @@
   "erp": "everli:4035077",
   "lidl": "Lupilu Salviettine Baby Igieniche Formato Viaggio, confezione 20pz"
  },
+ "n-25662a4dba6d": {
+  "product": "Instant kafa bez kofeina 100g",
+  "erp": "11002212",
+  "lidl": "BELLAROM Instant kafa bez kofeina"
+ },
  "n-25790b7ebcef": {
   "product": "Kuh.ub.Jumbo,dv.2x85l. 170listić",
   "erp": "everli:986814",
@@ -424,6 +429,11 @@
   "erp": "11497543",
   "lidl": "Kiselo mleko"
  },
+ "n-39331d57771c": {
+  "product": "Pomfrit rebrasti 1kg",
+  "erp": "11151335",
+  "lidl": "HARVEST BASKET Rebrasti pomfrit"
+ },
  "n-39bd6b0132c8": {
   "product": "Meš. 60%svinj.40%jun. usitnj. 500g",
   "erp": "everli:515143",
@@ -533,6 +543,11 @@
   "product": "Grejpfrut, rinfuz",
   "erp": "11030156",
   "lidl": "Grejpfrut"
+ },
+ "n-423cb78815f4": {
+  "product": "Mozzarella Classic 125g",
+  "erp": "11006425",
+  "lidl": "MILBONA Mozzarella sir"
  },
  "n-44e8881988ed": {
   "product": "Dimljena pečenica narezak 100g",
@@ -1044,6 +1059,11 @@
   "erp": "everli:5187025",
   "lidl": "Gourmet Purina  Gold Dadini in Salsa Manzo, Salmone e Pollo, Tacchino e Anatra, Pollo e Fegato 12x85g, Confezione 1020 g"
  },
+ "n-795f8f4c82d5": {
+  "product": "Krofna sa voćnim punjenjem 75g",
+  "erp": "11000778",
+  "lidl": "Krofna sa voćnim punjenjem"
+ },
  "n-7a7e3fe87255": {
   "product": "Kukuruz šećerac, komad 1kom.",
   "erp": "11496649",
@@ -1153,6 +1173,11 @@
   "product": "Maramice od rec. papira 4-sl. 100st",
   "erp": "everli:1188860",
   "lidl": "Floralys Fazzoletti Box 4 Veli, confezione 100pz"
+ },
+ "n-88cbf7dc8365": {
+  "product": "Šargarepa, 1kg pakovanje 1kg",
+  "erp": "11151140",
+  "lidl": "Domaća šargarepa"
  },
  "n-88ed434e2360": {
   "product": "Tečni deterg. za r. pra. posuđa 1.5l",
@@ -1301,8 +1326,8 @@
  },
  "n-9a037f45b9c2": {
   "product": "Baltički hleb sa semenkama 400g",
-  "erp": "everli:img-8f0c0c1f52",
-  "lidl": "Pane ai semi 750g (Lidl Italia)"
+  "erp": "11593551",
+  "lidl": "Baltički hleb sa semenkama"
  },
  "n-9a61a7044405": {
   "product": "Pileći karabatak bez kože i ko. 500g",
@@ -1499,6 +1524,11 @@
   "erp": "11150885",
   "lidl": "Crveno grožđe"
  },
+ "n-adaccacd8025": {
+  "product": "Krastavac salatni, komad 1kom.",
+  "erp": "11151055",
+  "lidl": "Salatni krastavac"
+ },
  "n-adb117a9d2b0": {
   "product": "Izbeljivač 1l",
   "erp": "everli:521683",
@@ -1578,6 +1608,11 @@
   "product": "Domaća mlevena kafa 500g",
   "erp": "11497068",
   "lidl": "Mlevena kafa"
+ },
+ "n-b76c2991572e": {
+  "product": "Puding sa šlagom mleč.dezert. 200g",
+  "erp": "11007610",
+  "lidl": "MILBONA Puding sa šlagom"
  },
  "n-b78631720da5": {
   "product": "Kuvane kozice 400g",
@@ -1668,6 +1703,11 @@
   "product": "Kremasti gel za tuširanje 500ml",
   "erp": "everli:2882052",
   "lidl": "Cien Doccia Crema Argan e Cocco, flacone 0.500l"
+ },
+ "n-c487a9f934a6": {
+  "product": "Celer rebraš, 500g",
+  "erp": "11151151",
+  "lidl": "Celer rebraš"
  },
  "n-c4957145b8ea": {
   "product": "Čajna kobasica od svinjs. mesa 300g",
@@ -1901,8 +1941,8 @@
  },
  "n-e05359ce928c": {
   "product": "Kaki, rinfuz",
-  "erp": "everli:575985",
-  "lidl": "Cachi, vassoio 0.800kg"
+  "erp": "11150920",
+  "lidl": "Kaki"
  },
  "n-e0813759daa7": {
   "product": "Pileća posebna narezak 200g",
@@ -2201,8 +2241,8 @@
  },
  "n-fcdf5d229bae": {
   "product": "Filet svežeg lososa ca.0,2-0,4kgMK2 ca. 0,2-0,4kg",
-  "erp": "everli:1298064",
-  "lidl": "Filetto di Salmone senza Pelle, confezione 0.180kg"
+  "erp": "11003543",
+  "lidl": "Sveži losos"
  },
  "n-fd5c6b22c8af": {
   "product": "Grožđe belo, sa košticama, rinfuz",
