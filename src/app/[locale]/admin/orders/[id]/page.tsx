@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/auth/admin";
 import { notFound } from "next/navigation";
 import { getI18n } from "@/i18n/server";
 import { fmt } from "@/i18n";
@@ -8,6 +9,7 @@ import { OrderStatusButtons } from "@/components/admin-order-controls";
 
 export default async function AdminOrderPage({ params }: PageProps<"/[locale]/admin/orders/[id]">) {
   const { locale, t } = await getI18n();
+  await requireAdminPage(locale);
   const id = Number((await params).id);
   const order = Number.isInteger(id) ? await getOrder({ id }) : null;
   if (!order) notFound();

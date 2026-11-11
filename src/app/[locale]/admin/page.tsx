@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/auth/admin";
 import Link from "next/link";
 import { getI18n } from "@/i18n/server";
 import { adminStats, listOrders, orderStatuses, type OrderStatus } from "@/lib/orders";
@@ -7,6 +8,7 @@ import { StatusBadge } from "@/components/order-details";
 
 export default async function AdminOrdersPage({ searchParams }: PageProps<"/[locale]/admin">) {
   const { locale, t } = await getI18n();
+  await requireAdminPage(locale);
   const raw = (await searchParams).status;
   const status = orderStatuses.includes(raw as OrderStatus) ? (raw as OrderStatus) : undefined;
   const [orders, stats] = await Promise.all([listOrders(status), adminStats()]);

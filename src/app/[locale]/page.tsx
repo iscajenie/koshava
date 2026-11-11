@@ -5,7 +5,8 @@ import { getI18n } from "@/i18n/server";
 import { fmt, plural } from "@/i18n";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/money";
-import { getCategoryRows, getSaleProducts, listCategories, SALE_CATEGORY_SLUG } from "@/lib/catalog";
+import { SALE_CATEGORY_SLUG } from "@/lib/catalog";
+import { cachedCategories, cachedCategoryRows, cachedSaleProducts } from "@/lib/catalog-cache";
 import { ProductRow } from "@/components/product-row";
 import { CatalogView } from "@/components/catalog-view";
 import { CatalogToolbar } from "@/components/catalog-toolbar";
@@ -32,7 +33,8 @@ export default async function HomePage({ searchParams }: PageProps<"/[locale]">)
   const search = await searchParams;
   if (listing(search)) return <CatalogView locale={locale} t={t} searchParams={search} />;
 
-  const [categories, sale, rows] = await Promise.all([listCategories(locale), getSaleProducts(20), getCategoryRows(12)]);
+  const [categories, sale, rowPairs] = await Promise.all([cachedCategories(locale), cachedSaleProducts(20), cachedCategoryRows(12)]);
+  const rows = new Map(rowPairs);
   const total = categories.filter((c) => !c.isSale).reduce((sum, c) => sum + c.count, 0);
   const rate = `${Math.round(shop.deliveryFeeRate * 100)}%`;
   const min = formatPrice(shop.minOrderMinor, locale);

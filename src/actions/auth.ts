@@ -1,26 +1,24 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq, lt } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db, schema } from "@/db";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
 import { createSession, destroySession, isAdminEmail } from "@/lib/auth/session";
+import { clearAttempts, clientIp, recordAttempt, tooManyAttempts } from "@/lib/auth/rate-limit";
 import { adoptVisitorData } from "@/lib/cart";
 import { isLocale, defaultLocale } from "@/i18n/config";
 
 export type AuthState = { error?: "invalidCredentials" | "emailTaken" | "invalidEmail" | "weakPassword" | "tooManyAttempts"; email?: string };
 
-const attempts = new Map<string, { count: number; until: number }>();
+// Attempts per ten minutes: wrong passwords for one email, wrong passwords from one address, new accounts from one address.
+const LOGIN_PER_EMAIL = 10;
+const LOGIN_PER_IP = 50;
+const REGISTER_PER_IP = 30;
 
-function rateLimited(key: string) {
-  const now = Date.now();
-  const entry = attempts.get(key);
-  if (entry && entry.until > now && entry.count >= 10) return true;
-  if (!entry || entry.until <= now) attempts.set(key, { count: 1, until: now + 10 * 60 * 1000 });
-  else entry.count += 1;
-  return false;
-}
+// Compared against when the email is unknown, so the answer takes as long as for a wrong password.
+const DUMMY_HASH = "$2b$10$CwTycUXWue0Thq9StjUM0uJ8vY6Qm6mF3Hk1hQ5u0fN0Zp0hV3k7W";
 
 // Only same-site relative paths, so ?next= cannot redirect off the site.
 function safeNext(value: FormDataEntryValue | null, locale: string) {
@@ -41,6 +39,9 @@ export async function register(_: AuthState, form: FormData): Promise<AuthState>
     const emailIssue = parsed.error.issues.some((i) => i.path[0] === "email");
     return { error: emailIssue ? "invalidEmail" : "weakPassword", email };
   }
+  const ipKey = `register:${await clientIp()}`;
+  if (await tooManyAttempts(ipKey, REGISTER_PER_IP)) return { error: "tooManyAttempts", email };
+  await recordAttempt(ipKey);
   const name = String(form.get("name") ?? "").trim().slice(0, 100) || null;
   const [existing] = await db
     .select({ id: schema.users.id })
@@ -66,18 +67,25 @@ export async function register(_: AuthState, form: FormData): Promise<AuthState>
 
 export async function login(_: AuthState, form: FormData): Promise<AuthState> {
   const locale = isLocale(String(form.get("locale"))) ? String(form.get("locale")) : defaultLocale;
-  const email = String(form.get("email") ?? "").trim().toLowerCase();
-  const password = String(form.get("password") ?? "");
-  if (rateLimited(email)) return { error: "tooManyAttempts", email };
+  const email = String(form.get("email") ?? "").trim().toLowerCase().slice(0, 320);
+  const password = String(form.get("password") ?? "").slice(0, 200);
+  const emailKey = `login:${email}`;
+  const ipKey = `login-ip:${await clientIp()}`;
+  if ((await tooManyAttempts(emailKey, LOGIN_PER_EMAIL)) || (await tooManyAttempts(ipKey, LOGIN_PER_IP))) {
+    return { error: "tooManyAttempts", email };
+  }
 
   const [user] = await db.select().from(schema.users).where(eq(schema.users.email, email)).limit(1);
-  if (!user || !(await verifyPassword(password, user.passwordHash))) {
+  const passwordOk = await verifyPassword(password, user?.passwordHash ?? DUMMY_HASH);
+  if (!user || !passwordOk) {
+    await recordAttempt(emailKey, ipKey);
     return { error: "invalidCredentials", email };
   }
   // Admin access follows ADMIN_EMAILS, so it can be granted or revoked without touching the database.
   const role = isAdminEmail(email) ? "admin" : "customer";
   if (role !== user.role) await db.update(schema.users).set({ role }).where(eq(schema.users.id, user.id));
-  attempts.delete(email);
+  await clearAttempts(emailKey);
+  await db.delete(schema.sessions).where(and(eq(schema.sessions.userId, user.id), lt(schema.sessions.expiresAt, new Date())));
   await adoptVisitorData(user.id);
   await createSession(user.id);
   redirect(safeNext(form.get("next"), locale));

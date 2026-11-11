@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/auth/admin";
 import Link from "next/link";
 import { fmt } from "@/i18n";
 import { getI18n } from "@/i18n/server";
@@ -8,6 +9,7 @@ import { ProductImage } from "@/components/product-image";
 
 export default async function AdminLibraryPage({ searchParams }: PageProps<"/[locale]/admin/library">) {
   const { locale, t } = await getI18n();
+  await requireAdminPage(locale);
   const params = await searchParams;
   const filter = libraryFilters.includes(params.filter as LibraryFilter) ? (params.filter as LibraryFilter) : "all";
   const page = Math.max(1, Number(params.page) || 1);

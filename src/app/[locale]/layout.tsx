@@ -6,7 +6,7 @@ import { isLocale } from "@/i18n/config";
 import { getCurrentUser } from "@/lib/auth/session";
 import { getCartState } from "@/lib/cart";
 import { getFavoriteIds } from "@/lib/favorites";
-import { listCategories } from "@/lib/catalog";
+import { cachedCategories } from "@/lib/catalog-cache";
 import { ShopProvider } from "@/components/shop-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -29,7 +29,7 @@ export default async function LocaleLayout({ children, modal, params }: LayoutPr
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
-  const [user, categories, cart, favorites] = await Promise.all([getCurrentUser(), listCategories(locale), getCartState(), getFavoriteIds()]);
+  const [user, categories, cart, favorites] = await Promise.all([getCurrentUser(), cachedCategories(locale), getCartState(), getFavoriteIds()]);
 
   return (
     <html lang={locale === "sr" ? "sr-Latn" : "ru"}>

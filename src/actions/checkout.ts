@@ -28,7 +28,7 @@ const checkoutSchema = z.object({
     .string()
     .trim()
     .regex(/^\+?[0-9 ()\-/]{8,20}$/),
-  addressId: z.string().optional(),
+  addressId: z.string().regex(/^(new|\d{1,9})$/).optional(),
   street: optional,
   house: optional,
   apartment: optional,

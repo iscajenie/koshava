@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/auth/admin";
 import Link from "next/link";
 import { fmt } from "@/i18n";
 import { getI18n } from "@/i18n/server";
@@ -6,6 +7,7 @@ import { getTelegramSettings, recentChats, type TelegramChat } from "@/lib/teleg
 
 export default async function AdminTelegramPage({ searchParams }: PageProps<"/[locale]/admin/telegram">) {
   const { locale, t } = await getI18n();
+  await requireAdminPage(locale);
   const tg = t.admin.telegram;
   const params = await searchParams;
   const one = (key: string) => [params[key]].flat()[0];

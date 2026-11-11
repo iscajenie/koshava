@@ -26,16 +26,18 @@ export async function updateProfile(_: ProfileState, form: FormData): Promise<Pr
   return { saved: true };
 }
 
+const idSchema = z.number().int().positive().max(2_147_483_647);
+
 export async function deleteAddress(id: number) {
   const user = await getCurrentUser();
-  if (!user) return;
+  if (!user || !idSchema.safeParse(id).success) return;
   await db.delete(schema.addresses).where(and(eq(schema.addresses.id, id), eq(schema.addresses.userId, user.id)));
   revalidatePath("/", "layout");
 }
 
 export async function makeDefaultAddress(id: number) {
   const user = await getCurrentUser();
-  if (!user) return;
+  if (!user || !idSchema.safeParse(id).success) return;
   await db.transaction(async (tx) => {
     await tx.update(schema.addresses).set({ isDefault: false }).where(eq(schema.addresses.userId, user.id));
     await tx

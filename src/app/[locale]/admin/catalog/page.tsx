@@ -1,9 +1,11 @@
+import { requireAdminPage } from "@/lib/auth/admin";
 import { getI18n } from "@/i18n/server";
 import { catalogStats } from "@/lib/orders";
 import { formatDateTime } from "@/lib/format";
 
 export default async function AdminCatalogPage() {
   const { locale, t } = await getI18n();
+  await requireAdminPage(locale);
   const stats = await catalogStats();
   return (
     <div className="space-y-5">

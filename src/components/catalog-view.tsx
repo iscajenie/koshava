@@ -3,7 +3,8 @@ import { Suspense } from "react";
 import { fmt, plural } from "@/i18n";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
-import { listCategories, listProducts } from "@/lib/catalog";
+import { listProducts } from "@/lib/catalog";
+import { cachedCategories } from "@/lib/catalog-cache";
 import { parseSort } from "@/lib/sort-options";
 import { ProductGrid } from "./product-card";
 import { CatalogToolbar } from "./catalog-toolbar";
@@ -29,10 +30,10 @@ export async function CatalogView({
   const q = one(searchParams.q)?.trim().slice(0, 100) || undefined;
   const onlySale = category?.isSale || one(searchParams.sale) === "1";
   const sort = parseSort(one(searchParams.sort));
-  const page = Math.max(1, Number(one(searchParams.page)) || 1);
+  const page = Math.min(1000, Math.max(1, Math.floor(Number(one(searchParams.page))) || 1));
   const [result, categories] = await Promise.all([
     listProducts({ categoryId: category?.isSale ? undefined : category?.id, q, onlySale, sort, page }),
-    listCategories(locale),
+    cachedCategories(locale),
   ]);
 
   const title = q ? fmt(t.catalog.searchTitle, { q }) : category ? category.name : onlySale ? t.catalog.saleTitle : t.catalog.all;
